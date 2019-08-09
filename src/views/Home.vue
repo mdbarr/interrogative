@@ -1,11 +1,7 @@
 <template>
 <div>
-  <v-navigation-drawer
-    v-model="drawer"
-    app
-    clipped
-    >
-    <v-list dense>
+  <v-navigation-drawer v-model="drawer" app clipped color="#222">
+    <v-list dense dark>
       <v-list-item @click="true">
         <v-list-item-action>
           <v-icon>mdi-home</v-icon>
@@ -25,64 +21,20 @@
     </v-list>
   </v-navigation-drawer>
 
-  <v-app-bar
-    app
-    color="indigo"
-    dark
-    clipped-left
-    >
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    <v-toolbar-title>Application</v-toolbar-title>
+  <v-app-bar app color="black" dark clipped-left dense fixed height="40" class="title">
+    <v-app-bar-nav-icon small @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-toolbar-title class="title">Blather</v-toolbar-title>
   </v-app-bar>
 
   <v-content>
-    <v-container
-      fluid
-      fill-height
-      >
-      <v-layout
-        align-center
-        justify-center
-        >
-        <v-flex text-center>
-          <v-tooltip left>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                :href="source"
-                icon
-                large
-                target="_blank"
-                v-on="on"
-                >
-                <v-icon large>mdi-code-tags</v-icon>
-              </v-btn>
-            </template>
-            <span>Source</span>
-          </v-tooltip>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
 
-          <v-tooltip right>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                icon
-                large
-                href="https://codepen.io/johnjleider/pen/zgxeLQ"
-                target="_blank"
-                v-on="on"
-                >
-                <v-icon large>mdi-codepen</v-icon>
-              </v-btn>
-            </template>
-            <span>Codepen</span>
-          </v-tooltip>
-        </v-flex>
       </v-layout>
     </v-container>
   </v-content>
-  <v-footer
-    color="indigo"
-    app
-    >
-    <span class="white--text">&copy; 2019</span>
+  <v-footer color="black" app dark height="24" class="subtitle-2 pa-0 ma-0">
+    <span class="pl-2">&copy; 2019</span>
   </v-footer>
 </div>
 </template>
