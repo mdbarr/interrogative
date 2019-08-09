@@ -40,7 +40,7 @@
   </v-navigation-drawer>
 
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
-    <v-app-bar-nav-icon dense small @click.stop="mini = !mini"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon dense small tile @click.stop="mini = !mini"></v-app-bar-nav-icon>
     <v-toolbar-title class="title">Blather</v-toolbar-title>
   </v-app-bar>
 
@@ -48,21 +48,8 @@
     <v-container fluid fill-height class="ma-0 pl-0 main-area">
       <v-layout wrap>
         <v-flex xs12>
-        <v-card class="ma-0" flat tile>
-          <v-tabs v-model="tab">
-            <v-tab v-for="item of tabs" :key="item.name">
-              {{ item.name }}
-            </v-tab>
-          </v-tabs>
-              <div class="pa-1">
-                stiff
-              </div>
-        </v-card>
-        </v-flex>
-        <div style="height: 2px; width: 100%; background-color: #595959;"></div>
-        <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs v-model="tab" grow color="white" height="30" slider-color="white">
+            <v-tabs v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back">
               <v-tab v-for="item of tabs" :key="item.name" class="tab-bg pl-2 pr-2">
                 {{ item.name }}
                 <v-btn icon text tile small>
@@ -70,9 +57,20 @@
                 </v-btn>
               </v-tab>
             </v-tabs>
-            <div class="pa-1 tab-bg">
-              stiff
-            </div>
+            <CodeMirror ></CodeMirror>
+          </v-card>
+        </v-flex>
+        <v-flex xs12>
+          <v-card class="ma-0" flat tile>
+            <v-tabs v-model="tab"  color="white" height="30" slider-color="white">
+              <v-tab v-for="item of tabs" :key="item.name" class="tab-bg pl-2 pr-2">
+                {{ item.name }}
+                <v-btn icon text tile small>
+                  <v-icon small>mdi-close</v-icon>
+                </v-btn>
+              </v-tab>
+            </v-tabs>
+            <Terminal></Terminal>
           </v-card>
         </v-flex>
       </v-layout>
@@ -85,9 +83,15 @@
 </template>
 
 <script>
+import CodeMirror from '../components/CodeMirror';
+import Terminal from '../components/Terminal';
+
 export default {
   name: 'home',
-  components: {},
+  components: {
+    CodeMirror,
+    Terminal
+  },
   data: () => {
     return {
       mini: true,
@@ -112,15 +116,21 @@ export default {
 }
 
 .tab-bg {
-    border-right: 4px solid #303030;
     color: white !important;
     text-transform: none !important;
+    background-color: #303030;
 }
+.tab-spacer {
+    zzzborder-right: 4px solid #303030;
+}
+
 .tab-bg.v-tab--active {
-    zzzbackground-color: #424242;
-    border-right: 2px solid #595959;
+    background-color: inherit;
+    zzzborder-right: 2px solid #595959;
     color: white !important;
     opacity: 1 !important;
+    zzzborder-left: 1px solid white;
+    zzzborder-right: 1px solid white;
 }
 .tab-bg-color {
     position: relative;
@@ -133,5 +143,4 @@ export default {
     padding-bottom: 0px !important;
     padding-right: 0px !important;
 }
-
 </style>
