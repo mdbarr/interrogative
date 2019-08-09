@@ -1,39 +1,84 @@
 <template>
 <div>
-  <v-navigation-drawer v-model="drawer" app clipped color="#222">
-    <v-list dense dark>
-      <v-list-item @click="true">
-        <v-list-item-action>
-          <v-icon>mdi-home</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="true">
-        <v-list-item-action>
-          <v-icon>mdi-mail</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Contact</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+  <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" app clipped>
+    <v-tabs vertical dark slider-color="white" slider-size="3">
+      <v-tab class="white--text">
+        <v-icon left>mdi-folder</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-source-branch</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-note</v-icon>
+      </v-tab>
+
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text class="white--text">
+            Files
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text class="white--text">
+            Git
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text class="white--text">
+            Notes
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+    </v-tabs>
   </v-navigation-drawer>
 
-  <v-app-bar app color="black" dark clipped-left dense fixed height="40" class="title">
-    <v-app-bar-nav-icon small @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+  <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
+    <v-app-bar-nav-icon dense small @click.stop="mini = !mini"></v-app-bar-nav-icon>
     <v-toolbar-title class="title">Blather</v-toolbar-title>
   </v-app-bar>
 
   <v-content>
-    <v-container fluid fill-height>
-      <v-layout align-center justify-center>
-
+    <v-container fluid fill-height class="ma-0 pl-0 main-area">
+      <v-layout wrap>
+        <v-flex xs12>
+        <v-card class="ma-0" flat tile>
+          <v-tabs v-model="tab">
+            <v-tab v-for="item of tabs" :key="item.name">
+              {{ item.name }}
+            </v-tab>
+          </v-tabs>
+              <div class="pa-1">
+                stiff
+              </div>
+        </v-card>
+        </v-flex>
+        <div style="height: 2px; width: 100%; background-color: #595959;"></div>
+        <v-flex xs12>
+          <v-card class="ma-0" flat tile>
+            <v-tabs v-model="tab" grow color="white" height="30" slider-color="white">
+              <v-tab v-for="item of tabs" :key="item.name" class="tab-bg pl-2 pr-2">
+                {{ item.name }}
+                <v-btn icon text tile small>
+                  <v-icon small>mdi-close</v-icon>
+                </v-btn>
+              </v-tab>
+            </v-tabs>
+            <div class="pa-1 tab-bg">
+              stiff
+            </div>
+          </v-card>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-content>
-  <v-footer color="black" app dark height="24" class="subtitle-2 pa-0 ma-0">
+  <v-footer color="#222" app dark height="24" class="subtitle-2 pa-0 ma-0">
     <span class="pl-2">&copy; 2019</span>
   </v-footer>
 </div>
@@ -44,7 +89,49 @@ export default {
   name: 'home',
   components: {},
   data: () => {
-    return { drawer: null };
+    return {
+      mini: true,
+      tab: 0,
+      tabs: [ {
+        name: 'File 1',
+        content: 'Stuuuuff'
+      }, {
+        name: 'File 2 with a loooong name',
+        content: 'Different stuffff'
+      } ]
+    };
   }
 };
 </script>
+
+<style>
+.v-tab {
+    min-width: 48px !important;
+    padding-left: 6px !important;
+    padding-right: 0px !important;
+}
+
+.tab-bg {
+    border-right: 4px solid #303030;
+    color: white !important;
+    text-transform: none !important;
+}
+.tab-bg.v-tab--active {
+    zzzbackground-color: #424242;
+    border-right: 2px solid #595959;
+    color: white !important;
+    opacity: 1 !important;
+}
+.tab-bg-color {
+    position: relative;
+    background-color: #303030;
+    max-width: none !important;
+    opacity: 1 !important;
+}
+.main-area {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-right: 0px !important;
+}
+
+</style>
