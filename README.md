@@ -1,4 +1,4 @@
-# blather
+# Interogative
 
 ## Project setup
 ```
