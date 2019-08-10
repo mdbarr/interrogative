@@ -49,6 +49,8 @@ export default {
 
 <style>
 #terminal {
-    height: 384px !important;
+    height: 388px !important;
+    background-color: #222;
+    padding: 2px;
 }
 </style>

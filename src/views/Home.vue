@@ -49,12 +49,10 @@
       <v-layout wrap>
         <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back">
-              <v-tab v-for="item of tabs" :key="item.name" class="tab-bg pl-2 pr-2">
-                {{ item.name }}
-                <v-btn icon text tile small>
-                  <v-icon small>mdi-close</v-icon>
-                </v-btn>
+            <v-tabs v-model="fileTab" color="white" height="30" slider-color="white" class="tab-bg back">
+              <v-tab v-for="item of fileTabs" :key="item.name" class="tab-bg pl-2 pr-2">
+                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon> {{ item.name }}
+                <v-icon v-if="item.closeable" small class="pl-3">mdi-close</v-icon>
               </v-tab>
             </v-tabs>
             <CodeMirror ></CodeMirror>
@@ -62,12 +60,10 @@
         </v-flex>
         <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs v-model="tab"  color="white" height="30" slider-color="white">
-              <v-tab v-for="item of tabs" :key="item.name" class="tab-bg pl-2 pr-2">
-                {{ item.name }}
-                <v-btn icon text tile small>
-                  <v-icon small>mdi-close</v-icon>
-                </v-btn>
+            <v-tabs v-model="terminalTab"  color="white" height="30" slider-color="white">
+              <v-tab v-for="item of terminalTabs" :key="item.name" class="tab-bg pl-2 pr-2">
+                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon> {{ item.name }}
+                <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
               </v-tab>
             </v-tabs>
             <Terminal></Terminal>
@@ -95,13 +91,26 @@ export default {
   data: () => {
     return {
       mini: true,
-      tab: 0,
-      tabs: [ {
+      fileTab: 0,
+      fileTabs: [ {
         name: 'File 1',
-        content: 'Stuuuuff'
+        content: 'Stuuuuff',
+        type: 'file',
+        icon: 'file',
+        closeable: false
       }, {
         name: 'File 2 with a loooong name',
-        content: 'Different stuffff'
+        content: 'Different stuffff',
+        type: 'file',
+        icon: 'file',
+        closeable: true
+      } ],
+      terminalTab: 0,
+      terminalTabs: [ {
+        name: 'Terminal',
+        type: 'terminal',
+        icon: 'console',
+        closable: true
       } ]
     };
   }
