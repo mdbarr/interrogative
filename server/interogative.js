@@ -38,13 +38,17 @@ api.get('/attach/shell', (req, res, next) => {
     return;
   }
 
+  console.log(req.query);
+
   const upgrade = res.claimUpgrade();
   const shed = api.ws.accept(req, upgrade.socket, upgrade.head);
 
   const shell = pty.spawn('/bin/bash', [], {
-    name: 'xterm-color',
+    name: 'xterm-256color',
     cwd: process.env.PWD,
-    env: process.env
+    env: process.env,
+    cols: Number(req.query.cols) || 100,
+    rows: Number(req.query.rows) || 24
   });
 
   // Outgoing from shell to websocket

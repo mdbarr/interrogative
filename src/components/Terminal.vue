@@ -25,8 +25,6 @@ export default {
   },
   mounted () {
     this.element = document.getElementById('terminal');
-    console.log(this.element.clientWidth, 'x', this.element.clientHeight);
-    console.log(this.element.parentNode.clientWidth, 'x', this.element.parentNode.clientHeight);
 
     this.xterm = new Terminal();
     this.xterm.setOption('fontSize', 14);
@@ -37,12 +35,18 @@ export default {
       selection: '#006399'
     });
 
-    this.socket = new WebSocket('ws://10.1.1.88:3169/attach/shell');
-
     this.xterm.open(this.element);
 
-    this.xterm.fit();
-    this.xterm.attach(this.socket);
+    this.xterm.onResize(({ cols, rows }) => {
+      if (!this.socket) {
+        this.socket = new WebSocket(`ws://10.1.1.88:3169/attach/shell?cols=${ cols }&rows=${ rows }`);
+        this.xterm.attach(this.socket);
+      }
+    });
+
+    this.$nextTick(() => {
+      this.xterm.fit();
+    });
   }
 };
 </script>
