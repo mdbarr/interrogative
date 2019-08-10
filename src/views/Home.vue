@@ -51,8 +51,9 @@
           <v-card class="ma-0" flat tile>
             <v-tabs v-model="fileTab" color="white" height="30" slider-color="white" class="tab-bg back">
               <v-tab v-for="item of fileTabs" :key="item.name" class="tab-bg pl-2 pr-2">
-                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon> {{ item.name }}
-                <v-icon v-if="item.closeable" small class="pl-3">mdi-close</v-icon>
+                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
+                <span class="pr-1">{{ item.name }}</span>
+                <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
               </v-tab>
             </v-tabs>
             <CodeMirror ></CodeMirror>
@@ -62,7 +63,8 @@
           <v-card class="ma-0" flat tile>
             <v-tabs v-model="terminalTab"  color="white" height="30" slider-color="white">
               <v-tab v-for="item of terminalTabs" :key="item.name" class="tab-bg pl-2 pr-2">
-                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon> {{ item.name }}
+                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
+                <span class="pr-1">{{ item.name }}</span>
                 <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
               </v-tab>
             </v-tabs>
