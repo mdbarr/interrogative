@@ -32,7 +32,7 @@ export default {
     this.xterm.setOption('macOptionIsMeta', true);
     this.xterm.setOption('theme', {
       background: '#222',
-      selection: '#006399'
+      selection: 'rgba(0, 165, 255, 0.25)'
     });
 
     this.xterm.open(this.element);
