@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "api:lint": "eslint --parser-options=sourceType:script ./server/*.js",
+    "docker:build:base": "cd base; docker build -t interogative-base .; cd -",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
