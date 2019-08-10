@@ -114,6 +114,14 @@ export default {
       this.instance.setOption('fullScreen', this.fullscreen);
       this.panel.classList.toggle('vue-codemirror-js-panel-fullscreen');
       this.instance.focus();
+    },
+    resize () {
+      const width = this.app.clientWidth - 45;
+      const height = this.app.clientHeight - 484;
+
+      console.log('editor', width, 'x', height);
+
+      this.instance.setSize(width, height);
     }
   },
   mounted () {
@@ -136,6 +144,7 @@ export default {
       'update',
       'viewportChange'
     ];
+
     this.instance = CodeMirror.fromTextArea(this.$refs.textarea, {
       autoCloseBrackets: true,
       autoCloseTags: true,
@@ -160,23 +169,36 @@ export default {
       tabSize: 2,
       theme: 'lesser-dark'
     });
+
     this.instance.vue = this;
     this.instance.setValue(this.code || this.value || this.content);
+
+    this.app = document.getElementById('app');
+    window.addEventListener('resize', this.resize);
+
     this.instance.on('change', () => {
       this.content = this.instance.getValue();
       this.$emit('input', this.content);
     });
+
     for (const event of events) {
       vm.instance.on(event, (...args) => {
         const eventName = event.replace(/([A-Z])/g, '-$1').toLowerCase();
         vm.$emit(eventName, ...args);
       });
     }
+
     this.panel = document.getElementById('vue-codemirror-js-panel');
+
     this.instance.addPanel(this.panel, {
       position: 'bottom',
       stable: true
     });
+
+    this.resize();
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.resize);
   }
 };
 </script>
@@ -235,7 +257,6 @@ export default {
     padding-left: 8px;
 }
 .CodeMirror {
-    mzzin-height: 500px;
     font-size: 14px;
 }
 .CodeMirror-fullscreen {
