@@ -235,7 +235,7 @@ export default {
     padding-left: 8px;
 }
 .CodeMirror {
-    min-height: 500px;
+    mzzin-height: 500px;
     font-size: 14px;
 }
 .CodeMirror-fullscreen {
