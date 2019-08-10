@@ -1,5 +1,5 @@
 <template>
-  <div id="terminal"></div>
+  <div ref="terminal"></div>
 </template>
 
 <script>
@@ -24,7 +24,7 @@ export default {
     };
   },
   mounted () {
-    this.element = document.getElementById('terminal');
+    this.element = this.$refs.terminal;
 
     this.xterm = new Terminal();
     this.xterm.setOption('fontSize', 14);
@@ -37,7 +37,9 @@ export default {
 
     this.xterm.open(this.element);
 
-    this.xterm.onResize(({ cols, rows }) => {
+    this.xterm.onResize(({
+      cols, rows
+    }) => {
       if (!this.socket) {
         this.socket = new WebSocket(`ws://10.1.1.88:3169/attach/shell?cols=${ cols }&rows=${ rows }`);
         this.xterm.attach(this.socket);
