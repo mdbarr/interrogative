@@ -27,7 +27,9 @@ export default {
     this.element = this.$refs.terminal;
 
     this.xterm = new Terminal();
+    this.xterm.setOption('fontFamily', 'Inconsolata');
     this.xterm.setOption('fontSize', 14);
+
     this.xterm.setOption('rightClickSelectsWord', true);
     this.xterm.setOption('macOptionIsMeta', true);
     this.xterm.setOption('theme', {
