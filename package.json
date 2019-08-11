@@ -1,10 +1,10 @@
 {
-  "name": "interogative",
+  "name": "interrogative",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "api:lint": "eslint --parser-options=sourceType:script ./server/*.js",
-    "docker:build:base": "cd base; docker build -t interogative-base .; cd -",
+    "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

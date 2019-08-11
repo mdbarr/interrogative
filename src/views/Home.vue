@@ -41,7 +41,7 @@
 
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
     <v-btn dense small tile icon @click.stop="mini = !mini"><v-icon>mdi-comment-multiple</v-icon></v-btn>
-    <v-toolbar-title class="pl-2 title">Interogative</v-toolbar-title>
+    <v-toolbar-title class="pl-2 title">Interrogative</v-toolbar-title>
   </v-app-bar>
 
   <v-content>

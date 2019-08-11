@@ -1,4 +1,4 @@
-# Interogative
+# Interrogative
 
 ## Project setup
 ```

@@ -7,7 +7,7 @@ const Watershed = require('watershed').Watershed;
 const corsMiddleware = require('restify-cors-middleware');
 
 const api = restify.createServer({
-  name: 'Interogative',
+  name: 'Interrogative',
   ignoreTrailingSlash: true,
   strictNext: true,
   handleUpgrades: true
@@ -61,7 +61,7 @@ api.get('/attach/shell', (req, res, next) => {
       LANG: process.env.LANG,
       PATH: process.env.PATH,
 
-      INTEROGATIVE: '1'
+      INTERROGATIVE: '1'
     },
     cols: Number(req.query.cols) || 100,
     rows: Number(req.query.rows) || 24
@@ -91,5 +91,5 @@ api.get('/attach/shell', (req, res, next) => {
 /// //////
 
 api.listen(3169, () => {
-  console.log('Interogative listening on http://0.0.0.0:3169');
+  console.log('Interrogative listening on http://0.0.0.0:3169');
 });
