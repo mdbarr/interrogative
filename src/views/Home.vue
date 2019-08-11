@@ -3,6 +3,9 @@
   <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" app clipped>
     <v-tabs vertical dark slider-color="white" slider-size="2">
       <v-tab class="white--text">
+        <v-icon left>mdi-information-outline</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
         <v-icon left>mdi-folder</v-icon>
       </v-tab>
       <v-tab class="white--text">
@@ -11,6 +14,14 @@
       <v-tab class="white--text">
         <v-icon left>mdi-note</v-icon>
       </v-tab>
+
+      <v-tab-item>
+        <v-card flat>
+          <v-card-text class="white--text">
+            Information
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
 
       <v-tab-item>
         <v-card flat>
@@ -49,7 +60,10 @@
       <v-layout wrap>
         <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs v-model="fileTab" color="white" height="30" slider-color="white" class="tab-bg back">
+            <v-tabs show-arrows v-model="fileTab" color="white" height="30" slider-color="white" class="tab-bg back">
+              <v-btn dense small tile icon left height="30" class="plus-button">
+                <v-icon small>mdi-plus</v-icon>
+              </v-btn>
               <v-tab v-for="item of fileTabs" :key="item.name" class="tab-bg pl-2 pr-2">
                 <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
                 <span class="pr-1">{{ item.name }}</span>
@@ -61,7 +75,10 @@
         </v-flex>
         <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs v-model="terminalTab"  color="white" height="30" slider-color="white">
+            <v-tabs show-arrows v-model="terminalTab" color="white" height="30" slider-color="white">
+              <v-btn dense small tile icon left height="30" class="plus-button">
+                <v-icon small>mdi-plus</v-icon>
+              </v-btn>
               <v-tab v-for="item of terminalTabs" :key="item.name" class="tab-bg pl-2 pr-2">
                 <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
                 <span class="pr-1">{{ item.name }}</span>
@@ -114,7 +131,12 @@ export default {
         name: 'Terminal',
         type: 'terminal',
         icon: 'console',
-        closable: true
+        closeable: false
+      }, {
+        name: 'Messages',
+        type: 'message',
+        icon: 'forum',
+        closeable: false
       } ]
     };
   }
@@ -155,5 +177,8 @@ export default {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
     padding-right: 0px !important;
+}
+.plus-button {
+    border-right: 1px solid #595959;
 }
 </style>
