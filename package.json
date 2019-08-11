@@ -14,6 +14,8 @@
     "barrkeep": "^2.2.5",
     "codemirror": "^5.48.2",
     "core-js": "^2.6.5",
+    "dree": "^2.1.10",
+    "mime": "^2.4.4",
     "node-pty": "^0.8.1",
     "restify": "^8.4.0",
     "restify-cors-middleware": "^1.1.1",

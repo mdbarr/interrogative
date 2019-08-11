@@ -12,6 +12,12 @@ function Container (options = {}) {
   this.version = require('../package').version;
   this.config = merge(require('../defaults'), options, true);
 
+  //////////
+
+  this.files = require('./files')(this.config.container.home);
+
+  //////////
+
   this.api = restify.createServer({
     name: this.config.name,
     ignoreTrailingSlash: true,
@@ -64,11 +70,10 @@ function Container (options = {}) {
       cwd: process.env.HOME,
       env: {
         HOME: process.env.HOME,
-        USER: process.env.USER,
+        INTERROGATIVE: `v${ this.version }`,
         LANG: process.env.LANG,
         PATH: process.env.PATH,
-
-        INTERROGATIVE: '1'
+        USER: process.env.USER
       },
       cols: Number(req.query.cols) || 100,
       rows: Number(req.query.rows) || 24
@@ -98,6 +103,8 @@ function Container (options = {}) {
   //////////
 
   this.start = (callback) => {
+    this.files.start();
+
     this.api.listen(this.config.container.port, this.config.container.host, () => {
       const address = this.api.address();
       console.log(`${ this.config.name } v${ this.version } listening on http://${ address.address }:${ address.port }`);
