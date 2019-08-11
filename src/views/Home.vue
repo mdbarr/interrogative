@@ -83,6 +83,7 @@
 <script>
 import CodeMirror from '../components/CodeMirror';
 import Terminal from '../components/Terminal';
+import state from '../state';
 
 export default {
   name: 'home',
@@ -92,6 +93,7 @@ export default {
   },
   data: () => {
     return {
+      state,
       mini: true,
       fileTab: 0,
       fileTabs: [ {

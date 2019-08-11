@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "api:lint": "eslint --parser-options=sourceType:script ./server/*.js",
+    "api:lint": "eslint --parser-options=sourceType:script ./container/*.js",
     "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "codemirror": "^5.48.2",
     "core-js": "^2.6.5",
     "node-pty": "^0.8.1",

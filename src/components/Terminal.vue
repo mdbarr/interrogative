@@ -43,7 +43,7 @@ export default {
       cols, rows
     }) => {
       if (!this.socket) {
-        this.socket = new WebSocket(`ws://10.1.1.88:3169/attach/shell?cols=${ cols }&rows=${ rows }`);
+        this.socket = this.$socket(`attach/shell?cols=${ cols }&rows=${ rows }`);
         this.xterm.attach(this.socket);
       }
     });

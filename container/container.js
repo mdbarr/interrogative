@@ -6,8 +6,10 @@ const restify = require('restify');
 const Watershed = require('watershed').Watershed;
 const corsMiddleware = require('restify-cors-middleware');
 
+const config = require('../defaults');
+
 const api = restify.createServer({
-  name: 'Interrogative',
+  name: config.name,
   ignoreTrailingSlash: true,
   strictNext: true,
   handleUpgrades: true
@@ -43,7 +45,7 @@ api.use((req, res, next) => {
 
 /// ///////
 
-api.get('/attach/shell', (req, res, next) => {
+api.get('/ws/attach/shell', (req, res, next) => {
   if (!res.claimUpgrade) {
     next(new Error('Connection Must Upgrade For WebSockets'));
     return;
@@ -90,6 +92,7 @@ api.get('/attach/shell', (req, res, next) => {
 
 /// //////
 
-api.listen(3169, () => {
-  console.log('Interrogative listening on http://0.0.0.0:3169');
+api.listen(config.port, config.host, () => {
+  const address = api.address();
+  console.log(`${ config.name } listening on http://${ address.address }:${ address.port }`);
 });
