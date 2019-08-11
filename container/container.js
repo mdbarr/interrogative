@@ -1,98 +1,113 @@
 #!/usr/bin/env node
 'use strict';
 
+require('barrkeep/pp');
 const pty = require('node-pty');
 const restify = require('restify');
+const { merge } = require('barrkeep/utils');
 const Watershed = require('watershed').Watershed;
 const corsMiddleware = require('restify-cors-middleware');
 
-const config = require('../defaults');
+function Container (options = {}) {
+  this.version = require('../package').version;
+  this.config = merge(require('../defaults'), options, true);
 
-const api = restify.createServer({
-  name: config.name,
-  ignoreTrailingSlash: true,
-  strictNext: true,
-  handleUpgrades: true
-});
-
-api.ws = new Watershed();
-
-/// ///////
-
-const cors = corsMiddleware({
-  origins: [ '*' ],
-  allowHeaders: [ 'Authorization' ],
-  exposeHeaders: [ 'Authorization' ]
-});
-
-api.pre(cors.preflight);
-api.use(cors.actual);
-
-/// ///////
-
-api.use(restify.pre.sanitizePath());
-api.pre(restify.plugins.pre.dedupeSlashes());
-api.use(restify.plugins.dateParser());
-api.use(restify.plugins.queryParser());
-api.use(restify.plugins.bodyParser());
-api.use(restify.plugins.authorizationParser());
-
-/// ///////
-
-api.use((req, res, next) => {
-  next();
-});
-
-/// ///////
-
-api.get('/ws/attach/shell', (req, res, next) => {
-  if (!res.claimUpgrade) {
-    next(new Error('Connection Must Upgrade For WebSockets'));
-    return;
-  }
-
-  const upgrade = res.claimUpgrade();
-  const shed = api.ws.accept(req, upgrade.socket, upgrade.head);
-
-  const shell = pty.spawn('/bin/bash', [ ], {
-    name: 'xterm-256color',
-    cwd: process.env.HOME,
-    env: {
-      HOME: process.env.HOME,
-      USER: process.env.USER,
-      LANG: process.env.LANG,
-      PATH: process.env.PATH,
-
-      INTERROGATIVE: '1'
-    },
-    cols: Number(req.query.cols) || 100,
-    rows: Number(req.query.rows) || 24
+  this.api = restify.createServer({
+    name: this.config.name,
+    ignoreTrailingSlash: true,
+    strictNext: true,
+    handleUpgrades: true
   });
 
-  // Outgoing from shell to websocket
+  this.api.ws = new Watershed();
 
-  shell.on('data', (data) => {
-    shed.send(data);
+  //
+
+  this.cors = corsMiddleware({
+    origins: [ '*' ],
+    allowHeaders: [ 'Authorization' ],
+    exposeHeaders: [ 'Authorization' ]
   });
 
-  shell.on('close', () => {
-    shed.end();
+  this.api.pre(this.cors.preflight);
+  this.api.use(this.cors.actual);
+
+  //
+
+  this.api.use(restify.pre.sanitizePath());
+  this.api.pre(restify.plugins.pre.dedupeSlashes());
+  this.api.use(restify.plugins.dateParser());
+  this.api.use(restify.plugins.queryParser());
+  this.api.use(restify.plugins.bodyParser());
+  this.api.use(restify.plugins.authorizationParser());
+
+  //
+
+  this.api.use((req, res, next) => {
+    res.header('interrogative-version', this.version);
+    next();
   });
 
-  // Incoming from the websocket to shell
+  //
 
-  shed.on('text', (data) => {
-    shell.write(data);
+  this.api.get('/ws/attach/shell', (req, res, next) => {
+    if (!res.claimUpgrade) {
+      next(new Error('Connection Must Upgrade For WebSockets'));
+      return;
+    }
+
+    const upgrade = res.claimUpgrade();
+    const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
+
+    const shell = pty.spawn('/bin/bash', [ ], {
+      name: 'xterm-256color',
+      cwd: process.env.HOME,
+      env: {
+        HOME: process.env.HOME,
+        USER: process.env.USER,
+        LANG: process.env.LANG,
+        PATH: process.env.PATH,
+
+        INTERROGATIVE: '1'
+      },
+      cols: Number(req.query.cols) || 100,
+      rows: Number(req.query.rows) || 24
+    });
+
+    // Outgoing from shell to websocket
+
+    shell.on('data', (data) => {
+      shed.send(data);
+    });
+
+    shell.on('close', () => {
+      shed.end();
+    });
+
+    // Incoming from the websocket to shell
+
+    shed.on('text', (data) => {
+      shell.write(data);
+    });
+
+    shed.on('end', () => {
+      shell.kill();
+    });
   });
 
-  shed.on('end', () => {
-    shell.kill();
-  });
-});
+  //
 
-/// //////
+  this.start = (callback) => {
+    this.api.listen(this.config.port, this.config.host, () => {
+      const address = this.api.address();
+      console.log(`${ this.config.name } v${ this.version } listening on http://${ address.address }:${ address.port }`);
+      if (callback) {
+        return callback(null);
+      }
+      return true;
+    });
+  };
+}
 
-api.listen(config.port, config.host, () => {
-  const address = api.address();
-  console.log(`${ config.name } listening on http://${ address.address }:${ address.port }`);
-});
+const container = new Container();
+container.start();
