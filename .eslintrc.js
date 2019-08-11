@@ -134,6 +134,7 @@ module.exports = {
     'radix': [ 'error', 'always' ],
     'require-yield': 'error',
     'semi': [ 'error', 'always' ],
+    'spaced-comment': [ 'error', 'always', { 'exceptions': [ '/' ] } ],
     'space-before-blocks': 'error',
     'space-infix-ops': 'error',
     'strict': 'error',

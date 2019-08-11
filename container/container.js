@@ -21,7 +21,7 @@ function Container (options = {}) {
 
   this.api.ws = new Watershed();
 
-  //
+  //////////
 
   this.cors = corsMiddleware({
     origins: [ '*' ],
@@ -32,7 +32,7 @@ function Container (options = {}) {
   this.api.pre(this.cors.preflight);
   this.api.use(this.cors.actual);
 
-  //
+  //////////
 
   this.api.use(restify.pre.sanitizePath());
   this.api.pre(restify.plugins.pre.dedupeSlashes());
@@ -41,14 +41,14 @@ function Container (options = {}) {
   this.api.use(restify.plugins.bodyParser());
   this.api.use(restify.plugins.authorizationParser());
 
-  //
+  //////////
 
   this.api.use((req, res, next) => {
     res.header('interrogative-version', this.version);
     next();
   });
 
-  //
+  //////////
 
   this.api.get('/ws/attach/shell', (req, res, next) => {
     if (!res.claimUpgrade) {
@@ -95,10 +95,10 @@ function Container (options = {}) {
     });
   });
 
-  //
+  //////////
 
   this.start = (callback) => {
-    this.api.listen(this.config.port, this.config.host, () => {
+    this.api.listen(this.config.container.port, this.config.container.host, () => {
       const address = this.api.address();
       console.log(`${ this.config.name } v${ this.version } listening on http://${ address.address }:${ address.port }`);
       if (callback) {
