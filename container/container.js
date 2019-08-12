@@ -123,6 +123,8 @@ function Container (options = {}) {
 
   //////////
 
+  const shells = [];
+
   this.api.get('/ws/attach/shell', (req, res, next) => {
     if (!res.claimUpgrade) {
       next(new Error('Connection Must Upgrade For WebSockets'));
@@ -132,22 +134,31 @@ function Container (options = {}) {
     const upgrade = res.claimUpgrade();
     const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
 
-    const shell = pty.spawn('/bin/bash', [ ], {
-      name: 'xterm-256color',
-      cwd: process.env.HOME,
-      env: {
-        HOME: process.env.HOME,
-        INTERROGATIVE: `v${ this.version }`,
-        LANG: process.env.LANG,
-        PATH: process.env.PATH,
-        USER: process.env.USER
-      },
-      cols: Number(req.query.cols) || 100,
-      rows: Number(req.query.rows) || 24
-    });
+    const instance = Number(req.query.instance) || 0;
+
+    let shell;
+
+    if (!shells[instance]) {
+      shell = pty.spawn('/bin/bash', [ ], {
+        name: 'xterm-256color',
+        cwd: process.env.HOME,
+        env: {
+          HOME: process.env.HOME,
+          INTERROGATIVE: `v${ this.version }`,
+          LANG: process.env.LANG,
+          PATH: process.env.PATH,
+          USER: process.env.USER
+        },
+        cols: Number(req.query.cols) || 100,
+        rows: Number(req.query.rows) || 24
+      });
+
+      shells[instance] = shell;
+    } else {
+      shell = shells[instance];
+    }
 
     // Outgoing from shell to websocket
-
     shell.on('data', (data) => {
       shed.send(data);
     });
@@ -165,7 +176,7 @@ function Container (options = {}) {
     });
 
     shed.on('end', () => {
-      shell.kill();
+      // shell.kill();
     });
   });
 

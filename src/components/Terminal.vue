@@ -43,7 +43,7 @@ export default {
       cols, rows
     }) => {
       if (!this.socket) {
-        this.socket = this.$socket(`attach/shell?cols=${ cols }&rows=${ rows }`);
+        this.socket = this.$socket(`attach/shell?instance=0&cols=${ cols }&rows=${ rows }`);
         this.xterm.attach(this.socket);
       }
     });
