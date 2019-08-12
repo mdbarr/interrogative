@@ -19,6 +19,7 @@
     "node-pty": "^0.8.1",
     "restify": "^8.4.0",
     "restify-cors-middleware": "^1.1.1",
+    "uuid": "^3.3.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.5",

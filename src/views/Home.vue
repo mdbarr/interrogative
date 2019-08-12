@@ -24,9 +24,9 @@
       </v-tab-item>
 
       <v-tab-item>
-        <v-card flat>
-          <v-card-text class="white--text">
-            Files
+        <v-card flat class="ma-0 pa-0">
+          <v-card-text class="white--text ma-1 pa-0">
+            <FileTree></FileTree>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -99,6 +99,7 @@
 
 <script>
 import CodeMirror from '../components/CodeMirror';
+import FileTree from '../components/FileTree';
 import Terminal from '../components/Terminal';
 import state from '../state';
 
@@ -106,12 +107,14 @@ export default {
   name: 'home',
   components: {
     CodeMirror,
+    FileTree,
     Terminal
   },
   data: () => {
     return {
       state,
       mini: true,
+      socket: null,
       fileTab: 0,
       fileTabs: [ {
         name: 'File 1',
@@ -139,6 +142,18 @@ export default {
         closeable: false
       } ]
     };
+  },
+  methods: { fileTree (event) {
+    this.$set(this.state.files, 0, event);
+    this.$set(this.state.filesOpen, 0, event.name);
+  } },
+  mounted () {
+    this.$events.$on('file-tree', this.fileTree);
+
+    this.connection = this.$connection('/attach/main');
+  },
+  destroyed () {
+    this.$events.$off('file-tree', this.fileTree);
   }
 };
 </script>

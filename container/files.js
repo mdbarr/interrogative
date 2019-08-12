@@ -14,7 +14,7 @@ const defaults = {
   exclude: /(node_modules|\.git)/
 };
 
-function Files (directory, options = {}) {
+function Files (container, directory, options = {}) {
   this.config = merge(defaults, options, true);
 
   this.tree = {};
@@ -22,6 +22,11 @@ function Files (directory, options = {}) {
   this.scan = () => {
     this.tree = dree.scan(directory, this.config, (element) => {
       element.mime = mime.getType(element.extension);
+    });
+
+    container.events.emit('message', {
+      type: 'file-tree',
+      data: this.tree
     });
 
     return this.tree;

@@ -3,7 +3,9 @@
 
 require('barrkeep/pp');
 const pty = require('node-pty');
+const uuid = require('uuid/v4');
 const restify = require('restify');
+const EventEmitter = require('events');
 const { merge } = require('barrkeep/utils');
 const Watershed = require('watershed').Watershed;
 const corsMiddleware = require('restify-cors-middleware');
@@ -14,7 +16,11 @@ function Container (options = {}) {
 
   //////////
 
-  this.files = require('./files')(this.config.container.home);
+  this.events = new EventEmitter();
+
+  //////////
+
+  this.files = require('./files')(this, this.config.container.home);
 
   //////////
 
@@ -56,6 +62,67 @@ function Container (options = {}) {
 
   //////////
 
+  this.api.get('/ws/attach/main', (req, res, next) => {
+    if (!res.claimUpgrade) {
+      next(new Error('Connection Must Upgrade For WebSockets'));
+      return;
+    }
+
+    const upgrade = res.claimUpgrade();
+    const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
+
+    const id = uuid();
+    const role = 'admin';
+    const user = 'Admin';
+
+    shed.$send = (event) => {
+      const message = JSON.stringify(event);
+      shed.send(message);
+    };
+
+    shed.listener = (event) => {
+      if (event.source !== id) {
+        shed.$send(event);
+      }
+    };
+
+    shed.on('text', (data) => {
+      if (data !== 'PING') {
+        let event;
+        try {
+          event = JSON.parse(data);
+          event.source = id;
+          this.events.emit(event);
+        } catch (error) {
+          // ignore
+        }
+      }
+    });
+
+    this.events.on('message', shed.listener);
+
+    shed.on('end', () => {
+      this.events.removeListener('message', shed.listener);
+    });
+
+    // Register
+    shed.$send({
+      type: 'register',
+      data: {
+        user,
+        role
+      }
+    });
+
+    // Update file Tree
+    shed.$send({
+      type: 'file-tree',
+      data: this.files.tree
+    });
+  });
+
+  //////////
+
   this.api.get('/ws/attach/shell', (req, res, next) => {
     if (!res.claimUpgrade) {
       next(new Error('Connection Must Upgrade For WebSockets'));
@@ -92,7 +159,9 @@ function Container (options = {}) {
     // Incoming from the websocket to shell
 
     shed.on('text', (data) => {
-      shell.write(data);
+      if (data !== 'PING') {
+        shell.write(data);
+      }
     });
 
     shed.on('end', () => {

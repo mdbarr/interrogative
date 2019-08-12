@@ -53,16 +53,54 @@ export default { install (Vue) {
 
   Vue.prototype.$socket = function (urlFragment) {
     const url = `${ websocketURL }${ urlFragment }`.replace(/(\/+)/, '/');
-    return new WebSocket(url);
+    const socket = new WebSocket(url);
+
+    socket.interval = setInterval(() => {
+      if (socket.readyState === 1) {
+        socket.send('PING');
+      } else if (socket.readyState === 2 || socket.readyState === 3) {
+        clearInterval(socket.interval);
+      }
+    }, 5000);
+
+    socket.$send = (object) => {
+      if (socket.readyState === 1) {
+        const message = JSON.stringify(object);
+        socket.send(message);
+      }
+    };
+
+    return socket;
   };
 
-  /// ///////
+  Vue.prototype.$connection = function (urlFragment) {
+    const socket = this.$socket(urlFragment);
+
+    this.$events.$on('message', (event) => {
+      socket.$send(event);
+    });
+
+    socket.onmessage = (message) => {
+      try {
+        const event = JSON.parse(message.data);
+        if (event.type) {
+          this.$events.$emit(event.type, event.data);
+        } else {
+          this.$events.$emit('event', event);
+        }
+      } catch (error) {
+        // ignore
+      }
+    };
+  };
+
+  //////////
 
   Vue.prototype.$navigate = function (where) {
     this.$router.push({ name: where });
   };
 
-  /// ///////
+  //////////
 
   Vue.prototype.$session = function (session) {
     if (session) {
