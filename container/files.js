@@ -21,7 +21,7 @@ function Files (container, directory, options = {}) {
 
   this.scan = () => {
     this.tree = dree.scan(directory, this.config, (element) => {
-      element.mime = mime.getType(element.extension);
+      element.mime = mime.getType(element.extension) || 'text/plain';
     });
 
     container.events.emit('message', {

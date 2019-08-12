@@ -1,6 +1,6 @@
 <template>
 <div id="home">
-  <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" app clipped>
+  <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
     <v-tabs vertical dark slider-color="white" slider-size="2">
       <v-tab class="white--text">
         <v-icon left>mdi-information-outline</v-icon>
@@ -15,7 +15,7 @@
         <v-icon left>mdi-note</v-icon>
       </v-tab>
 
-      <v-tab-item>
+      <v-tab-item v-if="!mini">
         <v-card flat>
           <v-card-text class="white--text">
             Information
@@ -23,7 +23,7 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item>
+      <v-tab-item v-if="!mini">
         <v-card flat class="ma-0 pa-0">
           <v-card-text class="white--text ma-1 pa-0">
             <FileTree></FileTree>
@@ -31,7 +31,7 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item>
+      <v-tab-item v-if="!mini">
         <v-card flat>
           <v-card-text class="white--text">
             Git
@@ -39,7 +39,7 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item>
+      <v-tab-item v-if="!mini">
         <v-card flat>
           <v-card-text class="white--text">
             Notes
@@ -53,6 +53,11 @@
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
     <v-btn dense small tile icon @click.stop="mini = !mini"><v-icon>mdi-comment-multiple</v-icon></v-btn>
     <v-toolbar-title class="pl-2 title">Interrogative</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-icon v-if="state.user" small class="pr-2">mdi-account</v-icon>
+    <span class="text-uppercase subtitle-2 pr-2">
+      {{ state.user }}
+    </span>
   </v-app-bar>
 
   <v-content>
@@ -143,17 +148,25 @@ export default {
       } ]
     };
   },
-  methods: { fileTree (event) {
-    this.$set(this.state.files, 0, event);
-    this.$set(this.state.filesOpen, 0, event.name);
-  } },
+  methods: {
+    fileTree (event) {
+      this.$set(this.state.files, 0, event);
+      this.$set(this.state.filesOpen, 0, event.name);
+    },
+    register (event) {
+      this.state.user = event.user;
+      this.state.role = event.role || 'user';
+    }
+  },
   mounted () {
     this.$events.$on('file-tree', this.fileTree);
+    this.$events.$on('register', this.register);
 
     this.connection = this.$connection('/attach/main');
   },
   destroyed () {
     this.$events.$off('file-tree', this.fileTree);
+    this.$events.$off('register', this.register);
   }
 };
 </script>

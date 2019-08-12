@@ -7,7 +7,9 @@ function State () {
   this.loading = false;
 
   this.session = false;
-  this.user = false;
+
+  this.user = '';
+  this.role = 'user';
 }
 
 export default new State();
