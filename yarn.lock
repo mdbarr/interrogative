@@ -716,6 +716,14 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@mdbarr/events@^0.1.0":
+  version "0.1.0"
+  resolved "https://npm.veobot.io/@mdbarr%2fevents/-/events-0.1.0.tgz#c0dbf36017f992f145c55164d183a70ef4c19f65"
+  integrity sha512-s/DwK9kiJO+OBiZt4wuNdpyfijRuraZPY9lb3VYZz1Afu41+Ti+jmQzyRI+uhVJqFPvcDZmdum8E3Fm11Z+ncw==
+  dependencies:
+    barrkeep "^2.2.5"
+    uuid "^3.3.2"
+
 "@mdi/font@^3.9.97":
   version "3.9.97"
   resolved "https://npm.veobot.io/@mdi%2ffont/-/font-3.9.97.tgz#b9f31e05574452e84f57e5b81d34ffd593bc9c29"

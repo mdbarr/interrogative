@@ -8,8 +8,6 @@ Vue.use(interrogative);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$events = new Vue();
-
 new Vue({
   router,
   vuetify,

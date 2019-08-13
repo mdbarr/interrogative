@@ -4,7 +4,7 @@
 require('barrkeep/pp');
 const uuid = require('uuid/v4');
 const restify = require('restify');
-const EventEmitter = require('events');
+const events = require('@mdbarr/events');
 const Terminal = require('./terminal.js');
 const { merge } = require('barrkeep/utils');
 const Watershed = require('watershed').Watershed;
@@ -16,7 +16,7 @@ function Container (options = {}) {
 
   //////////
 
-  this.events = new EventEmitter();
+  this.events = new events.EventBus();
 
   //////////
 
@@ -71,17 +71,19 @@ function Container (options = {}) {
     const upgrade = res.claimUpgrade();
     const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
 
-    const id = uuid();
-    const role = 'admin';
-    const user = 'Admin';
+    shed.session = {
+      id: uuid(),
+      role: 'admin',
+      user: 'Admin'
+    };
 
     shed.$send = (event) => {
       const message = JSON.stringify(event);
       shed.send(message);
     };
 
-    shed.listener = (event) => {
-      if (event.source !== id) {
+    shed.emitter = (event) => {
+      if (event.origin === this.events.id) {
         shed.$send(event);
       }
     };
@@ -91,27 +93,26 @@ function Container (options = {}) {
         let event;
         try {
           event = JSON.parse(data);
-          event.source = id;
-          this.events.emit(event);
+
+          if (event.origin !== this.events.id) {
+            this.events.emit(event);
+          }
         } catch (error) {
           // ignore
         }
       }
     });
 
-    this.events.on('message', shed.listener);
+    this.events.on('*', shed.emitter);
 
     shed.on('end', () => {
-      this.events.removeListener('message', shed.listener);
+      this.events.off('*', shed.emitter);
     });
 
     // Register
     shed.$send({
       type: 'register',
-      data: {
-        user,
-        role
-      }
+      data: shed.session
     });
 
     // Update file Tree

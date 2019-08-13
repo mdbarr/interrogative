@@ -1,5 +1,6 @@
 import axios from 'axios';
 import state from '../state';
+import events from '@mdbarr/events';
 
 const baseURL = (process.env.NODE_ENV === 'production')
   ? `https://${ window.location.hostname }/api/`
@@ -16,6 +17,22 @@ const defaults = {
 };
 
 export default { install (Vue) {
+  const $events = new events.EventBus();
+  Vue.prototype.$events = events;
+
+  $events.on('file-tree', (event) => {
+    Vue.set(state.files, 0, event.data);
+    Vue.set(state.filesOpen, 0, event.data.name);
+  });
+
+  $events.on('register', (event) => {
+    state.id = event.data.id;
+    state.user = event.data.user;
+    state.role = event.data.role || 'user';
+  });
+
+  //////////
+
   function api (method, url, body, progress) {
     const request = Object.assign({}, defaults);
 
@@ -73,20 +90,25 @@ export default { install (Vue) {
     return socket;
   };
 
-  Vue.prototype.$connection = function (urlFragment) {
-    const socket = this.$socket(urlFragment);
+  Vue.prototype.$connect = function () {
+    const socket = this.$socket('/attach/main');
 
-    this.$events.$on('message', (event) => {
-      socket.$send(event);
+    $events.on('*', (event) => {
+      if (event.origin === $events.id && event.type === 'register') {
+        socket.$send(event);
+      }
     });
 
     socket.onmessage = (message) => {
       try {
         const event = JSON.parse(message.data);
         if (event.type) {
-          this.$events.$emit(event.type, event.data);
+          $events.emit(event);
         } else {
-          this.$events.$emit('event', event);
+          $events.emit({
+            type: 'unknown',
+            data: event
+          });
         }
       } catch (error) {
         // ignore

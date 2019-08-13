@@ -148,26 +148,11 @@ export default {
       } ]
     };
   },
-  methods: {
-    fileTree (event) {
-      this.$set(this.state.files, 0, event);
-      this.$set(this.state.filesOpen, 0, event.name);
-    },
-    register (event) {
-      this.state.user = event.user;
-      this.state.role = event.role || 'user';
-    }
-  },
+  methods: { },
   mounted () {
-    this.$events.$on('file-tree', this.fileTree);
-    this.$events.$on('register', this.register);
-
-    this.connection = this.$connection('/attach/main');
+    this.connection = this.$connect();
   },
-  destroyed () {
-    this.$events.$off('file-tree', this.fileTree);
-    this.$events.$off('register', this.register);
-  }
+  destroyed () { }
 };
 </script>
 

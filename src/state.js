@@ -8,6 +8,7 @@ function State () {
 
   this.session = false;
 
+  this.id = '';
   this.user = '';
   this.role = 'user';
 }
