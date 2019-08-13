@@ -43,6 +43,8 @@ import 'codemirror/addon/lint/lint.css';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/merge/merge.css';
 import 'codemirror/addon/merge/merge';
+import 'codemirror/addon/mode/overlay';
+import 'codemirror/addon/mode/simple';
 import 'codemirror/addon/scroll/simplescrollbars.css';
 import 'codemirror/addon/scroll/simplescrollbars';
 import 'codemirror/addon/search/jump-to-line';
@@ -136,6 +138,7 @@ export default {
       console.log(this.file);
 
       this.focus = index;
+      this.instance.setOption('mode', this.file.mime);
       this.instance.setValue(this.file.contents);
     },
     fix () {
