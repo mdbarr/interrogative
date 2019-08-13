@@ -224,9 +224,24 @@ export default {
     this.app = document.getElementById('app');
     window.addEventListener('resize', this.resize);
 
-    this.instance.on('change', () => {
+    this.instance.on('cursorActivity', (document) => {
+      this.$events.emit({
+        type: 'editor:cursor:activity',
+        data: { position: document.getCursor() }
+      });
+    });
+
+    this.instance.on('change', (document, change) => {
       this.content = this.instance.getValue();
       this.$emit('input', this.content);
+
+      this.$events.emit({
+        type: 'editor:document:change',
+        data: {
+          change,
+          content: document.getValue()
+        }
+      });
     });
 
     for (const event of events) {
