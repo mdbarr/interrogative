@@ -24,8 +24,8 @@ function Files (container, directory, options = {}) {
       element.mime = mime.getType(element.extension) || 'text/plain';
     });
 
-    container.events.emit('message', {
-      type: 'file-tree',
+    container.events.emit({
+      type: 'file:tree:update',
       data: this.tree
     });
 

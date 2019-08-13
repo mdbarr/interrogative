@@ -20,7 +20,7 @@ export default { install (Vue) {
   const $events = new events.EventBus();
   Vue.prototype.$events = events;
 
-  $events.on('file-tree', (event) => {
+  $events.on('file:tree:update', (event) => {
     Vue.set(state.files, 0, event.data);
     Vue.set(state.filesOpen, 0, event.data.name);
   });

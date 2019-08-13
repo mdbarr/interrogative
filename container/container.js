@@ -77,14 +77,14 @@ function Container (options = {}) {
       user: 'Admin'
     };
 
-    shed.$send = (event) => {
+    const $send = (event) => {
       const message = JSON.stringify(event);
       shed.send(message);
     };
 
     shed.emitter = (event) => {
       if (event.origin === this.events.id) {
-        shed.$send(event);
+        $send(event);
       }
     };
 
@@ -109,15 +109,13 @@ function Container (options = {}) {
       this.events.off('*', shed.emitter);
     });
 
-    // Register
-    shed.$send({
+    this.events.emit({
       type: 'register',
       data: shed.session
     });
 
-    // Update file Tree
-    shed.$send({
-      type: 'file-tree',
+    this.events.emit({
+      type: 'file:tree:update',
       data: this.files.tree
     });
   });
