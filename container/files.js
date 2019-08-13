@@ -79,6 +79,13 @@ function Files (container, directory, options = {}) {
   this.scan = () => {
     this.tree = dree.scan(directory, this.config, (element) => {
       element.mime = mime.getType(element.extension) || 'text/plain';
+      // extra: text/x-csrc, text/x-c++src, text/x-java,
+      //        text/x-cmake, text/x-scss, text/x-dockerfile,
+      //        text/x-groovy, text/x-haskell, text/x-lua,
+      //        markdown, text/x-perl, text/x-php, text/x-python
+      //        text/x-rst, text/x-ruby, text/x-sh, text/x-vue
+      //        text/x-yaml, text/x-java, text/x-scala, text/x-diff
+      //        text/html, application/xml
     });
 
     container.events.emit({
