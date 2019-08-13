@@ -2,10 +2,10 @@
 'use strict';
 
 require('barrkeep/pp');
-const pty = require('node-pty');
 const uuid = require('uuid/v4');
 const restify = require('restify');
 const EventEmitter = require('events');
+const Terminal = require('./terminal.js');
 const { merge } = require('barrkeep/utils');
 const Watershed = require('watershed').Watershed;
 const corsMiddleware = require('restify-cors-middleware');
@@ -123,7 +123,7 @@ function Container (options = {}) {
 
   //////////
 
-  const shells = [];
+  const terminals = [];
 
   this.api.get('/ws/attach/shell', (req, res, next) => {
     if (!res.claimUpgrade) {
@@ -135,49 +135,19 @@ function Container (options = {}) {
     const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
 
     const instance = Number(req.query.instance) || 0;
+    const cols = Number(req.query.cols) || 100;
+    const rows = Number(req.query.rows) || 24;
 
-    let shell;
-
-    if (!shells[instance]) {
-      shell = pty.spawn('/bin/bash', [ ], {
-        name: 'xterm-256color',
-        cwd: process.env.HOME,
-        env: {
-          HOME: process.env.HOME,
-          INTERROGATIVE: `v${ this.version }`,
-          LANG: process.env.LANG,
-          PATH: process.env.PATH,
-          USER: process.env.USER
-        },
-        cols: Number(req.query.cols) || 100,
-        rows: Number(req.query.rows) || 24
+    if (!terminals[instance]) {
+      terminals[instance] = new Terminal(this, {
+        instance,
+        cols,
+        rows,
+        socket: shed
       });
-
-      shells[instance] = shell;
     } else {
-      shell = shells[instance];
+      terminals[instance].add(shed);
     }
-
-    // Outgoing from shell to websocket
-    shell.on('data', (data) => {
-      shed.send(data);
-    });
-
-    shell.on('close', () => {
-      shed.end();
-    });
-
-    // Incoming from the websocket to shell
-
-    shed.on('text', (data) => {
-      if (data !== 'PING') {
-        shell.write(data);
-      }
-    });
-
-    shed.on('end', () => {
-      // shell.kill();
-    });
   });
 
   //////////
