@@ -1,8 +1,11 @@
 function State () {
   this.config = require('../defaults');
 
-  this.files = [];
-  this.filesOpen = [];
+  this.tree = [];
+  this.treeOpen = [];
+
+  this.fileTab = 0;
+  this.files = {};
 
   this.loading = false;
 

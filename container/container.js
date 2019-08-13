@@ -94,6 +94,7 @@ function Container (options = {}) {
         try {
           event = JSON.parse(data);
 
+          console.log('>event', event.type);
           if (event.origin !== this.events.id) {
             this.events.emit(event);
           }
@@ -115,7 +116,7 @@ function Container (options = {}) {
     });
 
     this.events.emit({
-      type: 'file:tree:update',
+      type: 'files:tree:update',
       data: this.files.tree
     });
   });

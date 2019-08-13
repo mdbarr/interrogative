@@ -18,11 +18,32 @@ const defaults = {
 
 export default { install (Vue) {
   const $events = new events.EventBus();
-  Vue.prototype.$events = events;
+  Vue.prototype.$events = $events;
 
-  $events.on('file:tree:update', (event) => {
-    Vue.set(state.files, 0, event.data);
-    Vue.set(state.filesOpen, 0, event.data.name);
+  $events.on('files:tree:update', (event) => {
+    Vue.set(state.tree, 0, event.data);
+    Vue.set(state.treeOpen, 0, event.data.path);
+  });
+
+  $events.on('files:file:opened', (event) => {
+    const model = event.data;
+    Vue.set(state.files, model.path, model);
+    console.log('opened', model.path);
+
+    const index = Object.keys(state.files).indexOf(model.path);
+    state.fileTab = index;
+
+    $events.emit({
+      type: 'editor:tab:focus',
+      data: index
+    });
+  });
+
+  $events.on('editor:tab:focus', (event) => {
+    const index = event.data;
+    if (state.fileTab !== index) {
+      state.fileTab = index;
+    }
   });
 
   $events.on('register', (event) => {
@@ -94,7 +115,7 @@ export default { install (Vue) {
     const socket = this.$socket('/attach/main');
 
     $events.on('*', (event) => {
-      if (event.origin === $events.id && event.type === 'register') {
+      if (event.origin === $events.id && event.type !== 'register') {
         socket.$send(event);
       }
     });

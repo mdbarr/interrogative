@@ -62,8 +62,10 @@ import '@mdi/font/css/materialdesignicons.css';
 // Theme
 import 'codemirror/theme/lesser-dark.css';
 
+import state from '../state';
+
 export default {
-  name: 'codemirror',
+  name: 'editor',
   props: {
     code: String,
     placeholder: {
@@ -91,6 +93,11 @@ export default {
   },
   data () {
     return {
+      state,
+
+      focus: -1,
+      file: null,
+
       clean: true,
       content: '',
       fixable: false,
@@ -101,6 +108,15 @@ export default {
     };
   },
   methods: {
+    setFocus (index) {
+      const path = Object.keys(state.files)[index];
+      this.file = this.state.files[path];
+
+      console.log(this.file);
+
+      this.focus = index;
+      this.instance.setValue(this.file.contents);
+    },
     fix () {
       const cursor = this.instance.getCursor();
       const content = this.instance.getValue();
@@ -125,6 +141,14 @@ export default {
     }
   },
   mounted () {
+    this.$events.on('editor:tab:focus', (event) => {
+      const index = event.data;
+      if (index >= 0 && index !== this.focus) {
+        this.setFocus(index);
+      }
+      console.log(event);
+    });
+
     const vm = this;
     const events = [
       'beforeChange',
