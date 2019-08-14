@@ -1,15 +1,15 @@
 <template>
-<div class="vue-codemirror-js-editor">
+<div class="interrogative-editor-container" ref="container">
     <textarea ref="textarea" :placeholder="placeholder"></textarea>
-    <div id="vue-codemirror-js-panel" class="vue-codemirror-js-panel">
-      <div class="vue-codemirror-js-panel-left">
+    <div id="interrogative-editor-panel" class="interrogative-editor-panel">
+      <div class="interrogative-editor-panel-left">
         <i :class="lintedIcon"></i>
-        <i class="mdi mdi-auto-fix vue-codemirror-js-clickable vue-codemirror-js-spacer-left" v-if="fixable" @click.stop="fix"></i>
+        <i class="mdi mdi-auto-fix interrogative-editor-clickable interrogative-editor-spacer-left" v-if="fixable" @click.stop="fix"></i>
       </div>
-      <div class="vue-codemirror-js-panel-center">
-        <i class="mdi mdi-drag-horizontal vue-codemirror-js-clickable" @click.stop="fix"></i>
+      <div class="interrogative-editor-panel-center">
+        <i class="mdi mdi-drag-horizontal interrogative-editor-clickable" @click.stop="fix"></i>
       </div>
-      <div class="vue-codemirror-js-panel-right">
+      <div class="interrogative-editor-panel-right">
         <i :class="fullscreenIcon" @click.stop="toggleFullscreen"></i>
       </div>
     </div>
@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     fullscreenIcon () {
-      let icon = 'vue-codemirror-js-clickable mdi mdi-fullscreen';
+      let icon = 'interrogative-editor-clickable mdi mdi-fullscreen';
       if (this.fullscreen) {
         icon += '-exit';
       }
@@ -152,14 +152,15 @@ export default {
     toggleFullscreen () {
       this.fullscreen = !this.instance.getOption('fullScreen');
       this.instance.setOption('fullScreen', this.fullscreen);
-      this.panel.classList.toggle('vue-codemirror-js-panel-fullscreen');
+      this.panel.classList.toggle('interrogative-editor-panel-fullscreen');
       this.instance.focus();
     },
     resize () {
       const width = this.app.clientWidth - 45;
       const height = this.app.clientHeight - 484;
 
-      console.log('editor', width, 'x', height);
+      this.$refs.container.style.width = `${ width }px`;
+      this.$refs.container.style.height = `${ height }px`;
 
       this.instance.setSize(width, height);
     }
@@ -251,7 +252,7 @@ export default {
       });
     }
 
-    this.panel = document.getElementById('vue-codemirror-js-panel');
+    this.panel = document.getElementById('interrogative-editor-panel');
 
     this.instance.addPanel(this.panel, {
       position: 'bottom',
@@ -267,18 +268,18 @@ export default {
 </script>
 
 <style>
-.vue-codemirror-js {
+.interrogative-editor {
     height: 100%;
     width: 100%;
 }
-.vue-codemirror-js-clickable {
+.interrogative-editor-clickable {
     cursor: pointer;
 }
-.vue-codemirror-js-clickable:hover {
+.interrogative-editor-clickable:hover {
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.2) !important;
 }
-.vue-codemirror-js-panel {
+.interrogative-editor-panel {
     position: relative;
     box-sizing: border-box;
     background-color: #595959;
@@ -289,34 +290,34 @@ export default {
     line-height: 20px;
     padding-left: 5px;
 }
-.vue-codemirror-js-panel-fullscreen {
+.interrogative-editor-panel-fullscreen {
     position: fixed;
     z-index: 10;
     bottom: 0;
     left: 0;
     border-radius: 0 !important;
 }
-.vue-codemirror-js-panel-left {
+.interrogative-editor-panel-left {
     display: inline-block;
     box-sizing: border-box;
     width: 33%;
     text-align: left;
     padding-left: 4px;
 }
-.vue-codemirror-js-panel-center {
+.interrogative-editor-panel-center {
     display: inline-block;
     box-sizing: border-box;
     width: 33%;
     text-align: center;
 }
-.vue-codemirror-js-panel-right {
+.interrogative-editor-panel-right {
     display: inline-block;
     box-sizing: border-box;
     width: 34%;
     text-align: right;
     padding-right: 4px;
 }
-.vue-codemirror-js-spacer-left {
+.interrogative-editor-spacer-left {
     padding-left: 8px;
 }
 .CodeMirror {

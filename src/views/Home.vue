@@ -54,7 +54,7 @@
     <v-btn dense small tile icon @click.stop="mini = !mini"><v-icon>mdi-comment-multiple</v-icon></v-btn>
     <v-toolbar-title class="pl-2 title">Interrogative</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-icon v-if="state.user" small class="pr-2">mdi-account</v-icon>
+    <v-icon v-if="state.user" class="pr-2">mdi-account-circle</v-icon>
     <span class="text-uppercase subtitle-2 pr-2">
       {{ state.user }}
     </span>
