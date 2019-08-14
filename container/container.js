@@ -115,11 +115,6 @@ function Container (options = {}) {
       type: 'register',
       data: shed.session
     });
-
-    this.events.emit({
-      type: 'files:tree:update',
-      data: this.files.tree
-    });
   });
 
   //////////

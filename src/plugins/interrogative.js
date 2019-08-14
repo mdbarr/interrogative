@@ -49,10 +49,19 @@ export default { install (Vue) {
     }
   });
 
-  $events.on('register', (event) => {
+  $events.once('register', (event) => {
     state.id = event.data.id;
     state.user = event.data.user;
     state.role = event.data.role || 'user';
+
+    $events.emit({
+      type: 'connected',
+      data: {
+        id: state.id,
+        user: state.user,
+        role: state.role
+      }
+    });
   });
 
   //////////

@@ -3,6 +3,7 @@
 const fs = require('fs');
 const dree = require('dree');
 const mime = require('mime');
+const { join } = require('path');
 const { merge } = require('barrkeep/utils');
 
 const defaults = {
@@ -18,8 +19,11 @@ function Files (container, directory, options = {}) {
   this.config = merge(defaults, options, true);
 
   this.tree = {};
+  this.paths = new Set();
 
   this.files = new Map();
+
+  //////////
 
   this.open = (path) => {
     if (this.files.has(path)) {
@@ -200,16 +204,34 @@ function Files (container, directory, options = {}) {
   };
 
   this.scan = () => {
+    this.paths = new Set();
+
     this.tree = dree.scan(directory, this.config, (element) => {
       this.setAttributes(element);
+      this.paths.add(element.path);
+    }, (element) => {
+      this.paths.add(element.path);
     });
 
+    return this.tree;
+  };
+
+  //////////
+
+  this.emitTree = () => {
     container.events.emit({
       type: 'files:tree:update',
       data: this.tree
     });
+  };
 
-    return this.tree;
+  this.emitFiles = () => {
+    for (const [ , file ] of this.files) {
+      container.events.emit({
+        type: 'files:file:opened',
+        data: file
+      });
+    }
   };
 
   container.events.on('files:file:open', (event) => {
@@ -217,7 +239,21 @@ function Files (container, directory, options = {}) {
     this.open(event.data.path);
   });
 
+  container.events.on('connected', (event) => {
+    this.emitTree();
+    this.emitFiles();
+  });
+
+  //////////
+
   this.start = () => {
+    for (let path of container.config.container.open) {
+      if (!path.includes('/')) {
+        path = join(directory, path);
+      }
+      this.open(path);
+    }
+
     this.scan();
 
     this.watcher = fs.watch(directory, {
@@ -225,9 +261,11 @@ function Files (container, directory, options = {}) {
       recursive: true
     });
 
-    this.watcher.on('change', (type) => {
+    this.watcher.on('change', (type, filename) => {
+      console.log('=watch', type, filename);
       if (type === 'rename') {
         this.scan();
+        this.emitTree();
       }
     });
   };
