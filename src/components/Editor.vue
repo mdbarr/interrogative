@@ -130,6 +130,8 @@ export default {
       width: 0,
       height: 0,
 
+      cursors: {},
+
       clean: true,
       content: '',
       fixable: false,
@@ -176,6 +178,38 @@ export default {
         this.$refs.image.appendChild(image);
       }
     },
+    getCursor (user, coords) {
+      if (!this.cursors[user]) {
+        const element = document.createElement('span');
+        element.style.borderLeftStyle = 'solid';
+        element.style.borderLeftWidth = '2px';
+        element.style.borderLeftColor = '#2C87AF';
+        element.style.height = '14px';
+        element.style.padding = 0;
+        element.style.zIndex = 0;
+
+        const flag = document.createElement('div');
+        flag.innerHTML = user;
+        flag.style.position = 'absolute';
+        flag.style.zIndex = 100;
+        flag.style.backgroundColor = '#2C87AF';
+        flag.style.height = '14px';
+        flag.style.padding = '2px';
+        flag.style.lineHeight = '14px';
+        flag.style.textTransform = 'uppercase';
+
+        element.appendChild(flag);
+
+        this.cursors[user] = {
+          user,
+          element,
+          flag,
+          position: null,
+          marker: null
+        };
+      }
+      return this.cursors[user];
+    },
     fix () {
       const cursor = this.instance.getCursor();
       const content = this.instance.getValue();
@@ -201,14 +235,6 @@ export default {
     }
   },
   mounted () {
-    this.$events.on('editor:tab:focus', (event) => {
-      const index = event.data.tab;
-      if (index >= 0 && index !== this.focus) {
-        this.setFocus(index);
-      }
-      console.log(event);
-    });
-
     const vm = this;
     const events = [
       'beforeChange',
@@ -263,7 +289,10 @@ export default {
     this.instance.on('cursorActivity', (document) => {
       this.$events.emit({
         type: 'editor:cursor:activity',
-        data: { position: document.getCursor() }
+        data: {
+          position: document.getCursor(),
+          user: this.state.user
+        }
       });
     });
 
@@ -275,7 +304,8 @@ export default {
         type: 'editor:document:change',
         data: {
           change,
-          content: document.getValue()
+          content: document.getValue(),
+          user: this.state.user
         }
       });
     });
@@ -295,6 +325,32 @@ export default {
     });
 
     this.resize();
+
+    //////////
+
+    this.$events.on('editor:tab:focus', (event) => {
+      const index = event.data.tab;
+      if (index >= 0 && index !== this.focus) {
+        this.setFocus(index);
+      }
+      console.log(event);
+    });
+
+    this.$events.on('editor:cursor:activity', (event) => {
+      console.log('cursor', event);
+      if (event.data.user !== this.state.user) {
+        const cursor = this.getCursor(event.data.user);
+        cursor.position = event.data.position;
+        if (cursor.marker) {
+          cursor.marker.clear();
+        }
+        cursor.marker = this.instance.setBookmark(cursor.position, { widget: cursor.element });
+        cursor.flag.style.top = '-17px';
+        cursor.flag.style.left = `${ cursor.element.offsetLeft }px`;
+
+        console.log('marker', cursor.marker);
+      }
+    });
   },
   destroyed () {
     window.removeEventListener('resize', this.resize);

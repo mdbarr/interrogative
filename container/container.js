@@ -62,6 +62,18 @@ function Container (options = {}) {
 
   //////////
 
+  this.connections = 0;
+
+  this.users = [ {
+    id: '117c0954-eecc-480e-82b3-2658410c6403',
+    user: 'Interviewer',
+    role: 'interviewer'
+  }, {
+    id: '50f81c67-73fe-4515-bb6b-5877ae796a8a',
+    user: 'Candidate',
+    role: 'candidate'
+  } ];
+
   this.api.get('/ws/attach/main', (req, res, next) => {
     if (!res.claimUpgrade) {
       next(new Error('Connection Must Upgrade For WebSockets'));
@@ -71,10 +83,10 @@ function Container (options = {}) {
     const upgrade = res.claimUpgrade();
     const shed = this.api.ws.accept(req, upgrade.socket, upgrade.head);
 
-    shed.session = {
+    shed.session = this.users[this.connections++] || {
       id: uuid(),
-      role: 'admin',
-      user: 'Admin'
+      user: `User #${ this.connections }`,
+      role: 'candidate'
     };
 
     const $send = (event) => {
@@ -84,7 +96,8 @@ function Container (options = {}) {
     };
 
     shed.emitter = (event) => {
-      if (event.origin === this.events.id) {
+      console.log('forward event', event.origin === this.events.id);
+      if (event.origin !== shed.session.id) {
         $send(event);
       }
     };
@@ -95,7 +108,7 @@ function Container (options = {}) {
         try {
           event = JSON.parse(data);
 
-          console.log('>event', event.type);
+          console.log('>event', event.type, 'origin', event.origin);
           if (event.origin !== this.events.id) {
             this.events.emit(event);
           }

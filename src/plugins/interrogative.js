@@ -50,6 +50,8 @@ export default { install (Vue) {
   });
 
   $events.once('register', (event) => {
+    $events.id = event.data.id;
+
     state.id = event.data.id;
     state.user = event.data.user;
     state.role = event.data.role || 'user';
