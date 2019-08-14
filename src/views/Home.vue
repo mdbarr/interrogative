@@ -65,17 +65,8 @@
       <v-layout wrap>
         <v-flex xs12>
           <v-card class="ma-0" flat tile>
-            <v-tabs show-arrows v-model="state.fileTab" color="white" height="30" slider-color="white" class="tab-bg back" @change="editorTabChange">
-              <v-btn dense small tile icon left height="30" class="plus-button">
-                <v-icon small>mdi-plus</v-icon>
-              </v-btn>
-              <v-tab v-for="item of state.files" :key="item.path" class="tab-bg pl-2 pr-2">
-                <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
-                <span class="pr-1">{{ item.name }}</span>
-                <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
-              </v-tab>
-            </v-tabs>
-            <Editor :tab="state.fileTab"></Editor>
+            <FileTabs></FileTabs>
+            <Editor></Editor>
           </v-card>
         </v-flex>
         <v-flex xs12>
@@ -104,6 +95,7 @@
 
 <script>
 import Editor from '../components/Editor';
+import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Terminal from '../components/Terminal';
 import state from '../state';
@@ -112,6 +104,7 @@ export default {
   name: 'home',
   components: {
     Editor,
+    FileTabs,
     FileTree,
     Terminal
   },
@@ -134,12 +127,7 @@ export default {
       } ]
     };
   },
-  methods: { editorTabChange (value) {
-    this.$events.emit({
-      type: 'editor:tab:focus',
-      data: value
-    });
-  } },
+  methods: { },
   mounted () {
     this.connection = this.$connect();
   },

@@ -78,6 +78,7 @@ function Container (options = {}) {
     };
 
     const $send = (event) => {
+      console.log('<event', event.type);
       const message = JSON.stringify(event);
       shed.send(message);
     };

@@ -166,7 +166,7 @@ export default {
   },
   mounted () {
     this.$events.on('editor:tab:focus', (event) => {
-      const index = event.data;
+      const index = event.data.tab;
       if (index >= 0 && index !== this.focus) {
         this.setFocus(index);
       }

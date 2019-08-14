@@ -35,7 +35,10 @@ export default { install (Vue) {
 
     $events.emit({
       type: 'editor:tab:focus',
-      data: index
+      data: {
+        tab: index,
+        path: model.path
+      }
     });
   });
 

@@ -148,7 +148,7 @@ function Files (container, directory, options = {}) {
       item.icon = 'mdi-json';
     } else if (item.extension === 'md') {
       item.mime = 'text/x-markdown';
-      item.color = '#56157f';
+      item.color = '#9927E5';
       item.icon = 'mdi-markdown';
     } else if (item.extension === 'pl' || item.extension === 'pm') {
       item.mime = 'text/x-perl';

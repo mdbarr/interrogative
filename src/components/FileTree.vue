@@ -40,7 +40,10 @@ export default {
         const index = Object.keys(this.state.files).indexOf(item.path);
         this.$events.emit({
           type: 'editor:tab:focus',
-          data: index
+          data: {
+            tab: index,
+            path: item.path
+          }
         });
       } else {
         this.$events.emit({
