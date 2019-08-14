@@ -1,18 +1,21 @@
 <template>
 <div class="interrogative-editor-container" ref="container">
+  <div ref="editor" v-show="editor">
     <textarea ref="textarea" :placeholder="placeholder"></textarea>
-    <div id="interrogative-editor-panel" class="interrogative-editor-panel">
-      <div class="interrogative-editor-panel-left">
-        <i :class="lintedIcon"></i>
-        <i class="mdi mdi-auto-fix interrogative-editor-clickable interrogative-editor-spacer-left" v-if="fixable" @click.stop="fix"></i>
-      </div>
-      <div class="interrogative-editor-panel-center">
-        <i class="mdi mdi-drag-horizontal interrogative-editor-clickable" @click.stop="fix"></i>
-      </div>
-      <div class="interrogative-editor-panel-right">
-        <i :class="fullscreenIcon" @click.stop="toggleFullscreen"></i>
-      </div>
+  </div>
+  <div ref="image" v-show="image" class="image-preview"></div>
+  <div id="interrogative-editor-panel" class="interrogative-editor-panel">
+    <div class="interrogative-editor-panel-left">
+      <i :class="lintedIcon"></i>
+      <i class="mdi mdi-auto-fix interrogative-editor-clickable interrogative-editor-spacer-left" v-if="fixable" @click.stop="fix"></i>
     </div>
+    <div class="interrogative-editor-panel-center">
+      <i class="mdi mdi-drag-horizontal interrogative-editor-clickable" @click.stop="fix"></i>
+    </div>
+    <div class="interrogative-editor-panel-right">
+      <i :class="fullscreenIcon" @click.stop="toggleFullscreen"></i>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -121,6 +124,12 @@ export default {
       focus: -1,
       file: null,
 
+      editor: true,
+      image: false,
+
+      width: 0,
+      height: 0,
+
       clean: true,
       content: '',
       fixable: false,
@@ -138,8 +147,34 @@ export default {
       console.log(this.file);
 
       this.focus = index;
-      this.instance.setOption('mode', this.file.mime);
-      this.instance.setValue(this.file.contents);
+      if (!this.file.binary) {
+        this.instance.setOption('mode', this.file.mime);
+        this.instance.setValue(this.file.contents);
+        this.editor = true;
+      } else if (this.file.mime.startsWith('image')) {
+        this.editor = false;
+        this.image = true;
+
+        const data = this.file.contents;
+        const bytes = new Uint8Array(data.length / 2);
+
+        for (let i = 0; i < data.length; i += 2) {
+          bytes[i / 2] = parseInt(data.substring(i, i + 2), /* base = */ 16);
+        }
+        const blob = new Blob([ bytes ], { type: this.file.mime });
+
+        const image = new Image();
+        image.src = URL.createObjectURL(blob);
+
+        while (this.$refs.image.hasChildNodes()) {
+          this.$refs.image.removeChild(this.$refs.image.firstChild);
+        }
+        image.style.width = `${ this.width }px`;
+        image.style.height = `${ this.height }px`;
+        image.style.objectFit = 'scale-down';
+
+        this.$refs.image.appendChild(image);
+      }
     },
     fix () {
       const cursor = this.instance.getCursor();
@@ -156,13 +191,13 @@ export default {
       this.instance.focus();
     },
     resize () {
-      const width = this.app.clientWidth - 45;
-      const height = this.app.clientHeight - 484;
+      this.width = this.app.clientWidth - 45;
+      this.height = this.app.clientHeight - 484;
 
-      this.$refs.container.style.width = `${ width }px`;
-      this.$refs.container.style.height = `${ height }px`;
+      this.$refs.container.style.width = `${ this.width }px`;
+      this.$refs.container.style.height = `${ this.height }px`;
 
-      this.instance.setSize(width, height);
+      this.instance.setSize(this.width, this.height);
     }
   },
   mounted () {
@@ -325,5 +360,8 @@ export default {
 }
 .CodeMirror-fullscreen {
     margin-bottom: 24px;
+}
+.image-preview {
+    overflow: hidden;
 }
 </style>

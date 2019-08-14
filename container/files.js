@@ -76,7 +76,20 @@ function Files (container, directory, options = {}) {
                 data: error
               });
             } else {
-              model.contents = data.toString();
+              model.binary = false;
+
+              for (let i = 0; i < data.length; i++) {
+                if (data[i] > 127) {
+                  model.binary = true;
+                  break;
+                }
+              }
+
+              if (model.binary) {
+                model.contents = data.toString('hex');
+              } else {
+                model.contents = data.toString();
+              }
 
               this.files.set(path, model);
 
@@ -92,6 +105,7 @@ function Files (container, directory, options = {}) {
   };
 
   this.setAttributes = (item) => {
+    item.mime = mime.getType(item.extension);
     item.color = 'white';
     item.icon = 'mdi-file';
 
@@ -198,8 +212,6 @@ function Files (container, directory, options = {}) {
     } else if (item.extension === 'ico' || item.extension === 'jpg' ||
                item.extension === 'jpeg' || item.extension === 'png') {
       item.icon = 'mdi-file-image';
-    } else {
-      item.mime = mime.getType(item.extension) || 'text/plain';
     }
   };
 
