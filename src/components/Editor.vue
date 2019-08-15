@@ -83,10 +83,8 @@ import 'codemirror/mode/vue/vue';
 import 'codemirror/mode/yaml/yaml';
 import 'codemirror/mode/xml/xml';
 
-// Icons
-import '@mdi/font/css/materialdesignicons.css';
-// Theme
-import 'codemirror/theme/lesser-dark.css';
+// Themes
+import './code-mirror-themes.css';
 
 import state from '../state';
 
@@ -319,7 +317,7 @@ export default {
       smartIndent: true,
       styleActiveLine: true,
       tabSize: 2,
-      theme: 'lesser-dark'
+      theme: 'bespin'
     });
 
     this.instance.vue = this;
