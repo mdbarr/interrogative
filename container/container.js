@@ -96,7 +96,6 @@ function Container (options = {}) {
     };
 
     shed.emitter = (event) => {
-      console.log('forward event', event.origin === this.events.id);
       if (event.origin !== shed.session.id) {
         $send(event);
       }

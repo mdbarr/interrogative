@@ -403,6 +403,16 @@ export default {
         this.instance.replaceRange(change.text, change.from, change.to, change.origin);
       }
     });
+
+    this.$events.on('files:file:closed', (event) => {
+      if (this.state.documents.has(event.data.path)) {
+        this.state.documents.delete(event.data.path);
+      }
+
+      if (this.state.images.has(event.data.path)) {
+        this.state.images.delete(event.data.path);
+      }
+    });
   },
   destroyed () {
     window.removeEventListener('resize', this.resize);

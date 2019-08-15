@@ -261,6 +261,12 @@ function Files (container, directory, options = {}) {
     this.focus = event.data.path;
   });
 
+  container.events.on('files:file:closed', (event) => {
+    if (this.files.has(event.data.path)) {
+      this.files.delete(event.data.path);
+    }
+  });
+
   container.events.on('connected', (event) => {
     this.emitTree();
 

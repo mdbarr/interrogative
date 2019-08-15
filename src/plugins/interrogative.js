@@ -43,6 +43,12 @@ export default { install (Vue) {
     }
   });
 
+  $events.on('files:file:closed', (event) => {
+    if (state.files[event.data.path]) {
+      delete state.files[event.data.path];
+    }
+  });
+
   $events.once('register', (event) => {
     $events.id = event.data.id;
 
