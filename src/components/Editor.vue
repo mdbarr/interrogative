@@ -256,7 +256,8 @@ export default {
     this.nodes.element.style.borderLeftColor = '#2C87AF';
     this.nodes.element.style.borderLeftStyle = 'solid';
     this.nodes.element.style.borderLeftWidth = '2px';
-    this.nodes.element.style.height = '14px';
+    this.nodes.element.style.borderRadius = '0 0 3px 3px';
+    this.nodes.element.style.height = '16px';
     this.nodes.element.style.padding = 0;
     this.nodes.element.style.zIndex = 0;
 
@@ -266,9 +267,10 @@ export default {
     this.nodes.flag.style.fontSize = '12px';
     this.nodes.flag.style.fontWeight = 700;
     this.nodes.flag.style.height = '11px';
-    this.nodes.flag.style.lineHeight = '11px';
+    this.nodes.flag.style.lineHeight = '10px';
     this.nodes.flag.style.padding = '2px 4px';
     this.nodes.flag.style.position = 'absolute';
+    this.nodes.flag.style.textShadow = 'none';
     this.nodes.flag.style.textTransform = 'uppercase';
     this.nodes.flag.style.top = '-14px';
     this.nodes.flag.style.zIndex = 100;
