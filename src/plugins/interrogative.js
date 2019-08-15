@@ -26,27 +26,20 @@ export default { install (Vue) {
   });
 
   $events.on('files:file:opened', (event) => {
-    const model = event.data;
-    Vue.set(state.files, model.path, model);
-    console.log('opened', model.path);
+    let model = event.data;
+    if (!state.files[model.path]) {
+      Vue.set(state.files, model.path, model);
+    } else {
+      const file = state.files[model.path];
+      model = Object.assign(file, model);
+    }
 
-    const index = Object.keys(state.files).indexOf(model.path);
-    state.fileTab = index;
+    console.log('opened', model.path);
 
     $events.emit({
       type: 'editor:tab:focus',
-      data: {
-        tab: index,
-        path: model.path
-      }
+      data: { path: model.path }
     });
-  });
-
-  $events.on('editor:tab:focus', (event) => {
-    const index = event.data;
-    if (state.fileTab !== index) {
-      state.fileTab = index;
-    }
   });
 
   $events.once('register', (event) => {

@@ -21,22 +21,28 @@ export default {
     return {
       state,
       tab: -1,
+      path: '',
       list: []
     };
   },
   methods: {
     editorTabChange (value) {
+      this.path = this.list[value];
+      console.log(this.tab, this.path);
       this.$events.emit({
         type: 'editor:tab:focus',
-        data: {
-          tab: this.tab,
-          path: null
-        }
+        data: { path: this.path }
       });
     },
     focus (event) {
-      if (this.tab !== event.data.tab) {
-        this.tab = event.data.tab;
+      if (this.path !== event.data.path) {
+        this.path = event.data.path;
+        this.tab = this.list.indexOf(this.path);
+      }
+    },
+    opened (event) {
+      if (!this.list.includes(event.data.path)) {
+        this.list.push(event.data.path);
       }
     },
     close (item) {
@@ -47,9 +53,11 @@ export default {
   },
   mounted () {
     this.$events.on('editor:tab:focus', this.focus);
+    this.$events.on('files:file:opened', this.opened);
   },
   destroyed () {
     this.$events.off('editor:tab:focus', this.focus);
+    this.$events.off('files:file:opened', this.opened);
   }
 };
 </script>

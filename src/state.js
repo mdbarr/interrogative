@@ -4,8 +4,9 @@ function State () {
   this.tree = [];
   this.treeOpen = [];
 
-  this.fileTab = 0;
+  this.focus = '';
   this.files = {};
+  this.documents = new Map();
 
   this.loading = false;
 

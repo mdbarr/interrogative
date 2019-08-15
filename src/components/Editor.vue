@@ -121,7 +121,7 @@ export default {
     return {
       state,
 
-      focus: -1,
+      focus: null,
       file: null,
 
       editor: true,
@@ -144,13 +144,10 @@ export default {
     };
   },
   methods: {
-    setFocus (index) {
-      const path = Object.keys(state.files)[index];
+    setFocus (path) {
+      this.focus = path;
       this.file = this.state.files[path];
 
-      console.log(this.file);
-
-      this.focus = index;
       if (!this.file.binary) {
         this.instance.setOption('mode', this.file.mime);
         this.instance.setValue(this.file.contents);
@@ -342,11 +339,10 @@ export default {
     //////////
 
     this.$events.on('editor:tab:focus', (event) => {
-      const index = event.data.tab;
-      if (index >= 0 && index !== this.focus) {
-        this.setFocus(index);
+      const path = event.data.path;
+      if (path && path !== this.focus) {
+        this.setFocus(path);
       }
-      console.log(event);
     });
 
     this.$events.on('editor:cursor:activity', (event) => {
