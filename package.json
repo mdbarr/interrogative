@@ -13,6 +13,7 @@
     "@mdbarr/events": "^0.1.0",
     "axios": "^0.19.0",
     "barrkeep": "^2.2.5",
+    "chokidar": "^3.0.2",
     "codemirror": "^5.48.2",
     "core-js": "^2.6.5",
     "dree": "^2.1.10",

@@ -5,6 +5,7 @@ const dree = require('dree');
 const mime = require('mime');
 const { join } = require('path');
 const { merge } = require('barrkeep/utils');
+const chokidar = require('chokidar');
 
 const defaults = {
   stat: false,
@@ -218,6 +219,24 @@ function Files (container, directory, options = {}) {
     }
   };
 
+  this.watch = () => {
+    console.log('*generating watcher:', directory);
+
+    this.watcher = chokidar.watch(directory, {
+      persistent: true,
+      ignoreInitial: true,
+      ignored: this.config.exclude
+    });
+
+    this.watcher.on('all', (type, filename) => {
+      console.log('=watch', type, filename);
+      if (type !== 'change') {
+        this.scan();
+        this.emitTree();
+      }
+    });
+  };
+
   this.scan = () => {
     this.paths = new Set();
 
@@ -295,18 +314,7 @@ function Files (container, directory, options = {}) {
 
     this.scan();
 
-    this.watcher = fs.watch(directory, {
-      persistent: true,
-      recursive: true
-    });
-
-    this.watcher.on('change', (type, filename) => {
-      console.log('=watch', type, filename);
-      if (type === 'rename') {
-        this.scan();
-        this.emitTree();
-      }
-    });
+    this.watch();
   };
 }
 
