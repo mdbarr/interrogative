@@ -179,7 +179,6 @@ export default {
       console.log('focusing', this.focus, this.file.path);
 
       if (!this.file.binary) {
-        this.editor = true;
         this.image = false;
 
         const doc = this.asDocument(this.file);
@@ -190,7 +189,6 @@ export default {
           });
         }
       } else if (this.file.mime.startsWith('image')) {
-        this.editor = false;
         this.image = true;
 
         const image = this.asImage(this.file);
@@ -199,9 +197,14 @@ export default {
           this.$refs.image.removeChild(this.$refs.image.firstChild);
         }
 
+        this.$refs.image.style.width = `${ this.width }px`;
+        this.$refs.image.style.height = `${ this.height }px`;
+
+        image.style.objectFit = 'scale-down';
         image.style.width = `${ this.width }px`;
         image.style.height = `${ this.height }px`;
-        image.style.objectFit = 'scale-down';
+
+        console.log('height', this.height);
 
         this.$refs.image.appendChild(image);
       }
@@ -465,7 +468,13 @@ export default {
     margin-bottom: 24px;
 }
 .image-preview {
+    position: absolute;
+    top: 30px;
+    left: 0px;
     overflow: hidden;
     background-color: #222;
+    padding: 0px;
+    margin: 0px;
+    z-index: 20;
 }
 </style>

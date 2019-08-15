@@ -60,7 +60,7 @@
     </span>
   </v-app-bar>
 
-  <v-content>
+  <v-content color="#222">
     <v-container fluid fill-height class="ma-0 pl-0 main-area">
       <v-layout wrap>
         <v-flex xs12>
