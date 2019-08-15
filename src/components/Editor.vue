@@ -311,14 +311,16 @@ export default {
       this.content = this.instance.getValue();
       this.$emit('input', this.content);
 
-      this.$events.emit({
-        type: 'editor:document:change',
-        data: {
-          change,
-          content: document.getValue(),
-          user: this.state.user
-        }
-      });
+      if (!(change.origin && change.origin.endsWith('-event'))) {
+        this.$events.emit({
+          type: 'editor:document:change',
+          data: {
+            change,
+            content: document.getValue(),
+            user: this.state.user
+          }
+        });
+      }
     });
 
     for (const event of events) {
@@ -359,6 +361,16 @@ export default {
         cursor.flag.style.left = `${ cursor.element.offsetLeft }px`;
 
         console.log('marker', cursor.marker);
+      }
+    });
+
+    this.$events.on('editor:document:change', (event) => {
+      console.log('change', event);
+      if (event.data.user !== this.state.user) {
+        const change = event.data.change;
+        change.origin = `${ change.origin }-event`;
+
+        this.instance.replaceRange(change.text, change.from, change.to, change.origin);
       }
     });
   },
