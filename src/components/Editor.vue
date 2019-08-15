@@ -419,5 +419,6 @@ export default {
 }
 .image-preview {
     overflow: hidden;
+    background-color: #222;
 }
 </style>
