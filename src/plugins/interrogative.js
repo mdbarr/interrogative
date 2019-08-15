@@ -35,11 +35,12 @@ export default { install (Vue) {
     }
 
     console.log('opened', model.path);
-
-    $events.emit({
-      type: 'editor:tab:focus',
-      data: { path: model.path }
-    });
+    if (model.focus !== false) {
+      $events.emit({
+        type: 'editor:tab:focus',
+        data: { path: model.path }
+      });
+    }
   });
 
   $events.once('register', (event) => {

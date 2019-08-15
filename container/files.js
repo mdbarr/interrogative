@@ -23,6 +23,8 @@ function Files (container, directory, options = {}) {
 
   this.files = new Map();
 
+  this.focus = '';
+
   //////////
 
   this.open = (path) => {
@@ -42,7 +44,8 @@ function Files (container, directory, options = {}) {
         type: null,
         closeable: true,
         contents: null,
-        stat: null
+        stat: null,
+        focus: true
       };
 
       fs.stat(path, (error, stat) => {
@@ -241,7 +244,10 @@ function Files (container, directory, options = {}) {
     for (const [ , file ] of this.files) {
       container.events.emit({
         type: 'files:file:opened',
-        data: file
+        data: {
+          ...file,
+          focus: false
+        }
       });
     }
   };
@@ -251,9 +257,21 @@ function Files (container, directory, options = {}) {
     this.open(event.data.path);
   });
 
+  container.events.on('editor:tab:focus', (event) => {
+    this.focus = event.data.path;
+  });
+
   container.events.on('connected', (event) => {
     this.emitTree();
+
     this.emitFiles();
+
+    if (this.focus) {
+      container.events.emit({
+        type: 'editor:tab:focus',
+        data: { path: this.focus }
+      });
+    }
   });
 
   //////////
@@ -264,6 +282,9 @@ function Files (container, directory, options = {}) {
         path = join(directory, path);
       }
       this.open(path);
+      if (!this.focus) {
+        this.focus = path;
+      }
     }
 
     this.scan();
