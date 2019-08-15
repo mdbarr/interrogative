@@ -132,6 +132,8 @@ export default {
 
       cursors: {},
 
+      nodes: {},
+
       clean: true,
       content: '',
       fixable: false,
@@ -180,24 +182,9 @@ export default {
     },
     getCursor (user, coords) {
       if (!this.cursors[user]) {
-        const element = document.createElement('span');
-        element.style.borderLeftStyle = 'solid';
-        element.style.borderLeftWidth = '2px';
-        element.style.borderLeftColor = '#2C87AF';
-        element.style.height = '14px';
-        element.style.padding = 0;
-        element.style.zIndex = 0;
-
-        const flag = document.createElement('div');
+        const element = this.nodes.element.cloneNode();
+        const flag = this.nodes.flag.cloneNode();
         flag.innerHTML = user;
-        flag.style.position = 'absolute';
-        flag.style.zIndex = 100;
-        flag.style.backgroundColor = '#2C87AF';
-        flag.style.height = '14px';
-        flag.style.padding = '2px';
-        flag.style.lineHeight = '14px';
-        flag.style.textTransform = 'uppercase';
-
         element.appendChild(flag);
 
         this.cursors[user] = {
@@ -235,6 +222,30 @@ export default {
     }
   },
   mounted () {
+    // Cursor template elements
+    this.nodes.element = document.createElement('span');
+    this.nodes.element.style.borderLeftColor = '#2C87AF';
+    this.nodes.element.style.borderLeftStyle = 'solid';
+    this.nodes.element.style.borderLeftWidth = '2px';
+    this.nodes.element.style.height = '14px';
+    this.nodes.element.style.padding = 0;
+    this.nodes.element.style.zIndex = 0;
+
+    this.nodes.flag = document.createElement('div');
+    this.nodes.flag.style.backgroundColor = '#2C87AF';
+    this.nodes.flag.style.borderRadius = '3px 3px 3px 0px';
+    this.nodes.flag.style.fontSize = '12px';
+    this.nodes.flag.style.fontWeight = 700;
+    this.nodes.flag.style.height = '11px';
+    this.nodes.flag.style.lineHeight = '11px';
+    this.nodes.flag.style.padding = '2px 4px';
+    this.nodes.flag.style.position = 'absolute';
+    this.nodes.flag.style.textTransform = 'uppercase';
+    this.nodes.flag.style.top = '-14px';
+    this.nodes.flag.style.zIndex = 100;
+
+    //////////
+
     const vm = this;
     const events = [
       'beforeChange',
@@ -345,7 +356,6 @@ export default {
           cursor.marker.clear();
         }
         cursor.marker = this.instance.setBookmark(cursor.position, { widget: cursor.element });
-        cursor.flag.style.top = '-17px';
         cursor.flag.style.left = `${ cursor.element.offsetLeft }px`;
 
         console.log('marker', cursor.marker);
