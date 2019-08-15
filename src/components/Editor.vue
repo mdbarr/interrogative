@@ -134,8 +134,6 @@ export default {
 
       nodes: {},
 
-      document: null,
-
       clean: true,
       content: '',
       fixable: false,
@@ -184,11 +182,11 @@ export default {
         this.editor = true;
         this.image = false;
 
-        this.document = this.asDocument(this.file);
+        const doc = this.asDocument(this.file);
 
-        if (this.instance.getDoc().id !== this.document.id) {
+        if (this.instance.getDoc().id !== doc.id) {
           this.$nextTick(() => { // ensure editor is shown
-            this.instance.swapDoc(this.document);
+            this.instance.swapDoc(doc);
           });
         }
       } else if (this.file.mime.startsWith('image')) {
@@ -325,17 +323,17 @@ export default {
     this.app = document.getElementById('app');
     window.addEventListener('resize', this.resize);
 
-    this.instance.on('cursorActivity', (document) => {
+    this.instance.on('cursorActivity', (doc) => {
       this.$events.emit({
         type: 'editor:cursor:activity',
         data: {
-          position: document.getCursor(),
+          position: doc.getCursor(),
           user: this.state.user
         }
       });
     });
 
-    this.instance.on('change', (document, change) => {
+    this.instance.on('change', (doc, change) => {
       this.content = this.instance.getValue();
       this.$emit('input', this.content);
 
@@ -344,7 +342,7 @@ export default {
           type: 'editor:document:change',
           data: {
             change,
-            content: document.getValue(),
+            content: doc.getValue(),
             user: this.state.user
           }
         });
