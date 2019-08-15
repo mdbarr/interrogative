@@ -134,6 +134,8 @@ export default {
 
       nodes: {},
 
+      document: null,
+
       clean: true,
       content: '',
       fixable: false,
@@ -144,32 +146,61 @@ export default {
     };
   },
   methods: {
-    setFocus (path) {
-      this.focus = path;
-      this.file = this.state.files[path];
+    asDocument (file) {
+      if (!this.state.documents.has(file.path)) {
+        const doc = CodeMirror.Doc(file.contents, file.mime);
+        this.state.documents.set(file.path, doc);
 
-      if (!this.file.binary) {
-        this.instance.setOption('mode', this.file.mime);
-        this.instance.setValue(this.file.contents);
-        this.editor = true;
-      } else if (this.file.mime.startsWith('image')) {
-        this.editor = false;
-        this.image = true;
-
-        const data = this.file.contents;
+        return doc;
+      }
+      return this.state.documents.get(file.path);
+    },
+    asImage (file) {
+      if (!this.state.images.has(file.path)) {
+        const data = file.contents;
         const bytes = new Uint8Array(data.length / 2);
 
         for (let i = 0; i < data.length; i += 2) {
-          bytes[i / 2] = parseInt(data.substring(i, i + 2), /* base = */ 16);
+          bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
         }
-        const blob = new Blob([ bytes ], { type: this.file.mime });
+        const blob = new Blob([ bytes ], { type: file.mime });
 
         const image = new Image();
         image.src = URL.createObjectURL(blob);
 
+        this.state.images.set(file.path, image);
+
+        return image;
+      }
+      return this.state.images.get(file.path);
+    },
+    setFocus (path) {
+      this.focus = path;
+      this.file = this.state.files[path];
+
+      console.log('focusing', this.focus, this.file.path);
+
+      if (!this.file.binary) {
+        this.editor = true;
+        this.image = false;
+
+        this.document = this.asDocument(this.file);
+
+        if (this.instance.getDoc().id !== this.document.id) {
+          this.$nextTick(() => { // ensure editor is shown
+            this.instance.swapDoc(this.document);
+          });
+        }
+      } else if (this.file.mime.startsWith('image')) {
+        this.editor = false;
+        this.image = true;
+
+        const image = this.asImage(this.file);
+
         while (this.$refs.image.hasChildNodes()) {
           this.$refs.image.removeChild(this.$refs.image.firstChild);
         }
+
         image.style.width = `${ this.width }px`;
         image.style.height = `${ this.height }px`;
         image.style.objectFit = 'scale-down';

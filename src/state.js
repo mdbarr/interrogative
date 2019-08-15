@@ -6,7 +6,9 @@ function State () {
 
   this.focus = '';
   this.files = {};
+
   this.documents = new Map();
+  this.images = new Map();
 
   this.loading = false;
 
