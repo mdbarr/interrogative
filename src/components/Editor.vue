@@ -208,13 +208,16 @@ export default {
       }
     },
     getCursor (user, coords) {
-      if (!this.cursors[user]) {
+      const id = this.instance.getDoc().id;
+      if (!this.cursors[user] || !this.cursors[user][id]) {
         const element = this.nodes.element.cloneNode();
         const flag = this.nodes.flag.cloneNode();
         flag.innerHTML = user;
         element.appendChild(flag);
 
-        this.cursors[user] = {
+        this.cursors[user] = this.cursors[user] || { };
+
+        this.cursors[user][id] = {
           user,
           element,
           flag,
@@ -222,7 +225,7 @@ export default {
           marker: null
         };
       }
-      return this.cursors[user];
+      return this.cursors[user][id];
     },
     fix () {
       const cursor = this.instance.getCursor();
@@ -262,6 +265,7 @@ export default {
     this.nodes.flag = document.createElement('div');
     this.nodes.flag.style.backgroundColor = '#2C87AF';
     this.nodes.flag.style.borderRadius = '3px 3px 3px 0px';
+    this.nodes.flag.style.color = 'white';
     this.nodes.flag.style.fontSize = '12px';
     this.nodes.flag.style.fontWeight = 700;
     this.nodes.flag.style.height = '11px';
@@ -270,7 +274,7 @@ export default {
     this.nodes.flag.style.position = 'absolute';
     this.nodes.flag.style.textShadow = 'none';
     this.nodes.flag.style.textTransform = 'uppercase';
-    this.nodes.flag.style.top = '-14px';
+    this.nodes.flag.style.top = '-12px';
     this.nodes.flag.style.zIndex = 100;
 
     //////////
