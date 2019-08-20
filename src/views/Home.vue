@@ -3,10 +3,13 @@
   <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
     <v-tabs vertical dark slider-color="white" slider-size="2">
       <v-tab class="white--text">
-        <v-icon left>mdi-information-outline</v-icon>
+        <v-icon left>mdi-account-multiple</v-icon>
       </v-tab>
       <v-tab class="white--text">
         <v-icon left>mdi-folder</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-file-search</v-icon>
       </v-tab>
       <v-tab class="white--text" v-if="state.config.container.git.enabled">
         <v-icon left>mdi-source-branch</v-icon>
@@ -14,11 +17,14 @@
       <v-tab class="white--text">
         <v-icon left>mdi-note</v-icon>
       </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-settings</v-icon>
+      </v-tab>
 
       <v-tab-item v-if="!mini">
         <v-card flat>
           <v-card-text class="white--text">
-            Information
+            Interview
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -27,6 +33,14 @@
         <v-card flat class="ma-0 pa-0">
           <v-card-text class="white--text ma-1 pa-0">
             <FileTree></FileTree>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <v-tab-item v-if="!mini">
+        <v-card flat>
+          <v-card-text class="white--text">
+            Search
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -43,6 +57,14 @@
         <v-card flat>
           <v-card-text class="white--text">
             Notes
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+
+      <v-tab-item v-if="!mini">
+        <v-card flat>
+          <v-card-text class="white--text">
+            Settings
           </v-card-text>
         </v-card>
       </v-tab-item>
