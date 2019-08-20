@@ -4,8 +4,10 @@ const fs = require('fs');
 const dree = require('dree');
 const mime = require('mime');
 const { join } = require('path');
-const { merge } = require('barrkeep/utils');
 const chokidar = require('chokidar');
+const {
+  debounce, merge
+} = require('barrkeep/utils');
 
 const defaults = {
   stat: false,
@@ -28,6 +30,43 @@ function Files (container, directory, options = {}) {
 
   //////////
 
+  this.read = (model, callback) => {
+    fs.readFile(model.path, (error, data) => {
+      if (error) {
+        container.events.emit({
+          type: 'error',
+          data: error
+        });
+      } else {
+        model.binary = false;
+
+        for (let i = 0; i < data.length; i++) {
+          if (data[i] > 127) {
+            model.binary = true;
+            break;
+          }
+        }
+
+        if (model.binary) {
+          model.contents = data.toString('hex');
+        } else {
+          model.contents = data.toString();
+        }
+
+        callback(model);
+      }
+    });
+  };
+
+  this.update = (model) => {
+    this.read(model, () => {
+      container.events.emit({
+        type: 'editor:document:update',
+        data: model
+      });
+    });
+  };
+
   this.open = (path) => {
     if (this.files.has(path)) {
       container.events.emit({
@@ -46,7 +85,8 @@ function Files (container, directory, options = {}) {
         closeable: true,
         contents: null,
         stat: null,
-        focus: true
+        focus: true,
+        saving: false
       };
 
       fs.stat(path, (error, stat) => {
@@ -73,35 +113,29 @@ function Files (container, directory, options = {}) {
 
           this.setAttributes(model);
 
-          fs.readFile(path, (error, data) => {
-            if (error) {
-              container.events.emit({
-                type: 'error',
-                data: error
-              });
-            } else {
-              model.binary = false;
+          this.read(model, () => {
+            Object.defineProperty(model, 'save', {
+              value: debounce(() => {
+                console.log('*saving', model.path);
+                model.saving = true;
+                fs.writeFile(model.path, model.contents, () => {
+                  // ensure no more processing
+                  process.nextTick(() => {
+                    model.saving = false;
+                  });
+                });
+              }, 500),
+              enumerable: false,
+              writable: false,
+              configurable: false
+            });
 
-              for (let i = 0; i < data.length; i++) {
-                if (data[i] > 127) {
-                  model.binary = true;
-                  break;
-                }
-              }
+            this.files.set(path, model);
 
-              if (model.binary) {
-                model.contents = data.toString('hex');
-              } else {
-                model.contents = data.toString();
-              }
-
-              this.files.set(path, model);
-
-              container.events.emit({
-                type: 'files:file:opened',
-                data: model
-              });
-            }
+            container.events.emit({
+              type: 'files:file:opened',
+              data: model
+            });
           });
         }
       });
@@ -228,7 +262,7 @@ function Files (container, directory, options = {}) {
     if (item.name.includes('eslint')) { // special cases
       item.color = '#8080F2';
       item.icon = 'eslint';
-    } else if(item.name.endsWith('.js.map')) {
+    } else if (item.name.endsWith('.js.map')) {
       item.mime = 'text/javascript';
       item.color = '#F0DB4F';
       item.icon = 'language-javascript';
@@ -248,7 +282,15 @@ function Files (container, directory, options = {}) {
 
     this.watcher.on('all', (type, filename) => {
       console.log('=watch', type, filename);
-      if (type !== 'change') {
+      if (type === 'change') {
+        if (this.files.has(filename)) {
+          console.log('*ext-change', filename);
+          const file = this.files.get(filename);
+          if (!file.saving) {
+            this.update(file);
+          }
+        }
+      } else {
         this.scan();
         this.emitTree();
       }
@@ -266,9 +308,8 @@ function Files (container, directory, options = {}) {
           return -1;
         } else if (a.name > b.name) {
           return 1;
-        } else {
-          return 0;
         }
+        return 0;
       });
       for (const child of item.children) {
         this.sort(child);
@@ -324,6 +365,15 @@ function Files (container, directory, options = {}) {
   container.events.on('files:file:closed', (event) => {
     if (this.files.has(event.data.path)) {
       this.files.delete(event.data.path);
+    }
+  });
+
+  container.events.on('editor:document:change', (event) => {
+    if (this.files.has(event.data.path)) {
+      const file = this.files.get(event.data.path);
+      file.contents = event.data.contents;
+      console.log('*update', event.data.path, file.contents.length);
+      file.save();
     }
   });
 

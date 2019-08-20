@@ -324,8 +324,9 @@ export default {
         this.$events.emit({
           type: 'editor:document:change',
           data: {
+            path: this.file.path,
             change,
-            content: doc.getValue(),
+            contents: doc.getValue(),
             user: this.state.user
           }
         });
