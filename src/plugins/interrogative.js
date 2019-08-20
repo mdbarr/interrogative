@@ -47,6 +47,12 @@ export default { install (Vue) {
     }
   });
 
+  $events.on('files:file:updated', (event) => {
+    const model = event.data;
+    const file = state.files[model.path];
+    Object.assign(file, model);
+  });
+
   $events.on('files:file:closed', (event) => {
     if (state.files[event.data.path]) {
       delete state.files[event.data.path];

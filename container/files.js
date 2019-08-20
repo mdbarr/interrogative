@@ -61,7 +61,7 @@ function Files (container, directory, options = {}) {
   this.update = (model) => {
     this.read(model, () => {
       container.events.emit({
-        type: 'editor:document:update',
+        type: 'files:file:updated',
         data: model
       });
     });

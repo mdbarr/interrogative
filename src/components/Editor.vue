@@ -320,7 +320,9 @@ export default {
     });
 
     this.instance.on('change', (doc, change) => {
-      if (!(change.origin && change.origin.endsWith('-event'))) {
+      if (this.file.updating === true) {
+        this.file.updating = false;
+      } else if (!(change.origin && change.origin.endsWith('-event'))) {
         this.$events.emit({
           type: 'editor:document:change',
           data: {
@@ -413,6 +415,18 @@ export default {
             this.hasSelection = true;
           }
         }
+      }
+    });
+
+    this.$events.on('files:file:updated', (event) => {
+      const path = event.data.path;
+      const file = state.files[path];
+      if (this.state.documents.has(file.path)) {
+        const doc = this.state.documents.get(file.path);
+        if (this.focus === path) {
+          file.updating = true;
+        }
+        doc.setValue(file.contents);
       }
     });
 
