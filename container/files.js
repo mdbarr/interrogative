@@ -228,6 +228,10 @@ function Files (container, directory, options = {}) {
     if (item.name.includes('eslint')) { // special cases
       item.color = '#8080F2';
       item.icon = 'eslint';
+    } else if(item.name.endsWith('.js.map')) {
+      item.mime = 'text/javascript';
+      item.color = '#F0DB4F';
+      item.icon = 'language-javascript';
     }
 
     item.icon = `mdi-${ item.icon }`;

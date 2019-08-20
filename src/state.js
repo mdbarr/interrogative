@@ -1,5 +1,8 @@
 function State () {
   this.config = require('../defaults');
+  this.settings = require('./settings');
+  this.theme = 'argonaut';
+  this.keymap = 'default';
 
   this.tree = [];
   this.treeOpen = [];

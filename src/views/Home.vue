@@ -64,7 +64,7 @@
       <v-tab-item v-if="!mini">
         <v-card flat>
           <v-card-text class="white--text">
-            Settings
+            <Settings></Settings>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -120,6 +120,7 @@ import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Git from '../components/Git';
+import Settings from '../components/Settings';
 import Terminal from '../components/Terminal';
 import state from '../state';
 
@@ -130,6 +131,7 @@ export default {
     FileTabs,
     FileTree,
     Git,
+    Settings,
     Terminal
   },
   data: () => {

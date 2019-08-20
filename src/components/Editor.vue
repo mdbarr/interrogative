@@ -1,7 +1,7 @@
 <template>
 <div class="interrogative-editor-container" ref="container">
   <div ref="editor" v-show="editor">
-    <textarea ref="textarea" :placeholder="placeholder"></textarea>
+    <textarea ref="textarea"></textarea>
   </div>
   <div ref="image" v-show="image" class="image-preview"></div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
@@ -91,6 +91,12 @@ import state from '../state';
 export default {
   name: 'editor',
   computed: {
+    theme () {
+      return state.theme;
+    },
+    keymap () {
+      return state.keymap;
+    },
     fullscreenIcon () {
       let icon = 'interrogative-editor-clickable mdi mdi-fullscreen';
       if (this.fullscreen) {
@@ -280,7 +286,7 @@ export default {
         'CodeMirror-linenumbers',
         'CodeMirror-foldgutter'
       ],
-      keyMap: 'emacs',
+      keyMap: this.state.keymap,
       lineNumbers: true,
       lineWrapping: true,
       lint: true,
@@ -293,7 +299,7 @@ export default {
       smartIndent: true,
       styleActiveLine: true,
       tabSize: 2,
-      theme: 'bespin'
+      theme: this.state.theme
     });
 
     this.instance.vue = this;
@@ -406,6 +412,14 @@ export default {
   },
   destroyed () {
     window.removeEventListener('resize', this.resize);
+  },
+  watch: {
+    theme (value) {
+      this.instance.setOption('theme', value);
+    },
+    keymap (value) {
+      this.instance.setOption('keyMap', value);
+    }
   }
 };
 </script>

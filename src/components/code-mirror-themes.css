@@ -122,7 +122,7 @@
 	font-family: inconsolata, monospace;
 	letter-spacing: 0.3px;
 	word-spacing: 1px;
-	background: #151515;
+	background: #222;
 	color: #B2B2B2;
 }
 .cm-s-argonaut .CodeMirror-lines {
@@ -131,7 +131,7 @@
 .cm-s-argonaut .CodeMirror-gutters {
 	box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
-	background-color: #151515;
+	background-color: #222;
 	padding-right: 10px;
 	z-index: 3;
 	border: none;
