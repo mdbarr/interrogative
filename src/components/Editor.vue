@@ -90,14 +90,6 @@ import state from '../state';
 
 export default {
   name: 'editor',
-  props: {
-    code: String,
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    value: String
-  },
   computed: {
     fullscreenIcon () {
       let icon = 'interrogative-editor-clickable mdi mdi-fullscreen';
@@ -279,26 +271,6 @@ export default {
 
     //////////
 
-    const vm = this;
-    const events = [
-      'beforeChange',
-      'beforeSelectionChange',
-      'blur',
-      'changes',
-      'cursorActivity',
-      'electricInput',
-      'focus',
-      'gutterClick',
-      'gutterContextMenu',
-      'keyHandled',
-      'optionChange',
-      'refresh',
-      'scroll',
-      'scrollCursorIntoView',
-      'update',
-      'viewportChange'
-    ];
-
     this.instance = CodeMirror.fromTextArea(this.$refs.textarea, {
       autoCloseBrackets: true,
       autoCloseTags: true,
@@ -325,7 +297,6 @@ export default {
     });
 
     this.instance.vue = this;
-    this.instance.setValue(this.code || this.value || this.content);
 
     this.app = document.getElementById('app');
     window.addEventListener('resize', this.resize);
@@ -341,9 +312,6 @@ export default {
     });
 
     this.instance.on('change', (doc, change) => {
-      this.content = this.instance.getValue();
-      this.$emit('input', this.content);
-
       if (!(change.origin && change.origin.endsWith('-event'))) {
         this.$events.emit({
           type: 'editor:document:change',
@@ -370,13 +338,6 @@ export default {
         });
       }
     });
-
-    for (const event of events) {
-      vm.instance.on(event, (...args) => {
-        const eventName = event.replace(/([A-Z])/g, '-$1').toLowerCase();
-        vm.$emit(eventName, ...args);
-      });
-    }
 
     this.panel = document.getElementById('interrogative-editor-panel');
 
