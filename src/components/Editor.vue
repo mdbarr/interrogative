@@ -130,6 +130,8 @@ export default {
 
       nodes: {},
 
+      hasSelection: false,
+
       clean: true,
       content: '',
       fixable: false,
@@ -395,7 +397,20 @@ export default {
         selection.origin = `${ selection.origin }-event`;
 
         if (Array.isArray(selection.ranges) && selection.ranges.length) {
-          this.instance.setSelections(selection.ranges, 0, { origin: selection.origin });
+          const {
+            anchor, head
+          } = selection.ranges[0];
+
+          if (anchor.ch === head.ch && anchor.line === head.line &&
+              anchor.sticky === head.sticky && anchor.xRel === head.xRel) {
+            if (this.hasSelection) {
+              this.instance.setSelections(selection.ranges, 0, { origin: selection.origin });
+              this.hasSelection = false;
+            }
+          } else {
+            this.instance.setSelections(selection.ranges, 0, { origin: selection.origin });
+            this.hasSelection = true;
+          }
         }
       }
     });
