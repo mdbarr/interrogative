@@ -1,6 +1,6 @@
 <template>
 <div id="file-tree" class="ma-0 pa-0">
-  <v-treeview dense hoverable open-all :items="state.tree" :open.sync="state.treeOpen" item-key="path" class="subtitle ma-0 pa-0">
+  <v-treeview dense hoverable :items="state.tree" :open.sync="state.treeOpen" item-key="path" class="subtitle ma-0 pa-0">
     <template v-slot:prepend="{ item, open }">
       <v-icon v-if="item.type === 'directory'" small color="amber lighten-1" class="clickable">
         {{ open ? 'mdi-folder-open' : 'mdi-folder' }}

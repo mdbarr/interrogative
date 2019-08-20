@@ -255,6 +255,27 @@ function Files (container, directory, options = {}) {
     });
   };
 
+  this.sort = (item) => {
+    if (item.type === 'directory' && item.children) {
+      item.children.sort((a, b) => {
+        if (a.type < b.type) {
+          return -1;
+        } else if (a.type > b.type) {
+          return 1;
+        } else if (a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      for (const child of item.children) {
+        this.sort(child);
+      }
+    }
+  };
+
   this.scan = () => {
     this.paths = new Set();
 
@@ -264,6 +285,8 @@ function Files (container, directory, options = {}) {
     }, (element) => {
       this.paths.add(element.path);
     });
+
+    this.sort(this.tree);
 
     return this.tree;
   };
