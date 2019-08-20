@@ -356,6 +356,21 @@ export default {
       }
     });
 
+    this.instance.on('beforeSelectionChange', (doc, selection) => {
+      if (!(selection.origin && selection.origin.endsWith('-event'))) {
+        this.$events.emit({
+          type: 'editor:selection:change',
+          data: {
+            selection: {
+              ranges: selection.ranges,
+              origin: 'cursor'
+            },
+            user: this.state.user
+          }
+        });
+      }
+    });
+
     for (const event of events) {
       vm.instance.on(event, (...args) => {
         const eventName = event.replace(/([A-Z])/g, '-$1').toLowerCase();
@@ -403,6 +418,18 @@ export default {
         change.origin = `${ change.origin }-event`;
 
         this.instance.replaceRange(change.text, change.from, change.to, change.origin);
+      }
+    });
+
+    this.$events.on('editor:selection:change', (event) => {
+      console.log('selection', event);
+      if (event.data.user !== this.state.user) {
+        const selection = event.data.selection;
+        selection.origin = `${ selection.origin }-event`;
+
+        if (Array.isArray(selection.ranges) && selection.ranges.length) {
+          this.instance.setSelections(selection.ranges, 0, { origin: selection.origin });
+        }
       }
     });
 
