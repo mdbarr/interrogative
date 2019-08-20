@@ -6,6 +6,11 @@ module.exports = {
     home: process.env.INTERROGATIVE_HOME || process.env.HOME,
     open: [
       'README.md'
-    ]
+    ],
+    git: {
+      enabled: true,
+      repository: process.env.INTERROGATIVE_HOME || process.env.HOME,
+      limit: 100
+    }
   }
 };

@@ -8,7 +8,7 @@
       <v-tab class="white--text">
         <v-icon left>mdi-folder</v-icon>
       </v-tab>
-      <v-tab class="white--text">
+      <v-tab class="white--text" v-if="state.config.container.git.enabled">
         <v-icon left>mdi-source-branch</v-icon>
       </v-tab>
       <v-tab class="white--text">
@@ -31,10 +31,10 @@
         </v-card>
       </v-tab-item>
 
-      <v-tab-item v-if="!mini">
+      <v-tab-item v-if="!mini && state.config.container.git.enabled">
         <v-card flat>
           <v-card-text class="white--text">
-            Git
+            <Git></Git>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -97,6 +97,7 @@
 import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
+import Git from '../components/Git';
 import Terminal from '../components/Terminal';
 import state from '../state';
 
@@ -106,6 +107,7 @@ export default {
     Editor,
     FileTabs,
     FileTree,
+    Git,
     Terminal
   },
   data: () => {

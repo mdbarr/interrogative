@@ -21,6 +21,7 @@ function Container (options = {}) {
   //////////
 
   this.files = require('./files')(this, this.config.container.home);
+  this.git = require('./git')(this, this.config.container.git);
 
   //////////
 
@@ -162,6 +163,7 @@ function Container (options = {}) {
 
   this.start = (callback) => {
     this.files.start();
+    this.git.start();
 
     this.api.listen(this.config.container.port, this.config.container.host, () => {
       const address = this.api.address();

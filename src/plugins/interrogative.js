@@ -20,6 +20,10 @@ export default { install (Vue) {
   const $events = new events.EventBus();
   Vue.prototype.$events = $events;
 
+  $events.on('git:repository:svg', (event) => {
+    state.gitSVG = event.data;
+  });
+
   $events.on('files:tree:update', (event) => {
     Vue.set(state.tree, 0, event.data);
     Vue.set(state.treeOpen, 0, event.data.path);

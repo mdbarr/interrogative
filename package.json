@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@mdbarr/events": "^0.1.0",
+    "@mdbarr/griff": "^0.1.0",
     "axios": "^0.19.0",
     "barrkeep": "^2.2.5",
     "chokidar": "^3.0.2",
