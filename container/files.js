@@ -291,6 +291,15 @@ function Files (container, directory, options = {}) {
           }
         }
       } else {
+        if (type === 'unlink') {
+          if (this.files.has(filename)) {
+            container.events.emit({
+              type: 'files:file:closed',
+              data: { path: filename }
+            });
+          }
+        }
+
         this.scan();
         this.emitTree();
       }
