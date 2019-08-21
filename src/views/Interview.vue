@@ -1,5 +1,5 @@
 <template>
-<div id="home">
+<div id="interview">
   <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
     <v-tabs vertical dark slider-color="white" slider-size="2">
       <v-tab class="white--text">
@@ -130,7 +130,7 @@ import Terminal from '../components/Terminal';
 import state from '../state';
 
 export default {
-  name: 'home',
+  name: 'interview',
   components: {
     Editor,
     FileTabs,
