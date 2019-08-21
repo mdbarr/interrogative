@@ -36,8 +36,10 @@
     "keypairs": []
   },
   "state": {
+    "path": null,
     "container": {
       "id": null,
+      "ip": null,
       "running": false
     },
     "volume": null
