@@ -1,5 +1,9 @@
 module.exports = {
   name: 'Interrogative',
+  manager: {
+    port: 1312,
+    host: '0.0.0.0'
+  },
   container: {
     port: 1311,
     host: '0.0.0.0',
