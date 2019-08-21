@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js lib/**/*.js",
+    "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
     "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
