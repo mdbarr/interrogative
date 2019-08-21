@@ -39,9 +39,4 @@ RUN apt-get update && \
         apt-get install -y nodejs yarn && \
         apt-get autoremove && \
         apt-get clean && \
-        rm -rf /var/lib/apt/lists/* && \
-        useradd -m -d /home/user user
-
-USER user
-WORKDIR /home/user
-CMD [ "/bin/bash" ]
+        rm -rf /var/lib/apt/lists/*
