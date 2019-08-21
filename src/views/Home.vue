@@ -112,6 +112,11 @@
   <v-footer color="#333" app dark height="24" class="subtitle-2 pa-0 ma-0">
     <span class="pl-2">&copy; 2019</span>
   </v-footer>
+
+  <v-snackbar v-model="snackbar" top color="success" timeout="5000">
+    {{ snackbarMessage }}
+    <v-btn icon @click="snackbar = false"><v-icon>mdi-close</v-icon></v-btn>
+  </v-snackbar>
 </div>
 </template>
 
@@ -150,12 +155,21 @@ export default {
         type: 'message',
         icon: 'forum',
         closeable: false
-      } ]
+      } ],
+      snackbar: false,
+      snackbarMessage: ''
     };
   },
   methods: { },
   mounted () {
     this.connection = this.$connect();
+
+    this.$events.on('connected', (event) => {
+      if (event.data.user !== this.state.user) {
+        this.snackbarMessage = `${ event.data.user } joined`;
+        this.snackbar = true;
+      }
+    });
   },
   destroyed () { }
 };
