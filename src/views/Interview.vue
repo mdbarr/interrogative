@@ -113,7 +113,7 @@
     <span class="pl-2">&copy; 2019</span>
   </v-footer>
 
-  <v-snackbar v-model="snackbar" top color="success" timeout=5000>
+  <v-snackbar v-model="snackbar" top color="success">
     {{ snackbarMessage }}
     <v-btn icon @click="snackbar = false"><v-icon>mdi-close</v-icon></v-btn>
   </v-snackbar>
