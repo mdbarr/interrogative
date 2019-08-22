@@ -3,7 +3,8 @@ module.exports = {
   manager: {
     port: 1311,
     host: '0.0.0.0',
-    interviews: './interviews'
+    storage: '/interrogative/interviews',
+    bootstrap: true
   },
   metadata: {
     port: 1312,
@@ -11,15 +12,6 @@ module.exports = {
   },
   container: {
     port: 1313,
-    host: '0.0.0.0',
-    home: process.env.INTERROGATIVE_HOME || process.env.HOME,
-    open: [
-      'README.md'
-    ],
-    git: {
-      enabled: true,
-      repository: process.env.INTERROGATIVE_HOME || process.env.HOME,
-      limit: 100
-    }
+    host: '0.0.0.0'
   }
 };
