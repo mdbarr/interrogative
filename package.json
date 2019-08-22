@@ -18,6 +18,7 @@
     "code-mirror-themes": "^1.0.0",
     "codemirror": "^5.48.4",
     "core-js": "^2.6.5",
+    "dockerode": "^2.5.8",
     "dree": "^2.1.10",
     "mime": "^2.4.4",
     "node-pty": "^0.8.1",

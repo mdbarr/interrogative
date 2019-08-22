@@ -4,7 +4,8 @@ module.exports = {
     port: 1311,
     host: '0.0.0.0',
     storage: '/interrogative/interviews',
-    bootstrap: true
+    bootstrap: true,
+    engine: { socketPath: '/var/run/docker.sock' }
   },
   metadata: {
     port: 1312,
