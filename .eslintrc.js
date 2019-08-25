@@ -135,6 +135,9 @@ module.exports = {
     'semi': [ 'error', 'always' ],
     'spaced-comment': [ 'error', 'always', { 'exceptions': [ '/' ] } ],
     'space-before-blocks': 'error',
+    'space-before-function-paren': [ 'error', {
+      'anonymous': 'ignore', 'named': 'always'
+    } ],
     'space-infix-ops': 'error',
     'strict': 'error',
     'template-curly-spacing': [ 'error', 'always' ],
