@@ -11,7 +11,7 @@
       <v-tab class="white--text">
         <v-icon left>mdi-file-search</v-icon>
       </v-tab>
-      <v-tab class="white--text" v-if="state.config.container.git.enabled">
+      <v-tab class="white--text" v-if="state.interview.git">
         <v-icon left>mdi-source-branch</v-icon>
       </v-tab>
       <v-tab class="white--text">
@@ -162,7 +162,7 @@ export default {
   },
   methods: { },
   mounted () {
-    this.connection = this.$connect();
+    this.connection = this.$connect(this.$route.params.id);
 
     this.$events.on('connected', (event) => {
       if (event.data.user !== this.state.user) {

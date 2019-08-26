@@ -17,6 +17,8 @@ function State () {
 
   this.session = false;
 
+  this.interviewId = '';
+
   this.id = '';
   this.user = '';
   this.role = 'user';

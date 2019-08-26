@@ -1,0 +1,14 @@
+version: '3.6'
+
+networks:
+  default:
+    name: interrogative_network
+
+services:
+  manager:
+    image: interrogative-manager:latest
+    container_name: interrogative-manager
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+       - 1311:1311

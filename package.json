@@ -2,13 +2,6 @@
   "name": "interrogative",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
-    "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
   "dependencies": {
     "@mdbarr/events": "^0.1.0",
     "@mdbarr/griff": "^0.1.0",
@@ -44,5 +37,12 @@
     "node-sass": "^4.9.0",
     "sass-loader": "^7.3.1",
     "vue-template-compiler": "^2.6.10"
+  },
+  "scripts": {
+    "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
+    "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   }
 }

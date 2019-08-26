@@ -114,7 +114,7 @@ export default { install (Vue) {
   };
 
   Vue.prototype.$socket = function (urlFragment) {
-    const url = `${ websocketURL }${ urlFragment }`.replace(/(\/+)/, '/');
+    const url = `${ websocketURL }/${ state.interviewId }${ urlFragment }`.replace(/(\/+)/, '/');
     const socket = new WebSocket(url);
 
     socket.interval = setInterval(() => {
@@ -135,8 +135,10 @@ export default { install (Vue) {
     return socket;
   };
 
-  Vue.prototype.$connect = function () {
-    const socket = this.$socket('/attach/main');
+  Vue.prototype.$connect = function (id) {
+    state.interviewId = id;
+
+    const socket = this.$socket('/main');
 
     $events.on('*', (event) => {
       if (event.origin === $events.id && event.type !== 'register') {
