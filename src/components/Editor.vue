@@ -207,12 +207,12 @@ export default {
         this.$refs.image.appendChild(image);
       }
     },
-    getCursor (user, coords) {
+    getCursor (user, name) {
       const id = this.instance.getDoc().id;
       if (!this.cursors[user] || !this.cursors[user][id]) {
         const element = this.nodes.element.cloneNode();
         const flag = this.nodes.flag.cloneNode();
-        flag.innerHTML = user;
+        flag.innerHTML = name;
         element.appendChild(flag);
 
         this.cursors[user] = this.cursors[user] || { };
@@ -314,7 +314,8 @@ export default {
         type: 'editor:cursor:activity',
         data: {
           position: doc.getCursor(),
-          user: this.state.user
+          user: this.state.user,
+          name: this.state.name
         }
       });
     });
@@ -329,7 +330,8 @@ export default {
             path: this.file.path,
             change,
             contents: doc.getValue(),
-            user: this.state.user
+            user: this.state.user,
+            name: this.state.name
           }
         });
       }
@@ -344,7 +346,8 @@ export default {
               ranges: selection.ranges,
               origin: 'cursor'
             },
-            user: this.state.user
+            user: this.state.user,
+            name: this.state.name
           }
         });
       }
@@ -371,7 +374,7 @@ export default {
     this.$events.on('editor:cursor:activity', (event) => {
       console.log('cursor', event);
       if (event.data.user !== this.state.user) {
-        const cursor = this.getCursor(event.data.user);
+        const cursor = this.getCursor(event.data.user, event.data.name);
         cursor.position = event.data.position;
         if (cursor.marker) {
           cursor.marker.clear();

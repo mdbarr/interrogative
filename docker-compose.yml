@@ -2,7 +2,7 @@ version: '3.6'
 
 networks:
   default:
-    name: interrogative_network
+    name: interrogative
 
 services:
   manager:

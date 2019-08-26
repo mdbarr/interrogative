@@ -3,7 +3,9 @@ WORKDIR /interrogative
 COPY package.json yarn.lock ./
 RUN yarn --silent install
 COPY . .
-RUN yarn build
+RUN yarn build && \
+        rm -rf node_modules && \
+        yarn --silent install --production
 
 FROM node:10-alpine
 WORKDIR /interrogative

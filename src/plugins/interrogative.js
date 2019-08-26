@@ -62,15 +62,17 @@ export default { install (Vue) {
   $events.once('register', (event) => {
     $events.id = event.data.id;
 
-    state.id = event.data.id;
-    state.user = event.data.user;
+    state.user = event.data.id;
+    state.name = event.data.name;
     state.role = event.data.role || 'user';
+
+    console.log(event.data);
 
     $events.emit({
       type: 'connected',
       data: {
-        id: state.id,
         user: state.user,
+        name: state.name,
         role: state.role
       }
     });
@@ -114,7 +116,7 @@ export default { install (Vue) {
   };
 
   Vue.prototype.$socket = function (urlFragment) {
-    const url = `${ websocketURL }/${ state.interviewId }${ urlFragment }`.replace(/(\/+)/, '/');
+    const url = `${ websocketURL }${ state.id }${ urlFragment }`.replace(/(\/+)/, '/');
     const socket = new WebSocket(url);
 
     socket.interval = setInterval(() => {
@@ -136,8 +138,6 @@ export default { install (Vue) {
   };
 
   Vue.prototype.$connect = function (id) {
-    state.interviewId = id;
-
     const socket = this.$socket('/main');
 
     $events.on('*', (event) => {

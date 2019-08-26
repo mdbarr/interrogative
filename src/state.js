@@ -1,5 +1,7 @@
 function State () {
   this.ready = false;
+  this.id = '';
+  this.interview = {};
 
   this.config = require('../defaults');
   this.settings = require('./settings');
@@ -19,10 +21,8 @@ function State () {
 
   this.session = false;
 
-  this.interviewId = '';
-
-  this.id = '';
   this.user = '';
+  this.name = '';
   this.role = 'user';
 
   this.gitSVG = '';

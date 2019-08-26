@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Interview from './views/Interview.vue';
 
 Vue.use(Router);
 
@@ -11,7 +10,7 @@ export default new Router({
     {
       path: '/interview/:id',
       name: 'interview',
-      component: Interview
+      component: () => { return import('./views/Interview.vue'); }
     }
   ]
 });
