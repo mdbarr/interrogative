@@ -11,9 +11,25 @@
     </template>
 
     <template v-slot:label="{ item }">
-      <div @click.stop="open(item)" class="caption clickable">{{ item.name }}</div>
+      <div @click.stop="open(item)" @contextmenu.prevent="showMenu($event, item)" class="caption clickable">
+        {{ item.name }}
+      </div>
     </template>
   </v-treeview>
+  <v-menu v-model="menu" :position-x="menuX" :position-y="menuY" class="ma-0 pa-0">
+    <v-list dense class="ma-0 pa-0">
+      <v-list-item v-for="menuItem of menuItems" :key="menuItem.title" class="pl-2" @click.stop="open" >
+        <v-list-item-icon class="mr-2 pt-1">
+          <v-icon small>mdi-{{ menuItem.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title class="caption">
+            {{ menuItem.title }}
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 </div>
 </template>
 
@@ -23,11 +39,38 @@ import state from '../state';
 export default {
   name: 'file-tree',
   data () {
-    return { state };
+    return {
+      state,
+      menu: false,
+      menuX: 0,
+      menuY: 0,
+      menuItems: [ {
+        title: 'Open',
+        icon: 'open-in-new'
+      }, {
+        title: 'Rename',
+        icon: 'rename-box'
+      }, {
+        title: 'Move',
+        icon: 'file-move'
+      }, {
+        title: 'Delete',
+        icon: 'delete'
+      } ]
+    };
   },
   methods: {
+    showMenu (event, item) {
+      this.menuX = event.screenX - 5;
+      this.menuY = event.screenY - 110;
+      this.menu = true;
+      console.log(event);
+    },
     hover (item) {
       // Tooltip
+    },
+    move (item) {
+      console.log('move', item);
     },
     open (item) {
       if (item.type === 'directory') {
@@ -47,6 +90,12 @@ export default {
           data: { path: item.path }
         });
       }
+    },
+    rename (item) {
+      console.log('rename', item);
+    },
+    trash (item) {
+      console.log('trash', item);
     }
   }
 };
