@@ -1,4 +1,6 @@
 function State () {
+  this.ready = false;
+
   this.config = require('../defaults');
   this.settings = require('./settings');
   this.theme = 'argonaut';

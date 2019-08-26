@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@mdbarr/events": "^0.1.0",
-    "@mdbarr/griff": "^0.1.0",
+    "@mdbarr/griff": "^0.1.1",
     "axios": "^0.19.0",
     "barrkeep": "^2.2.6",
     "chokidar": "^3.0.2",
@@ -31,7 +31,7 @@
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.2.2",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
