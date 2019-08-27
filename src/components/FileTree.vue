@@ -3,7 +3,7 @@
   <v-treeview dense hoverable :items="state.tree" :open.sync="state.treeOpen" item-key="path" class="subtitle ma-0 pa-0">
     <template v-slot:prepend="{ item, open }">
       <v-icon v-if="item.path === state.interview.home" small color="amber lighten-1" class="clickable">
-        {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+        mdi-folder-home
       </v-icon>
       <v-icon v-else-if="item.type === 'directory'" small color="amber lighten-1" class="clickable">
         {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
