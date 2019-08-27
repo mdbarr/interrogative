@@ -8,6 +8,7 @@ RUN apt-get update && \
         build-essential \
         ca-certificates \
         curl \
+        dnsutils \
         emacs25-el \
         emacs25-nox \
         flex \
