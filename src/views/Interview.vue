@@ -7,7 +7,7 @@
   </div>
   <div v-else>
     <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
-      <v-tabs vertical dark slider-color="white" slider-size="2">
+      <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange">
         <v-tab class="white--text">
           <v-icon left>mdi-account-multiple</v-icon>
         </v-tab>
@@ -24,6 +24,9 @@
           <v-icon left>mdi-note</v-icon>
         </v-tab>
         <v-tab class="white--text">
+          <v-icon left>mdi-cloud-upload</v-icon>
+        </v-tab>
+        <v-tab class="white--text">
           <v-icon left>mdi-settings</v-icon>
         </v-tab>
 
@@ -38,10 +41,8 @@
                 <v-icon class="float-right">mdi-comment-account</v-icon>
               </div>
               <br>
-              <div v-for="user of state.interview.users" :key="user.id">
-                <div v-if="user.role === 'candidate'">
-                  {{ user.name }}
-                </div>
+              <div v-for="user of userFilter('candidate')" :key="user.id">
+                {{ user.name }}
               </div>
               <div v-if="state.interview.position">
                 <v-icon small class="pr-2">mdi-laptop-windows</v-icon>
@@ -54,10 +55,8 @@
                 <v-icon class="float-right">mdi-comment-account-outline mdi-flip-h</v-icon>
               </div>
               <br>
-              <div v-for="user of state.interview.users" :key="user.id">
-                <div v-if="user.role === 'interviewer'">
-                  {{ user.name }}
-                </div>
+              <div v-for="user of userFilter('interviewer')" :key="user.id">
+                {{ user.name }}
               </div>
               <div v-if="state.interview.company">
                 <v-icon small class="pr-2">mdi-domain</v-icon>
@@ -106,6 +105,14 @@
           <v-card flat>
             <v-card-text class="white--text">
               Notes
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item v-if="!mini">
+          <v-card flat>
+            <v-card-text class="white--text">
+              Upload
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -211,9 +218,6 @@ export default {
       snackbarMessage: ''
     };
   },
-  filters: { calendar (value) {
-    return moment(value).calendar();
-  } },
   computed: { duration () {
     let diff = this.state.interview.stop - this.state.interview.start;
     const days = Math.floor(diff / 86400000);
@@ -235,6 +239,21 @@ export default {
 
     return duration.join(', ');
   } },
+  filters: { calendar (value) {
+    return moment(value).calendar();
+  } },
+  methods: {
+    userFilter (role) {
+      return this.state.interview.users.filter((user) => {
+        return user.role === role;
+      });
+    },
+    sideTabChange (value) {
+      if (value === undefined) {
+        this.mini = true;
+      }
+    }
+  },
   mounted () {
     this.state.id = this.$route.params.id;
 
