@@ -7,7 +7,7 @@
   </div>
   <div v-else>
     <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
-      <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange">
+      <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
         <v-tab class="white--text">
           <v-icon left>mdi-account-multiple</v-icon>
         </v-tab>
@@ -130,7 +130,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
-      <v-btn dense small tile icon @click.stop="mini = !mini"><v-icon>mdi-comment-multiple</v-icon></v-btn>
+      <v-btn dense small tile icon @click.stop="toggleSide"><v-icon>mdi-comment-multiple</v-icon></v-btn>
       <v-toolbar-title class="pl-2 title">Interrogative</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon v-if="state.name" class="pr-2">mdi-account-circle</v-icon>
@@ -203,6 +203,7 @@ export default {
       state,
       mini: true,
       socket: null,
+      sideTab: undefined,
       terminalTab: 0,
       terminalTabs: [ {
         name: 'Terminal',
@@ -252,6 +253,12 @@ export default {
     sideTabChange (value) {
       if (value === undefined) {
         this.mini = true;
+      }
+    },
+    toggleSide () {
+      this.mini = !this.mini;
+      if (!this.mini && this.sideTab === undefined) {
+        this.sideTab = 0;
       }
     }
   },
