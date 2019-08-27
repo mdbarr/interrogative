@@ -15,6 +15,7 @@ RUN apt-get update && \
         gettext \
         git  \
         gnupg2 \
+        iputils-ping \
         keychain \
         less \
         libtool \
