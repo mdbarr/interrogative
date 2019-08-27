@@ -55,7 +55,7 @@ export default {
         icon: 'file-move'
       }, {
         title: 'Delete',
-        icon: 'delete'
+        icon: 'trash-can-outline'
       } ]
     };
   },

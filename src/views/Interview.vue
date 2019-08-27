@@ -29,8 +29,51 @@
 
         <v-tab-item v-if="!mini">
           <v-card flat>
-            <v-card-text class="white--text">
-              Interview
+            <v-card-text class="white--text" v-if="state.interview.id">
+              <div v-if="state.interview.title">{{ state.interview.title }}</div>
+              <div v-else>Interview</div><br>
+
+              <div>
+                <span class="font-weight-bold">Candidate</span>
+                <v-icon class="float-right">mdi-comment-account</v-icon>
+              </div>
+              <br>
+              <div v-for="user of state.interview.users" :key="user.id">
+                <div v-if="user.role === 'candidate'">
+                  {{ user.name }}
+                </div>
+              </div>
+              <div v-if="state.interview.position">
+                <v-icon small class="pr-2">mdi-laptop-windows</v-icon>
+                {{ state.interview.position }}
+              </div>
+              <br>
+              <br>
+              <div>
+                <span class="font-weight-bold">Interviewer</span>
+                <v-icon class="float-right">mdi-comment-account-outline mdi-flip-h</v-icon>
+              </div>
+              <br>
+              <div v-for="user of state.interview.users" :key="user.id">
+                <div v-if="user.role === 'interviewer'">
+                  {{ user.name }}
+                </div>
+              </div>
+              <div v-if="state.interview.company">
+                <v-icon small class="pr-2">mdi-domain</v-icon>
+                {{ state.interview.company }}
+              </div>
+              <br>
+              <br>
+              <div>
+                <span class="font-weight-bold">Scheduled</span>
+                <v-icon class="float-right">mdi-calendar-clock</v-icon>
+              </div>
+              <br>
+              <div>
+                {{ state.interview.start | calendar }} for {{ duration }}
+              </div>
+
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -128,13 +171,14 @@
 </template>
 
 <script>
+import state from '../state';
 import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Git from '../components/Git';
 import Settings from '../components/Settings';
 import Terminal from '../components/Terminal';
-import state from '../state';
+import moment from 'moment';
 
 export default {
   name: 'interview',
@@ -167,13 +211,36 @@ export default {
       snackbarMessage: ''
     };
   },
-  methods: { },
+  filters: { calendar (value) {
+    return moment(value).calendar();
+  } },
+  computed: { duration () {
+    let diff = Math.floor((this.state.interview.stop - this.state.interview.start) / 1000);
+    const days = diff % 86400;
+    diff = Math.floor(diff / 86400);
+    const hours = diff % 3600;
+    diff = Math.floor(diff / 3600);
+    const minutes = diff % 60;
+
+    const duration = [];
+    if (days > 0) {
+      duration.push(`${ days } days`);
+    }
+    if (hours > 0) {
+      duration.push(`${ hours } hours`);
+    }
+    if (minutes > 0) {
+      duration.push(`${ minutes } minutes`);
+    }
+
+    return duration.join(', ');
+  } },
   mounted () {
     this.state.id = this.$route.params.id;
 
     this.$api.get(`/interview/${ this.state.id }/ready`).
       then((interview) => {
-        Object.assign(this.state.interview, interview);
+        Object.assign(this.state.interview, interview.data);
         this.connection = this.$connect(this.state.id);
         this.state.ready = true;
       });
