@@ -16,6 +16,7 @@ RUN apt-get update && \
         gettext \
         git  \
         gnupg2 \
+        iproute2 \
         iputils-ping \
         keychain \
         less \
@@ -28,6 +29,7 @@ RUN apt-get update && \
         python-dev \
         python3-dev \
         shared-mime-info \
+        shellcheck \
         sudo \
         telnet \
         tmux \

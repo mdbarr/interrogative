@@ -5,8 +5,9 @@ RUN useradd -m -d /home/user user && \
         chmod 0440 /etc/sudoers.d/user && \
         mkdir /interrogative && chown user.user /interrogative
 
-USER user
 WORKDIR /home/user
 COPY home /home/user
+RUN chown -R user.user /home/user
 
+USER user
 CMD [ "/bin/bash" ]

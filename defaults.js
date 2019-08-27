@@ -14,5 +14,9 @@ module.exports = {
   container: {
     port: 1313,
     host: '0.0.0.0'
+  },
+  interaction: {
+    port: 1314,
+    host: '127.0.0.1'
   }
 };
