@@ -2,10 +2,7 @@
 <div id="file-tree" class="ma-0 pa-0">
   <v-treeview dense hoverable :items="state.tree" :open.sync="state.treeOpen" item-key="path" class="subtitle ma-0 pa-0">
     <template v-slot:prepend="{ item, open }">
-      <v-icon v-if="item.path === state.interview.home" small color="amber lighten-1" class="clickable">
-        mdi-folder-home
-      </v-icon>
-      <v-icon v-else-if="item.type === 'directory'" small color="amber lighten-1" class="clickable">
+      <v-icon v-if="item.type === 'directory'" small color="amber lighten-1" class="clickable">
         {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
       </v-icon>
       <v-icon v-else small :color="item.color" @click.stop="open(item)" class="clickable">
@@ -19,9 +16,9 @@
       </div>
     </template>
   </v-treeview>
-  <v-menu v-model="menu" :position-x="menuX" :position-y="menuY" class="ma-0 pa-0">
+  <v-menu v-model="menu" :position-x="menuX" :position-y="menuY" class="ma-0 pa-0" close-on-click close-on-content-click>
     <v-list dense class="ma-0 pa-0">
-      <v-list-item v-for="menuItem of menuItems" :key="menuItem.title" class="pl-2" @click.stop="open" >
+      <v-list-item v-for="menuItem of menuItems" :key="menuItem.title" class="pl-2" @click="menuCommand(menuItem.command)">
         <v-list-item-icon class="mr-2 pt-1">
           <v-icon small>mdi-{{ menuItem.icon }}</v-icon>
         </v-list-item-icon>
@@ -49,21 +46,32 @@ export default {
       menuY: 0,
       menuItems: [ {
         title: 'Open',
-        icon: 'open-in-new'
+        icon: 'open-in-new',
+        command: 'open'
       }, {
         title: 'Rename',
-        icon: 'rename-box'
+        icon: 'rename-box',
+        command: 'rename'
       }, {
         title: 'Move',
-        icon: 'file-move'
+        icon: 'file-move',
+        command: 'move'
       }, {
         title: 'Delete',
-        icon: 'trash-can-outline'
-      } ]
+        icon: 'trash-can-outline',
+        command: 'delete'
+      } ],
+      selected: null
     };
   },
   methods: {
+    menuCommand (command) {
+      if (command === 'open') {
+        this.open(this.selected);
+      }
+    },
     showMenu (event, item) {
+      this.selected = item;
       this.menuX = event.screenX - 5;
       this.menuY = event.screenY - 110;
       this.menu = true;
@@ -111,5 +119,6 @@ export default {
 }
 .clickable {
     cursor: pointer;
+    user-select: none;
 }
 </style>
