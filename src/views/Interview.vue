@@ -215,12 +215,12 @@ export default {
     return moment(value).calendar();
   } },
   computed: { duration () {
-    let diff = Math.floor((this.state.interview.stop - this.state.interview.start) / 1000);
-    const days = diff % 86400;
-    diff = Math.floor(diff / 86400);
-    const hours = diff % 3600;
-    diff = Math.floor(diff / 3600);
-    const minutes = diff % 60;
+    let diff = this.state.interview.stop - this.state.interview.start;
+    const days = Math.floor(diff / 86400000);
+    diff = diff % 86400000;
+    const hours = Math.floor(diff / 3600000);
+    diff = diff % 3600000;
+    const minutes = Math.floor(diff / 60000);
 
     const duration = [];
     if (days > 0) {
