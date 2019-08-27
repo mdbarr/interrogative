@@ -21,9 +21,6 @@
           <v-icon left>mdi-source-branch</v-icon>
         </v-tab>
         <v-tab class="white--text">
-          <v-icon left>mdi-note</v-icon>
-        </v-tab>
-        <v-tab class="white--text">
           <v-icon left>mdi-cloud-upload</v-icon>
         </v-tab>
         <v-tab class="white--text">
@@ -65,12 +62,24 @@
               <br>
               <br>
               <div>
-                <span class="font-weight-bold">Scheduled</span>
+                <span class="font-weight-bold">When</span>
                 <v-icon class="float-right">mdi-calendar-clock</v-icon>
               </div>
               <br>
               <div>
                 {{ state.interview.start | calendar }} for {{ duration }}
+              </div>
+              <div v-if="state.interview.notes">
+                <br>
+                <br>
+                <div>
+                  <span class="font-weight-bold">Notes</span>
+                  <v-icon class="float-right">mdi-note-text</v-icon>
+                </div>
+                <br>
+                <div>
+                  {{ state.interview.notes }}
+                </div>
               </div>
 
             </v-card-text>
@@ -97,14 +106,6 @@
           <v-card flat>
             <v-card-text class="white--text">
               <Git></Git>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-
-        <v-tab-item v-if="!mini">
-          <v-card flat>
-            <v-card-text class="white--text">
-              Notes
             </v-card-text>
           </v-card>
         </v-tab-item>
