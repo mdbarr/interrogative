@@ -8,6 +8,8 @@ RUN useradd -m -d /home/user user && \
 WORKDIR /home/user
 COPY home /home/user
 RUN chown -R user.user /home/user
-
 USER user
+RUN HOME=/home/user git init && \
+        git add WELCOME.md && \
+        git commit -a -m "Initial Commit"
 CMD [ "/bin/bash" ]

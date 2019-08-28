@@ -10,3 +10,6 @@
 	remaster = rebase origin/master
 [core]
 	editor = emacs
+[user]
+	email = user@interrogative.io
+	name = User
