@@ -12,4 +12,4 @@ WORKDIR /interrogative
 COPY --from=build /interrogative .
 VOLUME /interviews
 EXPOSE 1311
-ENTRYPOINT [ "/interrogative/lib/manager/manager.js" ]
+ENTRYPOINT [ "/interrogative/bin/cli.js", "--manager" ]
