@@ -1,0 +1,7 @@
+.bash_logout
+.bashrc
+.cache/
+.config/
+.gitconfig
+.node-gyp/
+.profile
