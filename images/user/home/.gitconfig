@@ -1,7 +1,6 @@
 [alias]
 	co = checkout
 	br = branch
-	ls = "!cur=$(git rev-parse --abbrev-ref HEAD); prev=$(git rev-parse --abbrev-ref @{-1}); git for-each-ref --sort=committerdate refs/heads/ --format=\"%(color:reset)  %(refname:short)|%(color:black bold)%(committerdate:relative)%(color:reset)\" | column -ts\"|\" | sed -e \"s,  ${cur} ,$(tput setaf 2)$(tput bold)* ${cur} ,\" | sed -e \"s,  ${prev} ,$(tput setaf 3)$(tput bold)  ${prev} ,\";"
 	ci = commit
 	st = status
 	last = log -1 HEAD
@@ -9,7 +8,7 @@
 	redate = commit --amend --date=\"now\"
 	remaster = rebase origin/master
 [core]
-	editor = emacs
+	editor = nano
 [user]
 	email = user@interrogative.io
 	name = User
