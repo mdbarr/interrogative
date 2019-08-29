@@ -10,6 +10,6 @@ COPY home /home/user
 RUN chown -R user.user /home/user
 USER user
 RUN HOME=/home/user git init && \
-        git add WELCOME.md && \
+        git add WELCOME.md .gitignore && \
         git commit -a -m "Initial Commit"
 CMD [ "/bin/bash" ]

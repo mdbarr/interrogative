@@ -1,7 +1,8 @@
 .bash_logout
 .bashrc
-.cache/
-.config/
+.cache
+.config
 .gitconfig
-.node-gyp/
+.node-gyp
 .profile
+.emacs.d
