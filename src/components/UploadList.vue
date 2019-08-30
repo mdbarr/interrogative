@@ -4,7 +4,7 @@
     <v-tooltip bottom nudge-top="18">
       <template v-slot:activator="{ on }">
         <div v-on="on">
-          <v-icon small>mdi-cloud-upload</v-icon>
+          <v-icon small :color="upload.color">{{ upload.icon }}</v-icon>
           <span class="uploading pl-2">{{ upload.name }}</span>
           <div class="progress-holder">
             <v-progress-linear
