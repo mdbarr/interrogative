@@ -25,8 +25,7 @@ export default {
   data () {
     return {
       state,
-      dragging: false,
-      files: []
+      dragging: false
     };
   },
   methods: {
@@ -56,9 +55,19 @@ export default {
 
       const files = event.dataTransfer.files;
       console.log(files);
+      for (const file of files) {
+        this.addFile(file);
+      }
+    },
+    addFile (file) {
+      this.state.uploads.push({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        progress: 42
+      });
     },
     upload () {
-
     }
   }
 };

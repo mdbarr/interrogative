@@ -113,7 +113,8 @@
         <v-tab-item v-if="!mini">
           <v-card flat>
             <v-card-text class="white--text">
-              Upload
+              File Uploads
+              <UploadList></UploadList>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -187,6 +188,7 @@ import Git from '../components/Git';
 import Settings from '../components/Settings';
 import Terminal from '../components/Terminal';
 import Upload from '../components/Upload';
+import UploadList from '../components/UploadList';
 import moment from 'moment';
 
 export default {
@@ -198,7 +200,8 @@ export default {
     Git,
     Settings,
     Terminal,
-    Upload
+    Upload,
+    UploadList
   },
   data: () => {
     return {

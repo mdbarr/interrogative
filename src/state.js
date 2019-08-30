@@ -26,6 +26,8 @@ function State () {
   this.role = 'user';
 
   this.gitSVG = '';
+
+  this.uploads = [];
 }
 
 export default new State();
