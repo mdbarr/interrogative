@@ -18,5 +18,9 @@ module.exports = {
   interaction: {
     port: 1314,
     host: '127.0.0.1'
+  },
+  uploads: {
+    maxSize: 10485760,
+    path: '~/uploads'
   }
 };

@@ -25,7 +25,8 @@ export default {
   data () {
     return {
       state,
-      dragging: false
+      dragging: false,
+      url: `${ window.location.origin }/api${ window.location.pathname }/upload`
     };
   },
   methods: {
@@ -56,24 +57,30 @@ export default {
       const files = event.dataTransfer.files;
       console.log(files);
       for (const file of files) {
-        this.addFile(file);
+        this.upload(file);
       }
     },
-    addFile (file) {
+    upload (file) {
       const item = {
         name: file.name,
         extension: file.name.replace(/^.*\.([^.]+)$/, '$1'),
         type: file.type,
         size: file.size,
         uploader: state.name,
-        progress: 42
+        progress: 0
       };
       this.setAttributes(item);
       console.log(item);
 
       this.state.uploads.push(item);
-    },
-    upload () {
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.$api.upload(this.url, formData, (event) => {
+        item.progress = Math.floor((event.loaded / event.total) * 100);
+        console.log(item.progress);
+      });
     },
     setAttributes (item) {
       item.color = 'white';
@@ -135,6 +142,8 @@ export default {
         item.mime = 'text/html';
         item.color = '#E44D26';
         item.icon = 'language-html5';
+      } else if ([ 'dmg', 'hddimg', 'img', 'iso', 'pkg' ].includes(item.extension)) {
+        item.icon = 'folder-zip';
       } else if (item.extension === 'java') {
         item.mime = 'text/x-java';
         item.color = '#5382A1';
