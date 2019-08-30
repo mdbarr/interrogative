@@ -1,6 +1,6 @@
 <template>
 <div class="pt-1">
-  <div v-for="upload of state.uploads" :key="upload.name">
+  <div v-for="upload of state.uploads" :key="upload.id">
     <v-tooltip bottom nudge-top="18">
       <template v-slot:activator="{ on }">
         <div v-on="on">

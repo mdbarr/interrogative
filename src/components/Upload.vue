@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import uuid from 'uuid/v4';
 import state from '../state';
 
 export default {
@@ -62,12 +63,15 @@ export default {
     },
     upload (file) {
       const item = {
+        id: uuid(),
         name: file.name,
         extension: file.name.replace(/^.*\.([^.]+)$/, '$1'),
         type: file.type,
         size: file.size,
         uploader: state.name,
-        progress: 0
+        progress: 0,
+        failed: false,
+        completed: false
       };
       this.setAttributes(item);
       console.log(item);
