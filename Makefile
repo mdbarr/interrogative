@@ -1,9 +1,9 @@
-all: yarn images container manager
+all: core images container manager
 
-yarn:
-	yarn install
+core:
+	docker build -f images/core/Dockerfile -t interrogative-core .
 
-.PHONY: images container manager
+.PHONY: core images container manager
 images:
 	$(MAKE) -C images
 

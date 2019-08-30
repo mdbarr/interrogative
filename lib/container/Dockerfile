@@ -1,7 +1,6 @@
+FROM interrogative-core:latest as build
+
 FROM interrogative-user:latest
 WORKDIR /interrogative
-COPY package.json yarn.lock ./
-RUN yarn install --production && \
-        rm -rf ~/.cache ~/.yarn ~/.node-gyp
-COPY . .
+COPY --from=build /interrogative .
 ENTRYPOINT [ "/interrogative/bin/cli.js", "--container" ]
