@@ -125,8 +125,8 @@
             </v-card-text>
           </v-card>
         </v-tab-item>
-
       </v-tabs>
+      <Upload v-if="sideTab === 4"></Upload>
     </v-navigation-drawer>
 
     <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
@@ -186,6 +186,7 @@ import FileTree from '../components/FileTree';
 import Git from '../components/Git';
 import Settings from '../components/Settings';
 import Terminal from '../components/Terminal';
+import Upload from '../components/Upload';
 import moment from 'moment';
 
 export default {
@@ -196,7 +197,8 @@ export default {
     FileTree,
     Git,
     Settings,
-    Terminal
+    Terminal,
+    Upload
   },
   data: () => {
     return {
