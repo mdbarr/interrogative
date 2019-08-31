@@ -13,7 +13,7 @@
   <div v-else class="unactionable">
     <v-icon x-large color="#2C87AF">mdi-check</v-icon>
   </div>
-  <input type="file" ref="file" style="display: none">
+  <input type="file" ref="file" style="display: none" @change="changed">
 </div>
 </template>
 
@@ -41,6 +41,16 @@ export default {
       if (this.dragging) {
         this.dragging = false;
         this.$refs.dropzone.classList.remove('dropzone-drag');
+      }
+    },
+    changed (event) {
+      console.log('changed', event);
+      const files = this.$refs.file.files;
+      if (files.length) {
+        for (const file of files) {
+          this.upload(file);
+        }
+        this.$refs.file.value = '';
       }
     },
     dragover (event) {
