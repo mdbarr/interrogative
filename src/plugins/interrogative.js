@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import state from '../state';
 import events from '@mdbarr/events';
@@ -22,6 +23,14 @@ export default { install (Vue) {
 
   $events.on('git:repository:svg', (event) => {
     state.gitSVG = event.data;
+  });
+
+  $events.on('file:upload:start', (event) => {
+    Vue.set(state.uploads, event.data.id, event.data);
+  });
+
+  $events.on('file:upload:progress', (event) => {
+    Vue.set(state.uploads, event.data.id, event.data);
   });
 
   $events.on('files:tree:update', (event) => {

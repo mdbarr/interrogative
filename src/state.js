@@ -17,6 +17,7 @@ function State () {
 
   this.documents = new Map();
   this.images = new Map();
+  this.uploads = {};
 
   this.loading = false;
 
@@ -27,8 +28,6 @@ function State () {
   this.role = 'user';
 
   this.gitSVG = '';
-
-  this.uploads = [];
 }
 
 export default new State();

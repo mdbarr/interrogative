@@ -76,15 +76,39 @@ export default {
       this.setAttributes(item);
       console.log(item);
 
-      this.state.uploads.push(item);
+      this.$events.emit({
+        type: 'file:upload:start',
+        data: item
+      });
 
       const formData = new FormData();
       formData.append('file', file);
 
       this.$api.upload(this.url, formData, (event) => {
         item.progress = Math.floor((event.loaded / event.total) * 100);
+
+        this.$events.emit({
+          type: 'file:upload:progress',
+          data: item
+        });
+
         console.log(item.progress);
-      });
+      }).
+        then(() => {
+          this.$events.emit({
+            type: 'file:upload:success',
+            data: item
+          });
+        }).
+        catch((error) => {
+          this.$events.emit({
+            type: 'file:upload:failed',
+            data: {
+              item,
+              error
+            }
+          });
+        });
     },
     setAttributes (item) {
       item.color = 'white';

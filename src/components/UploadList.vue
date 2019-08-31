@@ -18,9 +18,9 @@
           </div>
         </div>
       </template>
-      {{ upload.name }}<br>
-      {{ upload.size }}<br>
-      {{ upload.type }}
+      <v-icon small :color="upload.color" class="pr-3">{{ upload.icon }}</v-icon>{{ upload.name }}
+      ({{ upload.size | formatBytes }})<br>
+      <v-icon small class="pr-3">mdi-account-plus mdi-flip-h</v-icon>{{ upload.uploader }}<br>
     </v-tooltip>
   </div>
 </div>
@@ -33,7 +33,18 @@ export default {
   name: 'upload-list',
   data () {
     return { state };
-  }
+  },
+  filters: { formatBytes (bytes) {
+    bytes = Number(bytes) || 0;
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
+    const kilobyte = 1024;
+    const places = 2;
+    const sizes = [ 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
+    const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
+    return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ sizes[index] }`;
+  } }
 };
 </script>
 
