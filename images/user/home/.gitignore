@@ -6,3 +6,5 @@
 .node-gyp
 .profile
 .emacs.d
+uploads
+.interrogative
