@@ -301,18 +301,6 @@ export default {
         this.connection = this.$connect(this.state.id);
         this.state.ready = true;
       });
-
-    this.$events.on('connected', (event) => {
-      if (event.data.user !== this.state.user) {
-        this.$events.emit({
-          type: 'notification',
-          data: {
-            message: `${ event.data.name } joined`,
-            color: 'success'
-          }
-        });
-      }
-    });
   },
   destroyed () { }
 };
