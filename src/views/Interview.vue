@@ -189,13 +189,9 @@
       </v-container>
     </v-content>
     <v-footer color="#333" app dark height="24" class="subtitle-2 pa-0 ma-0">
-    <span class="pl-2">&copy; 2019</span>
-  </v-footer>
-
-  <v-snackbar v-model="snackbar" top color="success">
-    {{ snackbarMessage }}
-    <v-btn icon @click="snackbar = false"><v-icon>mdi-close</v-icon></v-btn>
-  </v-snackbar>
+      <span class="pl-2">&copy; 2019</span>
+    </v-footer>
+    <Notifications></Notifications>
   </div>
 </div>
 </template>
@@ -206,6 +202,7 @@ import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Git from '../components/Git';
+import Notifications from '../components/Notifications';
 import Settings from '../components/Settings';
 import Terminal from '../components/Terminal';
 import Upload from '../components/Upload';
@@ -219,6 +216,7 @@ export default {
     FileTabs,
     FileTree,
     Git,
+    Notifications,
     Settings,
     Terminal,
     Upload,
@@ -241,9 +239,7 @@ export default {
         type: 'message',
         icon: 'forum',
         closeable: false
-      } ],
-      snackbar: false,
-      snackbarMessage: ''
+      } ]
     };
   },
   computed: { duration () {
@@ -308,8 +304,13 @@ export default {
 
     this.$events.on('connected', (event) => {
       if (event.data.user !== this.state.user) {
-        this.snackbarMessage = `${ event.data.name } joined`;
-        this.snackbar = true;
+        this.$events.emit({
+          type: 'notification',
+          data: {
+            message: `${ event.data.name } joined`,
+            color: 'success'
+          }
+        });
       }
     });
   },
