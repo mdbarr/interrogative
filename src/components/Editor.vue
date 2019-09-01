@@ -153,13 +153,19 @@ export default {
     },
     asImage (file) {
       if (!this.state.images.has(file.path)) {
-        const data = file.contents;
-        const bytes = new Uint8Array(data.length / 2);
+        let blob;
 
-        for (let i = 0; i < data.length; i += 2) {
-          bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
+        if (file.binary) {
+          const data = file.contents;
+          const bytes = new Uint8Array(data.length / 2);
+
+          for (let i = 0; i < data.length; i += 2) {
+            bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
+          }
+          blob = new Blob([ bytes ], { type: file.mime });
+        } else {
+          blob = new Blob([ file.contents ], { type: file.mime });
         }
-        const blob = new Blob([ bytes ], { type: file.mime });
 
         const image = new Image();
         image.src = URL.createObjectURL(blob);
@@ -176,17 +182,7 @@ export default {
 
       console.log('focusing', this.focus, this.file.path);
 
-      if (!this.file.binary) {
-        this.image = false;
-
-        const doc = this.asDocument(this.file);
-
-        if (this.instance.getDoc().id !== doc.id) {
-          this.$nextTick(() => { // ensure editor is shown
-            this.instance.swapDoc(doc);
-          });
-        }
-      } else if (this.file.mime.startsWith('image')) {
+      if (this.file.mime.startsWith('image')) {
         this.image = true;
 
         const image = this.asImage(this.file);
@@ -205,6 +201,16 @@ export default {
         console.log('height', this.height);
 
         this.$refs.image.appendChild(image);
+      } else if (!this.file.binary) {
+        this.image = false;
+
+        const doc = this.asDocument(this.file);
+
+        if (this.instance.getDoc().id !== doc.id) {
+          this.$nextTick(() => { // ensure editor is shown
+            this.instance.swapDoc(doc);
+          });
+        }
       }
     },
     getCursor (user, name) {
