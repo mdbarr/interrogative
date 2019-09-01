@@ -34,29 +34,49 @@
               <div v-else>Interview</div><br>
 
               <div>
-                <span class="font-weight-bold">Candidate</span>
+                <span class="font-weight-bold">{{ 'Candidate' | plural(userFilter('candidate')) }}</span>
                 <v-icon class="float-right">mdi-comment-account</v-icon>
               </div>
               <br>
               <div v-for="user of userFilter('candidate')" :key="user.id">
+                 <v-tooltip bottom>
+                   <template v-slot:activator="{ on }">
+                     <v-icon v-on="on" v-if="state.online[user.id]" x-small color="green" class="pr-1" title="online">
+                       mdi-circle
+                     </v-icon>
+                     <v-icon v-on="on" v-else x-small color="red" class="pr-1">mdi-checkbox-blank-circle-outline</v-icon>
+                   </template>
+                   <span v-if="state.online[user.id]">{{ user.name }} is online</span>
+                   <span v-else>{{ user.name }} is not online</span>
+                 </v-tooltip>
                 {{ user.name }}
               </div>
               <div v-if="state.interview.position">
-                <v-icon small class="pr-2">mdi-laptop-windows</v-icon>
+                <v-icon small class="pr-2">mdi-briefcase-outline</v-icon>
                 {{ state.interview.position }}
               </div>
               <br>
               <br>
               <div>
-                <span class="font-weight-bold">Interviewer</span>
+                <span class="font-weight-bold">{{ 'Interviewer' | plural(userFilter('interviewer')) }}</span>
                 <v-icon class="float-right">mdi-comment-account-outline mdi-flip-h</v-icon>
               </div>
               <br>
               <div v-for="user of userFilter('interviewer')" :key="user.id">
-                {{ user.name }}
+                 <v-tooltip bottom>
+                   <template v-slot:activator="{ on }">
+                     <v-icon v-on="on" v-if="state.online[user.id]" x-small color="green" class="pr-1" title="online">
+                       mdi-circle
+                     </v-icon>
+                     <v-icon v-on="on" v-else x-small class="pr-1">mdi-checkbox-blank-circle-outline</v-icon>
+                   </template>
+                   <span v-if="state.online[user.id]">{{ user.name }} is online</span>
+                   <span v-else>{{ user.name }} is not online</span>
+                 </v-tooltip>
+                 {{ user.name }}
               </div>
               <div v-if="state.interview.company">
-                <v-icon small class="pr-2">mdi-domain</v-icon>
+                <v-icon small class="pr-2">mdi-office-building</v-icon>
                 {{ state.interview.company }}
               </div>
               <br>
@@ -132,7 +152,7 @@
 
     <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
       <v-btn dense small tile icon @click.stop="toggleSide"><v-icon>mdi-comment-multiple</v-icon></v-btn>
-      <v-toolbar-title class="pl-2 title">Interrogative</v-toolbar-title>
+      <v-toolbar-title class="pl-2 title">INTERROGATIVE.IO</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon v-if="state.name" class="pr-2">mdi-account-circle</v-icon>
       <span class="text-uppercase subtitle-2 pr-2">
@@ -246,9 +266,17 @@ export default {
 
     return duration.join(', ');
   } },
-  filters: { calendar (value) {
-    return moment(value).calendar();
-  } },
+  filters: {
+    calendar (value) {
+      return moment(value).calendar();
+    },
+    plural (word, array) {
+      if (array.length !== 1) {
+        return `${ word }s`;
+      }
+      return word;
+    }
+  },
   methods: {
     userFilter (role) {
       return this.state.interview.users.filter((user) => {

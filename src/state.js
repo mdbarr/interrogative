@@ -27,6 +27,8 @@ function State () {
   this.name = '';
   this.role = 'user';
 
+  this.online = {};
+
   this.gitSVG = '';
 }
 

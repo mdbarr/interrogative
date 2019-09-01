@@ -87,6 +87,19 @@ export default { install (Vue) {
     });
   });
 
+  $events.on('online', (event) => {
+    console.log('online', event.data);
+    for (const id in state.online) {
+      console.log(state.online[id]);
+      Vue.set(state.online, id, false);
+    }
+    console.log(state.online);
+    for (const user of event.data) {
+      Vue.set(state.online, user.id, true);
+    }
+    console.log(state.online);
+  });
+
   //////////
 
   function api (method, url, body, progress) {
