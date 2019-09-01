@@ -30,14 +30,12 @@
         <v-tab-item v-if="!mini">
           <v-card flat>
             <v-card-text class="white--text" v-if="state.interview.id">
-              <div v-if="state.interview.title">{{ state.interview.title }}</div>
-              <div v-else>Interview</div><br>
-
+              <div v-if="state.interview.title" class="section-heading">{{ state.interview.title }}</div>
+              <div v-else class="section-heading">Interview</div>
               <div>
                 <span class="font-weight-bold">{{ 'Candidate' | plural(userFilter('candidate')) }}</span>
                 <v-icon class="float-right">mdi-comment-account</v-icon>
               </div>
-              <br>
               <div v-for="user of userFilter('candidate')" :key="user.id">
                  <v-tooltip bottom>
                    <template v-slot:activator="{ on }">
@@ -109,6 +107,7 @@
         <v-tab-item v-if="!mini">
           <v-card flat class="ma-0 pa-0">
             <v-card-text class="white--text ma-1 pa-0">
+              <div class="section-heading">Files</div>
               <FileTree></FileTree>
             </v-card-text>
           </v-card>
@@ -117,7 +116,7 @@
         <v-tab-item v-if="!mini">
           <v-card flat>
             <v-card-text class="white--text">
-              Search
+              <div class="section-heading">Search</div>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -125,6 +124,7 @@
         <v-tab-item v-if="!mini && state.interview.git">
           <v-card flat>
             <v-card-text class="white--text">
+              <div class="section-heading">Repository</div>
               <Git></Git>
             </v-card-text>
           </v-card>
@@ -133,7 +133,7 @@
         <v-tab-item v-if="!mini && state.interview.uploads">
           <v-card flat>
             <v-card-text class="white--text">
-              File Uploads
+              <div class="section-heading">Uploads</div>
               <UploadList></UploadList>
             </v-card-text>
           </v-card>
@@ -142,6 +142,7 @@
         <v-tab-item v-if="!mini">
           <v-card flat>
             <v-card-text class="white--text">
+              <div class="section-heading">Settings</div>
               <Settings></Settings>
             </v-card-text>
           </v-card>
@@ -353,5 +354,9 @@ export default {
 }
 .plus-button {
     border-right: 1px solid #595959;
+}
+.section-heading {
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 </style>

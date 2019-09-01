@@ -1,7 +1,5 @@
 <template>
 <div>
-  Settings<br><br>
-
   <div>
     <span class="font-weight-bold">Editor</span><v-icon class="float-right">mdi-circle-edit-outline</v-icon>
   </div>

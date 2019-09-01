@@ -8,7 +8,7 @@
   ref="dropzone"
   >
   <div v-if="!dragging" class="unactionable">
-    Drop files here to upload
+    Click or Drop files here to upload
   </div>
   <div v-else class="unactionable">
     <v-icon x-large color="#2C87AF">mdi-check</v-icon>

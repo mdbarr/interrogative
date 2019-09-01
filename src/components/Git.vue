@@ -1,6 +1,5 @@
 <template>
 <div>
-  <span class="caption">Repository History</span>
   <div ref="graph" v-html="state.gitSVG"></div>
 </div>
 </template>
