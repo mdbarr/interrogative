@@ -20,7 +20,7 @@
         <v-tab class="white--text" v-if="state.interview.git">
           <v-icon left>mdi-source-branch</v-icon>
         </v-tab>
-        <v-tab class="white--text">
+        <v-tab class="white--text" v-if="state.interview.uploads">
           <v-icon left>mdi-cloud-upload</v-icon>
         </v-tab>
         <v-tab class="white--text">
@@ -130,7 +130,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini">
+        <v-tab-item v-if="!mini && state.interview.uploads">
           <v-card flat>
             <v-card-text class="white--text">
               File Uploads
