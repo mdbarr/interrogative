@@ -100,6 +100,12 @@ export default { install (Vue) {
     console.log(state.online);
   });
 
+  $events.on('files:upload:list', (event) => {
+    console.log('uploads', event.data);
+    Vue.set(state, 'uploads', {});
+    Object.assign(state.uploads, event.data);
+  });
+
   //////////
 
   function api (method, url, body, progress) {

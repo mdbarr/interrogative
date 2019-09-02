@@ -105,8 +105,8 @@
         </v-tab-item>
 
         <v-tab-item v-if="!mini">
-          <v-card flat class="ma-0 pa-0">
-            <v-card-text class="white--text ma-1 pa-0">
+          <v-card flat>
+            <v-card-text class="white--text">
               <div class="section-heading">Files</div>
               <FileTree></FileTree>
             </v-card-text>

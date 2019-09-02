@@ -81,7 +81,8 @@ export default {
         uploader: state.name,
         progress: 0,
         failed: false,
-        completed: false
+        completed: false,
+        timestamp: Date.now()
       };
       this.setAttributes(item);
       console.log(item);
@@ -104,13 +105,17 @@ export default {
 
         console.log(item.progress);
       }).
-        then(() => {
+        then((response) => {
+          item.completed = true;
+          item.path = response.data.path;
+          console.log(response);
           this.$events.emit({
             type: 'file:upload:success',
             data: item
           });
         }).
         catch((error) => {
+          item.failed = true;
           this.$events.emit({
             type: 'file:upload:failed',
             data: {
