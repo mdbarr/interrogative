@@ -7,6 +7,20 @@
     <v-list-item-content class="pt-0 pb-0">
       <v-list-item-title>
         <span class="uploading pl-0">{{ upload.name }}</span>
+        <v-tooltip left nudge-top="-59" nudge-left="-5">
+          <template v-slot:activator="{ on }">
+            <span class="float-right pr-1" v-on="on">
+              <v-icon small>mdi-information-outline</v-icon>
+            </span>
+          </template>
+          <div class="caption">
+            <v-icon small class="pr-3" :color="upload.color">{{ upload.icon }}</v-icon>
+            {{ upload.name }} ({{ upload.size | formatBytes }})<br>
+            <v-icon small class="pr-3">mdi-account-plus mdi-flip-h</v-icon>{{ upload.uploader }}<br>
+            <v-icon small class="pr-3">mdi-calendar-import</v-icon>{{ upload.timestamp | calendar }}<br>
+          </div>
+          <span class="float-right"></span>
+        </v-tooltip>
         <div class="progress-holder pt-1">
           <v-progress-linear
             v-if="upload.progress < 100"
@@ -73,5 +87,8 @@ export default {
 }
 .progress-holder {
     height: 10px;
+}
+.float-right {
+    float: right;
 }
 </style>
