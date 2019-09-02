@@ -1,30 +1,26 @@
 <template>
-<div class="pt-1">
-  <div v-for="upload of state.uploads" :key="upload.id">
-    <v-tooltip bottom nudge-top="18">
-      <template v-slot:activator="{ on }">
-        <div v-on="on">
-          <v-icon small :color="upload.color">{{ upload.icon }}</v-icon>
-          <span class="uploading pl-2">{{ upload.name }}</span>
-          <div class="progress-holder">
-            <v-progress-linear
-              v-if="upload.progress < 100"
-              v-model="upload.progress"
-              height="2"
-              buffer-value="0"
-              stream
-              >
-            </v-progress-linear>
-          </div>
+<v-list dense>
+  <v-list-item v-for="upload of state.uploads" :key="upload.id" class="pr-0" @click="true">
+    <v-list-item-icon class="mr-0">
+      <v-icon small :color="upload.color">{{ upload.icon }}</v-icon>
+    </v-list-item-icon>
+    <v-list-item-content class="pt-0 pb-0">
+      <v-list-item-title>
+        <span class="uploading pl-0">{{ upload.name }}</span>
+        <div class="progress-holder pt-1">
+          <v-progress-linear
+            v-if="upload.progress < 100"
+            v-model="upload.progress"
+            height="2"
+            buffer-value="0"
+            stream
+            >
+          </v-progress-linear>
         </div>
-      </template>
-      <v-icon small :color="upload.color" class="pr-3">{{ upload.icon }}</v-icon>{{ upload.name }}
-      ({{ upload.size | formatBytes }})<br>
-      <v-icon small class="pr-3">mdi-account-plus mdi-flip-h</v-icon>{{ upload.uploader }}<br>
-      <v-icon small class="pr-3">mdi-calendar-import</v-icon>{{ upload.timestamp | calendar }}<br>
-    </v-tooltip>
-  </div>
-</div>
+      </v-list-item-title>
+    </v-list-item-content>
+  </v-list-item>
+</v-list>
 </template>
 
 <script>
