@@ -31,7 +31,7 @@ export default {
         this.color = 'light-blue';
       } else if (event.data.level === 'success') {
         this.color = 'green';
-      } else if (event.data.level === 'failure') {
+      } else if (event.data.level === 'failure' || event.data.level === 'failed') {
         this.color = 'red';
       } else {
         this.color = 'purple';

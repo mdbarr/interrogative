@@ -71,6 +71,17 @@ export default {
         this.upload(file);
       }
     },
+    formatBytes (bytes) {
+      bytes = Number(bytes) || 0;
+      if (bytes === 0) {
+        return '0 Bytes';
+      }
+      const kilobyte = 1024;
+      const places = 2;
+      const sizes = [ 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
+      const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
+      return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ sizes[index] }`;
+    },
     upload (file) {
       const item = {
         id: uuid(),
@@ -87,41 +98,53 @@ export default {
       this.setAttributes(item);
       console.log(item);
 
-      this.$events.emit({
-        type: 'file:upload:start',
-        data: item
-      });
-
-      const formData = new FormData();
-      formData.append('file', file);
-
-      this.$api.upload(this.url, formData, (event) => {
-        item.progress = Math.floor((event.loaded / event.total) * 100);
+      if (item.size > this.state.config.uploads.maxSize) {
+        const maximum = this.formatBytes(this.state.config.uploads.maxSize);
 
         this.$events.emit({
-          type: 'file:upload:progress',
+          type: 'file:upload:failed',
+          data: {
+            ...item,
+            message: `${ file.name } is too big; maximum upload size is ${ maximum }`
+          }
+        });
+      } else {
+        this.$events.emit({
+          type: 'file:upload:start',
           data: item
         });
 
-        console.log(item.progress);
-      }).
-        then((response) => {
-          item.completed = true;
-          item.path = response.data.path;
-          console.log(response);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        this.$api.upload(this.url, formData, (event) => {
+          item.progress = Math.floor((event.loaded / event.total) * 100);
+
           this.$events.emit({
-            type: 'file:upload:success',
+            type: 'file:upload:progress',
             data: item
           });
+
+          console.log(item.progress);
         }).
-        catch((error) => {
-          item.failed = true;
-          item.error = error;
-          this.$events.emit({
-            type: 'file:upload:failed',
-            data: item
+          then((response) => {
+            item.completed = true;
+            item.path = response.data.path;
+            console.log(response);
+            this.$events.emit({
+              type: 'file:upload:success',
+              data: item
+            });
+          }).
+          catch((error) => {
+            item.failed = true;
+            item.error = error;
+            this.$events.emit({
+              type: 'file:upload:failed',
+              data: item
+            });
           });
-        });
+      }
     },
     setAttributes (item) {
       item.color = 'white';
