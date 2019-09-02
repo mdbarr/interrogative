@@ -6,10 +6,10 @@
     </v-list-item-icon>
     <v-list-item-content class="pt-0 pb-0">
       <v-list-item-title>
-        <span class="uploading pl-0">{{ upload.name }}</span>
+        <div class="uploading upload-item pl-0 pt-2">{{ upload.name }}</div>
         <v-tooltip left nudge-top="-59" nudge-left="-5">
           <template v-slot:activator="{ on }">
-            <span class="float-right pr-1" v-on="on">
+            <span class="float-right pr-1 pt-2" v-on="on">
               <v-icon small>mdi-information-outline</v-icon>
             </span>
           </template>
@@ -90,5 +90,12 @@ export default {
 }
 .float-right {
     float: right;
+}
+.upload-item {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 </style>

@@ -33,6 +33,13 @@ export default { install (Vue) {
     Vue.set(state.uploads, event.data.id, event.data);
   });
 
+  $events.on('file:upload:failed', (event) => {
+    console.log('failed', event, state.uploads[event.data.id]);
+    if (state.uploads[event.data.id]) {
+      Vue.delete(state.uploads, event.data.id);
+    }
+  });
+
   $events.on('files:tree:update', (event) => {
     Vue.set(state.tree, 0, event.data);
     Vue.set(state.treeOpen, 0, event.data.path);

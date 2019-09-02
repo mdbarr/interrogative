@@ -116,12 +116,10 @@ export default {
         }).
         catch((error) => {
           item.failed = true;
+          item.error = error;
           this.$events.emit({
             type: 'file:upload:failed',
-            data: {
-              item,
-              error
-            }
+            data: item
           });
         });
     },
