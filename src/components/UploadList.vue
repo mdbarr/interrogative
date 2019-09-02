@@ -1,6 +1,6 @@
 <template>
 <v-list dense>
-  <v-list-item v-for="upload of state.uploads" :key="upload.id" class="pr-0" @click="true">
+  <v-list-item v-for="upload of state.uploads" :key="upload.id" class="pr-0" @click="open(upload)">
     <v-list-item-icon class="mr-0">
       <v-icon small :color="upload.color">{{ upload.icon }}</v-icon>
     </v-list-item-icon>
@@ -47,7 +47,22 @@ export default {
       const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
       return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ sizes[index] }`;
     }
-  }
+  },
+  methods: { open (item) {
+    if (item.progress === 100) {
+      if (this.state.files[item.path]) {
+        this.$events.emit({
+          type: 'editor:tab:focus',
+          data: { path: item.path }
+        });
+      } else {
+        this.$events.emit({
+          type: 'files:file:open',
+          data: { path: item.path }
+        });
+      }
+    }
+  } }
 };
 </script>
 
