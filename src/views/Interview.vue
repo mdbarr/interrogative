@@ -2,7 +2,12 @@
 <div id="interview">
   <div v-if="!state.ready">
     <v-overlay>
-      <v-progress-circular indeterminate size="200" width="3" color="white"></v-progress-circular>
+      <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
+      <div v-if="error" class="error-message">
+        <v-icon size="200" :color="errorColor">mdi-comment-multiple</v-icon>
+        <br><br>
+        <span v-html="error"></span>
+      </div>
     </v-overlay>
   </div>
   <div v-else>
@@ -226,7 +231,8 @@ export default {
     return {
       state,
       mini: true,
-      socket: null,
+      error: false,
+      errorColor: 'red darken-2',
       sideTab: undefined,
       terminalTab: 0,
       terminalTabs: [ {
@@ -300,6 +306,20 @@ export default {
         Object.assign(this.state.interview, interview.data);
         this.connection = this.$connect(this.state.id);
         this.state.ready = true;
+      }).
+      catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            this.error = `Interview ${ this.state.id } was not found.`;
+          } else if (error.response.status === 409) {
+            this.errorColor = 'green';
+            this.error = 'This interview is currently unavailable. <br>Please try again during the scheduled time.';
+          } else {
+            this.error = error.response.statusText;
+          }
+        } else {
+          this.error = error.message;
+        }
       });
   },
   destroyed () { }
@@ -347,5 +367,8 @@ export default {
 .section-heading {
     font-weight: 700;
     margin-bottom: 12px;
+}
+.error-message {
+    text-align: center;
 }
 </style>
