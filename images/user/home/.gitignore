@@ -2,9 +2,10 @@
 .bashrc
 .cache
 .config
+.emacs.d
 .gitconfig
+.interrogative
 .node-gyp
 .profile
-.emacs.d
+.ssh
 uploads
-.interrogative
