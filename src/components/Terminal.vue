@@ -16,6 +16,7 @@ Terminal.applyAddon(webLinks);
 
 export default {
   name: 'terminal',
+  props: { instance: Number },
   data () {
     return {
       element: null,
@@ -24,9 +25,13 @@ export default {
     };
   },
   mounted () {
+    console.log('creating terminal', this.instance);
     this.element = this.$refs.terminal;
 
-    this.xterm = new Terminal();
+    this.xterm = new Terminal({
+      cols: 100,
+      rows: 24
+    });
     this.xterm.setOption('rendererType', 'dom');
 
     this.xterm.setOption('fontFamily', '"Source Code Pro", monospace');
@@ -44,18 +49,8 @@ export default {
 
     this.xterm.open(this.element);
 
-    this.xterm.onResize(({
-      cols, rows
-    }) => {
-      if (!this.socket) {
-        this.socket = this.$socket(`/shell?instance=0&cols=${ cols }&rows=${ rows }`);
-        this.xterm.attach(this.socket);
-      }
-    });
-
-    this.$nextTick(() => {
-      this.xterm.fit();
-    });
+    this.socket = this.$socket(`/shell?instance=${ this.instance }`);
+    this.xterm.attach(this.socket);
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white">
-    <v-btn dense small tile icon left height="30" class="plus-button">
+    <v-btn dense small tile icon left height="30" class="plus-button" @click="plus">
       <v-icon small>mdi-plus</v-icon>
     </v-btn>
     <v-tab v-for="item of tabs" :key="item.index" class="tab-bg pl-2 pr-2">
@@ -11,7 +11,12 @@
     </v-tab>
   </v-tabs>
   <div v-for="item of tabs" :key="item.index">
-    <Terminal v-show="tab === item.index"></Terminal>
+    <div v-if="item.type === 'terminal'">
+      <Terminal v-show="tab === item.index" :instance="item.index"></Terminal>
+    </div>
+    <div v-if="item.type === 'messages'">
+      <div v-show="tab === item.index">Messages</div>
+    </div>
   </div>
 </div>
 </template>
@@ -36,11 +41,26 @@ export default {
       }, {
         index: 1,
         name: 'Messages',
-        type: 'message',
+        type: 'messages',
         icon: 'forum',
         closeable: false
       } ]
     };
+  },
+  methods: {
+    plus () {
+      const terminal = {
+        index: this.tabs.length,
+        name: 'Terminal',
+        type: 'terminal',
+        icon: 'console',
+        closeable: true
+      };
+      this.tab = terminal.index;
+      this.tabs.push(terminal);
+    },
+    close () {
+    }
   }
 };
 </script>
