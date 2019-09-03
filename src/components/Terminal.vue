@@ -70,7 +70,7 @@ export default {
 
 <style>
 .terminal {
-    height: 388px !important;
+    height: 360px !important;
     min-width: 720px !important;
     background-color: #222;
 }
