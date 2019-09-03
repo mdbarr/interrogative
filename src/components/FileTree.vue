@@ -72,8 +72,8 @@ export default {
     },
     showMenu (event, item) {
       this.selected = item;
-      this.menuX = event.screenX - 5;
-      this.menuY = event.screenY - 110;
+      this.menuX = event.clientX;
+      this.menuY = event.clientY;
       this.menu = true;
       console.log(event);
     },

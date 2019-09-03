@@ -71,7 +71,7 @@
                      <v-icon v-on="on" v-if="state.online[user.id]" x-small color="green" class="pr-1" title="online">
                        mdi-circle
                      </v-icon>
-                     <v-icon v-on="on" v-else x-small class="pr-1">mdi-checkbox-blank-circle-outline</v-icon>
+                     <v-icon v-on="on" v-else x-small color="red" class="pr-1">mdi-checkbox-blank-circle-outline</v-icon>
                    </template>
                    <span v-if="state.online[user.id]">{{ user.name }} is online</span>
                    <span v-else>{{ user.name }} is not online</span>

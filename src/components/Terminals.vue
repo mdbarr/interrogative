@@ -14,8 +14,8 @@
     <div v-if="item.type === 'terminal'">
       <Terminal v-show="current === item.id" :id="item.id"></Terminal>
     </div>
-    <div v-if="item.type === 'messages'">
-      <div v-show="current === item.id">Messages</div>
+    <div v-if="item.type === 'chat'">
+      <div v-show="current === item.id">chat goes here</div>
     </div>
   </div>
 </div>
