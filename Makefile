@@ -12,3 +12,7 @@ container:
 
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
+
+clean:
+	./bin/kill.sh
+	docker system prune -f
