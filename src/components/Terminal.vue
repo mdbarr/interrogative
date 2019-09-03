@@ -1,5 +1,5 @@
 <template>
-  <div ref="terminal"></div>
+  <div ref="terminal" class="terminal"></div>
 </template>
 
 <script>
@@ -38,29 +38,29 @@ export default {
 
     this.xterm = new Terminal({
       cols: 100,
-      rows: 24
+      rows: 24,
+      rendererType: 'dom',
+      fontFamily: '"Source Code Pro", monospace',
+      fontSize: 12,
+      letterSpacing: 0,
+      lineHeight: 1,
+      rightClickSelectsWord: true,
+      macOptionIsMeta: true,
+      theme: {
+        background: '#222',
+        selection: 'rgba(0, 165, 255, 0.25)'
+      }
     });
-    this.xterm.setOption('rendererType', 'dom');
-
-    this.xterm.setOption('fontFamily', '"Source Code Pro", monospace');
-    this.xterm.setOption('fontSize', 12);
-    this.xterm.setOption('letterSpacing', 0);
-    this.xterm.setOption('lineHeight', 1);
-
-    this.xterm.setOption('rightClickSelectsWord', true);
-    this.xterm.setOption('macOptionIsMeta', true);
-
-    this.xterm.setOption('theme', {
-      background: '#222',
-      selection: 'rgba(0, 165, 255, 0.25)'
-    });
-
-    this.xterm.open(this.element);
 
     this.socket = this.$socket(`/shell?id=${ this.id }`);
     this.xterm.attach(this.socket);
 
     this.$events.on('terminal:tab:focus', this.focus);
+
+    this.$nextTick(() => {
+      this.xterm.open(this.element);
+      this.xterm.focus();
+    });
   },
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
@@ -69,8 +69,9 @@ export default {
 </script>
 
 <style>
-#terminal {
+.terminal {
     height: 388px !important;
+    min-width: 720px !important;
     background-color: #222;
 }
 </style>

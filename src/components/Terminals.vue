@@ -1,7 +1,7 @@
 <template>
 <div>
   <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" @change="tabChange">
-    <v-btn dense small tile icon left height="30" class="plus-button" @click="plus">
+    <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="plus">
       <v-icon small>mdi-plus</v-icon>
     </v-btn>
     <v-tab v-for="item of state.terminals" :key="item.index" class="tab-bg pl-2 pr-2">
@@ -47,12 +47,13 @@ export default {
     },
     focus (event) {
       if (this.current !== event.data.id) {
-        this.id = event.data.id;
-        this.tab = this.list.indexOf(this.path);
+        this.current = event.data.id;
+        this.tab = this.list.indexOf(this.current);
       }
     },
     opened (event) {
       this.tabs.set(event.data.id, event.data);
+      this.list.push(event.data.id);
     },
     update (event) {
       this.tabs.clear();

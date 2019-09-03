@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import mime from 'mime';
 import uuid from 'uuid/v4';
 import state from '../state';
 
@@ -87,6 +88,7 @@ export default {
         id: uuid(),
         name: file.name,
         extension: file.name.replace(/^.*\.([^.]+)$/, '$1'),
+        mime: 'text/plain',
         type: file.type,
         size: file.size,
         uploader: state.name,
@@ -147,6 +149,7 @@ export default {
       }
     },
     setAttributes (item) {
+      item.mime = mime.getType(item.extension) || 'text/plain';
       item.color = 'white';
       item.icon = 'file';
 
