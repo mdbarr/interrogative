@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import state from '../state';
 import events from '@mdbarr/events';
@@ -111,6 +110,16 @@ export default { install (Vue) {
     console.log('uploads', event.data);
     Vue.set(state, 'uploads', {});
     Object.assign(state.uploads, event.data);
+  });
+
+  $events.on('terminal:tab:list', (event) => {
+    console.log('terminals', event.data);
+    state.terminals.splice(0, state.terminals.length, ...event.data);
+  });
+
+  $events.on('terminal:tab:opened', (event) => {
+    console.log('terminal opened', event.data);
+    state.terminals.push(event.data);
   });
 
   //////////

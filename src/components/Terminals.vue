@@ -1,21 +1,21 @@
 <template>
 <div>
-  <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white">
+  <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" @change="tabChange">
     <v-btn dense small tile icon left height="30" class="plus-button" @click="plus">
       <v-icon small>mdi-plus</v-icon>
     </v-btn>
-    <v-tab v-for="item of tabs" :key="item.index" class="tab-bg pl-2 pr-2">
+    <v-tab v-for="item of state.terminals" :key="item.index" class="tab-bg pl-2 pr-2">
       <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
       <span class="pr-1">{{ item.name }}</span>
       <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
     </v-tab>
   </v-tabs>
-  <div v-for="item of tabs" :key="item.index">
+  <div v-for="item of state.terminals" :key="item.index">
     <div v-if="item.type === 'terminal'">
-      <Terminal v-show="tab === item.index" :instance="item.index"></Terminal>
+      <Terminal v-show="current === item.id" :id="item.id"></Terminal>
     </div>
     <div v-if="item.type === 'messages'">
-      <div v-show="tab === item.index">Messages</div>
+      <div v-show="current === item.id">Messages</div>
     </div>
   </div>
 </div>
@@ -31,36 +31,61 @@ export default {
   data () {
     return {
       state,
-      tab: 0,
-      tabs: [ {
-        index: 0,
-        name: 'Terminal',
-        type: 'terminal',
-        icon: 'console',
-        closeable: false
-      }, {
-        index: 1,
-        name: 'Messages',
-        type: 'messages',
-        icon: 'forum',
-        closeable: false
-      } ]
+      current: '',
+      list: [],
+      tabs: new Map(),
+      tab: 0
     };
   },
   methods: {
+    tabChange (value) {
+      this.current = this.list[value];
+      this.$events.emit({
+        type: 'terminal:tab:focus',
+        data: { id: this.current }
+      });
+    },
+    focus (event) {
+      if (this.current !== event.data.id) {
+        this.id = event.data.id;
+        this.tab = this.list.indexOf(this.path);
+      }
+    },
+    opened (event) {
+      this.tabs.set(event.data.id, event.data);
+    },
+    update (event) {
+      this.tabs.clear();
+      for (const tab of event.data) {
+        if (!this.list.includes(tab.id)) {
+          this.list.push(tab.id);
+          this.tabs.set(tab.id, tab);
+        }
+      }
+    },
+    closed (event) {
+      if (this.list.includes(event.data.id)) {
+        const index = this.list.indexOf(event.data.id);
+        this.list.splice(index, 1);
+      }
+    },
     plus () {
-      const terminal = {
-        index: this.tabs.length,
-        name: 'Terminal',
-        type: 'terminal',
-        icon: 'console',
-        closeable: true
-      };
-      this.tab = terminal.index;
-      this.tabs.push(terminal);
+      this.$events.emit({ type: 'terminal:tab:open' });
     },
     close () {
     }
+  },
+  mounted () {
+    this.$events.on('terminal:tab:focus', this.focus);
+    this.$events.on('terminal:tab:closed', this.closed);
+    this.$events.on('terminal:tab:list', this.update);
+    this.$events.on('terminal:tab:opened', this.opened);
+  },
+  destroyed () {
+    this.$events.off('terminal:tab:focus', this.focus);
+    this.$events.off('terminal:tab:closed', this.closed);
+    this.$events.off('terminal:tab:list', this.update);
+    this.$events.off('terminal:tab:opened', this.opened);
   }
 };
 </script>

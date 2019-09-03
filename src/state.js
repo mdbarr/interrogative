@@ -29,6 +29,9 @@ function State () {
 
   this.online = {};
 
+  this.terminals = [];
+  this.terminal = '';
+
   this.gitSVG = '';
 }
 

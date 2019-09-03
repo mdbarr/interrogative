@@ -16,7 +16,7 @@ Terminal.applyAddon(webLinks);
 
 export default {
   name: 'terminal',
-  props: { instance: Number },
+  props: { id: String },
   data () {
     return {
       element: null,
@@ -24,8 +24,16 @@ export default {
       socket: null
     };
   },
+  methods: { focus (event) {
+    if (event.data.id === this.id) {
+      this.$nextTick(() => {
+        this.xterm.resize(100, 24);
+        this.xterm.focus();
+      });
+    }
+  } },
   mounted () {
-    console.log('creating terminal', this.instance);
+    console.log('creating terminal', this.id);
     this.element = this.$refs.terminal;
 
     this.xterm = new Terminal({
@@ -49,8 +57,13 @@ export default {
 
     this.xterm.open(this.element);
 
-    this.socket = this.$socket(`/shell?instance=${ this.instance }`);
+    this.socket = this.$socket(`/shell?id=${ this.id }`);
     this.xterm.attach(this.socket);
+
+    this.$events.on('terminal:tab:focus', this.focus);
+  },
+  destroyed () {
+    this.$events.off('terminal:tab:focus', this.focus);
   }
 };
 </script>
