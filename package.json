@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@mdbarr/events": "^0.1.0",
-    "@mdbarr/griff": "^0.1.1",
+    "@mdbarr/griff": "^0.2.0",
     "axios": "^0.19.0",
     "barrkeep": "^2.2.6",
     "chokidar": "^3.0.2",
@@ -24,9 +24,9 @@
     "restify-cors-middleware": "^1.1.1",
     "uuid": "^3.3.3",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
+    "vue-router": "^3.1.3",
     "vue2-dropzone": "^3.6.0",
-    "vuetify": "^2.0.11",
+    "vuetify": "^2.0.12",
     "watershed": "^0.4.0",
     "xterm": "^3.14.5",
     "yargs": "^14.0.0"
@@ -38,10 +38,10 @@
     "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.2.2",
+    "eslint": "^6.3.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
