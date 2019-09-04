@@ -719,10 +719,10 @@
     barrkeep "^2.2.5"
     uuid "^3.3.2"
 
-"@mdbarr/griff@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.0.tgz#b0dcab27f0b6ef9468d76221437a2ffafbb9d70f"
-  integrity sha512-X82sWzHwucW5NQejLEsBwqRWGqD7T8n38c5c5sPKWGfXRfMaSImbym2qTr685d6rRWk3HauWlfBn1Dk5bHrtAw==
+"@mdbarr/griff@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.1.tgz#0db0cd0696e948906c91587f086a2eea7049b440"
+  integrity sha512-HgOx2dmzFaCK8DGb9oBSIz8/uMhUU3TUQOZyzBVrmG7JJ7lkUzqIz/HV0yhm1eEPkhEViWK05JmPYQj/VCtoCg==
   dependencies:
     minimist "^1.2.0"
     nodegit "^0.25.1"
