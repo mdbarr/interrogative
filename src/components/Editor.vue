@@ -455,9 +455,11 @@ export default {
   watch: {
     theme (value) {
       this.instance.setOption('theme', value);
+      window.localStorage.setItem('theme', value);
     },
     keymap (value) {
       this.instance.setOption('keyMap', value);
+      window.localStorage.setItem('keymap', value);
     }
   }
 };

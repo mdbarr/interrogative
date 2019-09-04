@@ -6,8 +6,8 @@ function State () {
   this.config = require('../defaults');
   this.settings = require('./settings');
 
-  this.theme = 'argonaut';
-  this.keymap = 'default';
+  this.theme = window.localStorage.getItem('theme') || 'argonaut';
+  this.keymap = window.localStorage.getItem('keymap') || 'default';
 
   this.tree = [];
   this.treeOpen = [];
