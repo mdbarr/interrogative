@@ -16,3 +16,4 @@ manager:
 clean:
 	./bin/kill.sh
 	docker system prune -f
+	docker volume prune -f
