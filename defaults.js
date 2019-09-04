@@ -14,8 +14,8 @@ module.exports = {
   container: {
     port: 1313,
     host: '0.0.0.0',
-    ttl: 720000,
-    heartbeat: 30000
+    ttl: '2h',
+    heartbeat: '30s'
   },
   interaction: {
     port: 1314,
