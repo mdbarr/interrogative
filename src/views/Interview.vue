@@ -160,10 +160,10 @@
       <v-btn dense small tile icon @click.stop="toggleSide"><v-icon>mdi-comment-multiple</v-icon></v-btn>
       <v-toolbar-title class="pl-2 title">INTERROGATIVE.IO</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon v-if="state.name" class="pr-2">mdi-account-circle</v-icon>
       <span class="text-uppercase subtitle-2 pr-2">
         {{ state.name }}
       </span>
+      <v-icon v-if="state.name" class="pr-1">mdi-account-circle</v-icon>
     </v-app-bar>
 
     <v-content color="#222">

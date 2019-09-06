@@ -224,7 +224,7 @@ export default {
         item.icon = 'json';
       } else if (item.extension === 'md') {
         item.mime = 'text/x-markdown';
-        item.color = '#9927E5';
+        item.color = '#911CBF';
         item.icon = 'markdown';
       } else if (item.extension === 'pdf') {
         item.color = '#DB1B23';
