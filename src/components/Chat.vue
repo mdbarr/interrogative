@@ -1,13 +1,19 @@
 <template>
 <div class="chat-container">
   <div ref="contents" class="chat-contents">
+    <picker
+      :data="emojiIndex"
+      :emojiSize="20"
+      @select="insert"
+      :showPreview="false"
+      v-show="emoji"
+      />
   </div>
+  <div class="chat-input">
   <v-text-field
     autofocus
-    background-color="#222"
-    class="chat-input pa-0"
-    clear-icon="mdi-close"
-    clearable
+    background-color="#424242"
+    class="chat-input pa-0 pl-2 pr-2"
     flat
     hide-details
     id="chat-input"
@@ -17,20 +23,33 @@
     ref="input"
     v-model="input"
     @keypress.enter="submit"
-   ></v-text-field>
+    >
+    <template v-slot:append>
+      <v-icon @click.stop="emoji = !emoji">mdi-emoticon-happy-outline</v-icon>
+    </template>
+  </v-text-field>
+  </div>
 </div>
 </template>
 
 <script>
 import state from '../state';
+import data from 'emoji-mart-vue-fast/data/all.json';
+import {
+  Picker, EmojiIndex
+} from 'emoji-mart-vue-fast';
+import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
 export default {
   name: 'chat',
   props: { id: String },
+  components: { Picker },
   data () {
     return {
       state,
-      input: ''
+      input: '',
+      emoji: false,
+      emojiIndex: new EmojiIndex(data)
     };
   },
   methods: {
@@ -42,6 +61,12 @@ export default {
     submit () {
       console.log('input', this.input);
       this.input = '';
+    },
+    insert (emoji) {
+      console.log(emoji.native);
+      this.input += emoji.native;
+      this.emoji = false;
+      this.$refs.input.focus();
     }
   },
   mounted () {
@@ -58,14 +83,21 @@ export default {
     height: 360px !important;
     width: 100%;
     background-color: #222;
-    padding: 4px;
     font-size: .875rem;
 }
 .chat-contents {
-    height: 320px !important;
+    position: relative;
+    height: 326px !important;
     font-size: .875rem;
 }
 .chat-input {
     font-size: .875rem !important;
+    background-color: #424242;
+}
+.emoji-mart {
+    position: absolute;
+    top: 26px;
+    right: 0px;
+    height: 300px !important;
 }
 </style>
