@@ -15,7 +15,7 @@
       <Terminal v-show="current === item.id" :id="item.id"></Terminal>
     </div>
     <div v-if="item.type === 'chat'">
-      <div v-show="current === item.id">chat goes here</div>
+      <Chat v-show="current === item.id" :id="item.id"></Chat>
     </div>
   </div>
 </div>
@@ -23,11 +23,15 @@
 
 <script>
 import state from '../state';
+import Chat from '../components/Chat';
 import Terminal from '../components/Terminal';
 
 export default {
   name: 'terminals',
-  components: { Terminal },
+  components: {
+    Chat,
+    Terminal
+  },
   data () {
     return {
       state,
