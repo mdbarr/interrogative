@@ -4,7 +4,7 @@
     <v-overlay>
       <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
       <div v-if="error" class="error-message">
-        <img src="../assets/logo.svg" width="250">
+        <img src="../assets/logo-frown.svg" width="250">
         <br><br>
         <span v-html="error"></span>
       </div>
@@ -12,7 +12,7 @@
   </div>
   <div v-else>
     <v-overlay v-if="state.disconnected">
-      <img src="../assets/logo.svg" width="250">
+      <img src="../assets/logo-frown.svg" width="250">
       <br><br>
       Timed out, please reload
     </v-overlay>
