@@ -184,6 +184,10 @@ export default { install (Vue) {
   Vue.prototype.$connect = function (id) {
     const socket = this.$socket('/main');
 
+    socket.onclose = () => {
+      state.disconnected = true;
+    };
+
     $events.on('*', (event) => {
       if (event.origin === $events.id && event.type !== 'register') {
         socket.$send(event);

@@ -4,13 +4,18 @@
     <v-overlay>
       <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
       <div v-if="error" class="error-message">
-        <v-icon size="200" :color="errorColor">mdi-comment-multiple</v-icon>
+        <img src="../assets/logo.svg" width="250">
         <br><br>
         <span v-html="error"></span>
       </div>
     </v-overlay>
   </div>
   <div v-else>
+    <v-overlay v-if="state.disconnected">
+      <img src="../assets/logo.svg" width="250">
+      <br><br>
+      Timed out, please reload
+    </v-overlay>
     <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
       <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
         <v-tab class="white--text">

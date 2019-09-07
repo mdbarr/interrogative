@@ -1,5 +1,7 @@
 function State () {
   this.ready = false;
+  this.disconnected = false;
+
   this.id = '';
   this.interview = {};
 
