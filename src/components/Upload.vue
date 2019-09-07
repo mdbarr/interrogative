@@ -11,7 +11,7 @@
     Click or Drop files here to upload
   </div>
   <div v-else class="unactionable">
-    <v-icon x-large color="#2C87AF">mdi-check</v-icon>
+    <v-icon x-large color="#3598DA">mdi-check</v-icon>
   </div>
   <input type="file" ref="file" style="display: none" @change="changed">
 </div>
@@ -224,7 +224,7 @@ export default {
         item.icon = 'json';
       } else if (item.extension === 'md') {
         item.mime = 'text/x-markdown';
-        item.color = '#911CBF';
+        item.color = '#3598DA';
         item.icon = 'markdown';
       } else if (item.extension === 'pdf') {
         item.color = '#DB1B23';

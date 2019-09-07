@@ -157,10 +157,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
-      <v-btn dense small tile icon @click.stop="toggleSide" class="pl-2">
+      <v-btn dense small tile icon @click.stop="toggleSide" class="pl-3">
         <img src="../assets/logo.svg" width="30" class="app-bar-logo">
       </v-btn>
-      <v-toolbar-title class="pl-3 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
+      <v-toolbar-title class="pl-4 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
       <v-spacer></v-spacer>
       <span class="text-uppercase subtitle-2 pr-2">
         {{ state.name }}
@@ -318,17 +318,10 @@ export default {
     text-transform: none !important;
     background-color: #303030;
 }
-.tab-spacer {
-    zzzborder-right: 4px solid #303030;
-}
-
 .tab-bg.v-tab--active {
     background-color: inherit;
-    zzzborder-right: 2px solid #595959;
     color: white !important;
     opacity: 1 !important;
-    zzzborder-left: 1px solid white;
-    zzzborder-right: 1px solid white;
 }
 .tab-bg-color {
     position: relative;
@@ -355,8 +348,8 @@ export default {
     margin-top: -2px;
 }
 .app-bar-title {
-    font-family: Open Source Sans, monospace;
-    letter-spacing: 2px;
+    font-family: Inconsolata, monospace;
+    letter-spacing: 3px;
     font-size: 22px;
     line-height: 22px;
 }
