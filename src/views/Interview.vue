@@ -55,7 +55,7 @@
                 {{ user.name }}
               </div>
               <div v-if="state.interview.position">
-                <v-icon small class="pr-2">mdi-briefcase-outline</v-icon>
+                <v-icon small class="pr-2">mdi-laptop-windows</v-icon>
                 {{ state.interview.position }}
               </div>
               <br>
@@ -157,8 +157,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
-      <v-btn dense small tile icon @click.stop="toggleSide"><v-icon>mdi-comment-multiple</v-icon></v-btn>
-      <v-toolbar-title class="pl-2 title">INTERROGATIVE.IO</v-toolbar-title>
+      <v-btn dense small tile icon @click.stop="toggleSide" class="pl-2">
+        <img src="../assets/logo.svg" width="30" class="app-bar-logo">
+      </v-btn>
+      <v-toolbar-title class="pl-3 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
       <v-spacer></v-spacer>
       <span class="text-uppercase subtitle-2 pr-2">
         {{ state.name }}
@@ -348,5 +350,14 @@ export default {
 }
 .error-message {
     text-align: center;
+}
+.app-bar-logo {
+    margin-top: -2px;
+}
+.app-bar-title {
+    font-family: Open Source Sans, monospace;
+    letter-spacing: 2px;
+    font-size: 22px;
+    line-height: 22px;
 }
 </style>
