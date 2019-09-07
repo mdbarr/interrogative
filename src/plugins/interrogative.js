@@ -39,9 +39,38 @@ export default { install (Vue) {
     }
   });
 
+  const buildDirectories = (branch, depth = 0) => {
+    if (depth === 0) {
+      state.directories = [];
+    }
+
+    const node = {
+      name: branch.name,
+      path: branch.path,
+      depth
+    };
+
+    state.directories.push(node);
+
+    if (branch.children) {
+      for (const child of branch.children) {
+        if (child.type === 'directory') {
+          buildDirectories(child, depth + 1);
+        }
+      }
+    }
+
+    if (depth === 0) {
+      state.directories.reverse();
+    }
+  };
+
   $events.on('files:tree:update', (event) => {
     Vue.set(state.tree, 0, event.data);
     Vue.set(state.treeOpen, 0, event.data.path);
+
+    buildDirectories(event.data);
+    console.log('directories', state.directories);
   });
 
   $events.on('files:file:opened', (event) => {

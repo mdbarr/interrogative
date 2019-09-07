@@ -13,6 +13,7 @@ function State () {
 
   this.tree = [];
   this.treeOpen = [];
+  this.directories = [];
 
   this.focus = '';
   this.files = {};

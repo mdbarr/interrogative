@@ -77,9 +77,6 @@ export default {
       this.menu = true;
       console.log(event);
     },
-    hover (item) {
-      // Tooltip
-    },
     move (item) {
       console.log('move', item);
     },

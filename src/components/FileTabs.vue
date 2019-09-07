@@ -1,6 +1,6 @@
 <template>
 <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back" @change="editorTabChange">
-  <v-btn dense small tile icon left height="30" class="plus-button">
+  <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="newItem = true">
     <v-icon small>mdi-plus</v-icon>
   </v-btn>
   <v-tab v-for="item of state.files" :key="item.path" class="tab-bg pl-2 pr-2">
@@ -8,21 +8,24 @@
     <span class="pr-1">{{ item.name }}</span>
     <v-icon v-if="item.closeable && list.length > 1" small class="pl-2 closeable" @click.stop="closeTab(item)">mdi-close</v-icon>
   </v-tab>
+  <NewItem :value="newItem" @close="newItem = false"></NewItem>
 </v-tabs>
 </template>
 
 <script>
 import state from '../state';
+import NewItem from './NewItem';
 
 export default {
   name: 'file-tabs',
-  components: { },
+  components: { NewItem },
   data: () => {
     return {
       state,
       tab: -1,
       path: '',
-      list: []
+      list: [],
+      newItem: false
     };
   },
   methods: {
