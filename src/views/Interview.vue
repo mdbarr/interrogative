@@ -12,7 +12,7 @@
   </div>
   <div v-else-if="state.disconnected">
     <v-overlay class="error-message">
-      <img src="../assets/logo-frown.svg" width="250">
+      <img src="../assets/logo-hourglass.svg" width="250">
       <br><br>
       Your interview session has timed out.
       <a @click="reload">Refresh the browser</a> to reconnect.
