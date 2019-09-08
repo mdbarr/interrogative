@@ -14,7 +14,8 @@
     <v-overlay v-if="state.disconnected">
       <img src="../assets/logo-frown.svg" width="250">
       <br><br>
-      Timed out, please reload
+      Your interview session has timed out.
+      <span @click="window.location.reload()">Refresh the browser</span> to reconnect.
     </v-overlay>
     <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
       <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
