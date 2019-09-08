@@ -4,7 +4,8 @@
     <v-overlay>
       <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
       <div v-if="error" class="error-message">
-        <img src="../assets/logo-frown.svg" width="250">
+        <img v-if="error.includes('schedule')" src="../assets/logo-clock.svg" width="250">
+        <img v-else src="../assets/logo-frown.svg" width="250">
         <br><br>
         <span v-html="error"></span>
       </div>
@@ -63,7 +64,7 @@
                 {{ user.name }}
               </div>
               <div v-if="state.interview.position">
-                <v-icon small class="pr-2">mdi-laptop-windows</v-icon>
+                <v-icon small class="pl-5 pr-2">mdi-laptop-windows</v-icon>
                 {{ state.interview.position }}
               </div>
               <br>
@@ -87,7 +88,7 @@
                  {{ user.name }}
               </div>
               <div v-if="state.interview.company">
-                <v-icon small class="pr-2">mdi-office-building</v-icon>
+                <v-icon small class="pl-5 pr-2">mdi-office-building</v-icon>
                 {{ state.interview.company }}
               </div>
               <br>
