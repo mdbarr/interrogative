@@ -10,13 +10,15 @@
       </div>
     </v-overlay>
   </div>
-  <div v-else>
-    <v-overlay v-if="state.disconnected">
+  <div v-if="state.disconnected">
+    <v-overlay class="error-message">
       <img src="../assets/logo-frown.svg" width="250">
       <br><br>
       Your interview session has timed out.
-      <span @click="window.location.reload()">Refresh the browser</span> to reconnect.
+      <a @click="reload">Refresh the browser</a> to reconnect.
     </v-overlay>
+  </div>
+  <div v-else>
     <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
       <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
         <v-tab class="white--text">
@@ -271,6 +273,9 @@ export default {
       return this.state.interview.users.filter((user) => {
         return user.role === role;
       });
+    },
+    reload () {
+      window.location.reload();
     },
     sideTabChange (value) {
       if (value === undefined) {
