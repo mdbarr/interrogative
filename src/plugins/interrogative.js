@@ -47,8 +47,15 @@ export default { install (Vue) {
     const node = {
       name: branch.name,
       path: branch.path,
-      depth
+      depth,
+      icon: 'mdi-folder'
     };
+
+    if (node.path === state.interview.home) {
+      node.icon = 'mdi-folder-home';
+    } else if (node.path === state.interview.uploadsPath) {
+      node.icon = 'mdi-folder-upload';
+    }
 
     state.directories.push(node);
 
