@@ -10,7 +10,7 @@
       </div>
     </v-overlay>
   </div>
-  <div v-if="state.disconnected">
+  <div v-else-if="state.disconnected">
     <v-overlay class="error-message">
       <img src="../assets/logo-frown.svg" width="250">
       <br><br>
