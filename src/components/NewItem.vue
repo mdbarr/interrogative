@@ -75,11 +75,17 @@ export default {
   },
   methods: { create () {
     console.log('create', this.name, this.path, this.isFolder);
+    this.$events.emit({
+      type: 'files:file:create',
+      data: {
+        name: this.name,
+        path: this.path,
+        type: this.isFolder ? 'directory' : 'file'
+      }
+    });
     this.show = false;
   } },
-  mounted () {
-
-  },
+  mounted () { },
   watch: { value (display) {
     if (display) {
       this.path = this.state.directories[this.state.directories.length - 1].path;
