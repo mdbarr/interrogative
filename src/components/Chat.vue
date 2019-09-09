@@ -1,9 +1,12 @@
 <template>
 <div class="chat-container">
   <div ref="contents" class="chat-contents" @click.stop="click">
-    <div v-for="message of state.messages" :key="message.id" :class="fromClass(message)">
-      {{ message.text }}
-    </div>
+    <template v-for="(message, index) of state.messages">
+      <div v-if="fromWhom(message, index)" class="from-whom" :key="message.id + '-name'">
+      <v-icon small color="#585858" class="pr-1">mdi-comment-account</v-icon>{{ message.name }}
+      </div>
+      <div :class="fromClass(message)" :key="message.id">{{ message.text }}</div>
+    </template>
   </div>
   <div class="chat-input">
   <v-text-field
@@ -73,6 +76,7 @@ export default {
       if (this.input) {
         const message = {
           id: uuid(),
+          name: this.state.name,
           user: this.state.user,
           text: this.input,
           timestamp: Date.now()
@@ -97,6 +101,24 @@ export default {
         return 'message from-me';
       }
       return 'message from-them';
+    },
+    fromWhom (message, index) {
+      console.log('from whom', index, message);
+      if (message.user === this.state.user) {
+        return false;
+      }
+      for (let i = index - 1; i >= 0; i--) {
+        if (this.state.messages[i].user === this.state.user) {
+          continue;
+        } else if (this.state.messages[i].user !== message.user) {
+          return true;
+        } else if (this.state.messages[i].user === message.user) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      return true;
     }
   },
   watch: { count (value) {
@@ -190,5 +212,12 @@ export default {
     background: #222;
     border-bottom-right-radius: 10px;
     transform: translate(-30px, -2px);
+}
+.from-whom {
+    position: relative;
+    padding-bottom: 4px;
+    font-size: 11px;
+    left: -10px;
+    color: #aaa;
 }
 </style>
