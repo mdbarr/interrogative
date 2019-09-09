@@ -57,6 +57,9 @@ export default {
       emojiIndex: new EmojiIndex(data)
     };
   },
+  computed: { count () {
+    return this.state.messages.length;
+  } },
   methods: {
     click () {
       this.$refs.input.focus();
@@ -67,20 +70,21 @@ export default {
       }
     },
     submit () {
-      console.log('input', this.input);
-      const message = {
-        id: uuid(),
-        user: this.state.user,
-        text: this.input,
-        timestamp: Date.now()
-      };
+      if (this.input) {
+        const message = {
+          id: uuid(),
+          user: this.state.user,
+          text: this.input,
+          timestamp: Date.now()
+        };
 
-      this.input = '';
+        this.input = '';
 
-      this.$events.emit({
-        type: 'messages:message:send',
-        data: message
-      });
+        this.$events.emit({
+          type: 'messages:message:send',
+          data: message
+        });
+      }
     },
     insert (emoji) {
       console.log(emoji.native);
@@ -95,6 +99,11 @@ export default {
       return 'message from-them';
     }
   },
+  watch: { count (value) {
+    this.$nextTick(() => {
+      this.$refs.contents.scrollTop = this.$refs.contents.scrollHeight;
+    });
+  } },
   mounted () {
     this.$events.on('terminal:tab:focus', this.focus);
   },
