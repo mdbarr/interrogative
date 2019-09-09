@@ -16,6 +16,10 @@ const defaults = {
   withCredentials: true
 };
 
+function jsonClone (object) {
+  return JSON.parse(JSON.stringify(object));
+}
+
 export default { install (Vue) {
   const $events = new events.EventBus();
   Vue.prototype.$events = $events;
@@ -169,7 +173,7 @@ export default { install (Vue) {
   //////////
 
   function api (method, url, body, progress) {
-    const request = Object.assign({}, defaults);
+    const request = jsonClone(defaults);
 
     if (method === 'upload') {
       request.method = 'post';
