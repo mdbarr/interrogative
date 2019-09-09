@@ -35,6 +35,8 @@ function State () {
   this.terminals = [];
   this.terminal = '';
 
+  this.messages = [];
+
   this.gitSVG = '';
 }
 

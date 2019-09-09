@@ -1,6 +1,6 @@
 <template>
 <div class="chat-container">
-  <div ref="contents" class="chat-contents">
+  <div ref="contents" class="chat-contents" @click.stop="click">
     <picker
       :data="emojiIndex"
       :emojiSize="20"
@@ -8,6 +8,9 @@
       :showPreview="false"
       v-show="emoji"
       />
+    <div v-for="message of state.messages" :key="message.id" :class="fromClass(message)">
+      {{ message.text }}
+    </div>
   </div>
   <div class="chat-input">
   <v-text-field
@@ -53,6 +56,9 @@ export default {
     };
   },
   methods: {
+    click () {
+      this.$refs.input.focus();
+    },
     focus (event) {
       if (event.data.id === this.id) {
         this.$refs.input.focus();
@@ -60,6 +66,13 @@ export default {
     },
     submit () {
       console.log('input', this.input);
+      const message = {
+        id: Date.now().toString(),
+        user: this.state.messages.length % 2 ? this.state.user : 'them',
+        text: this.input
+      };
+      this.state.messages.push(message);
+
       this.input = '';
     },
     insert (emoji) {
@@ -67,6 +80,12 @@ export default {
       this.input += emoji.native;
       this.emoji = false;
       this.$refs.input.focus();
+    },
+    fromClass (message) {
+      if (message.user === this.state.user) {
+        return 'message from-me';
+      }
+      return 'message from-them';
     }
   },
   mounted () {
@@ -89,6 +108,10 @@ export default {
     position: relative;
     height: 326px !important;
     font-size: .875rem;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    overflow: scroll;
 }
 .chat-input {
     font-size: .875rem !important;
@@ -99,5 +122,56 @@ export default {
     top: 26px;
     right: 0px;
     height: 300px !important;
+    z-index: 100;
+}
+.message {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 12px;
+    line-height: 24px;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+.message:before,.message:after {
+    content:'';
+    position: absolute;
+    bottom: -2px;
+    height: 20px;
+}
+.from-me {
+    color: white;
+    background: #0083af;
+    align-self: flex-end;
+}
+.from-me:before {
+    right: -7px;
+    border-right: 20px solid #0083af;
+    border-bottom-left-radius: 16px 14px;
+    transform: translate(0, -2px);
+}
+.from-me:after {
+    right: -56px;
+    width: 26px;
+    background: #222;
+    border-bottom-left-radius: 10px;
+    transform: translate(-30px, -2px);
+}
+.from-them {
+    background: #585858;
+    color: white;
+}
+.from-them:before {
+    left: -7px;
+    border-left: 20px solid #585858;
+    border-bottom-right-radius: 16px 14px;
+    transform: translate(0, -2px);
+}
+.from-them:after {
+    left: 4px;
+    width: 26px;
+    background: #222;
+    border-bottom-right-radius: 10px;
+    transform: translate(-30px, -2px);
 }
 </style>
