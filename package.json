@@ -8,6 +8,7 @@
   "dependencies": {
     "@mdbarr/events": "^0.1.0",
     "@mdbarr/griff": "^0.2.1",
+    "async": "^3.1.0",
     "axios": "^0.19.0",
     "barrkeep": "^2.2.7",
     "chokidar": "^3.0.2",
@@ -16,6 +17,7 @@
     "core-js": "^2.6.5",
     "dockerode": "^2.5.8",
     "dree": "^2.1.10",
+    "glob": "^7.1.4",
     "mime": "^2.4.4",
     "moment": "^2.24.0",
     "node-pty": "^0.8.1",

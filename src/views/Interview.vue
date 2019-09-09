@@ -131,6 +131,7 @@
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Search</div>
+              <Search :tab="sideTab" :id="2"></Search>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -209,6 +210,7 @@ import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Git from '../components/Git';
 import Notifications from '../components/Notifications';
+import Search from '../components/Search';
 import Settings from '../components/Settings';
 import Terminals from '../components/Terminals';
 import Upload from '../components/Upload';
@@ -223,6 +225,7 @@ export default {
     FileTree,
     Git,
     Notifications,
+    Search,
     Settings,
     Terminals,
     Upload,
