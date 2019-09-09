@@ -162,6 +162,10 @@ export default { install (Vue) {
     state.messages.push(event.data);
   });
 
+  $events.on('messages:history:list', (event) => {
+    state.messages.splice(0, state.messages.length, ...event.data);
+  });
+
   //////////
 
   function api (method, url, body, progress) {
