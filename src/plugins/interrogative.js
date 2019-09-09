@@ -158,6 +158,10 @@ export default { install (Vue) {
     state.terminals.push(event.data);
   });
 
+  $events.on('messages:message:send', (event) => {
+    state.messages.push(event.data);
+  });
+
   //////////
 
   function api (method, url, body, progress) {

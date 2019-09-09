@@ -1,13 +1,6 @@
 <template>
 <div class="chat-container">
   <div ref="contents" class="chat-contents" @click.stop="click">
-    <picker
-      :data="emojiIndex"
-      :emojiSize="20"
-      @select="insert"
-      :showPreview="false"
-      v-show="emoji"
-      />
     <div v-for="message of state.messages" :key="message.id" :class="fromClass(message)">
       {{ message.text }}
     </div>
@@ -16,6 +9,7 @@
   <v-text-field
     autofocus
     background-color="#424242"
+    autocomplete="off"
     class="chat-input pa-0 pl-2 pr-2"
     flat
     hide-details
@@ -32,11 +26,19 @@
     </template>
   </v-text-field>
   </div>
+  <Picker
+    :data="emojiIndex"
+    :emojiSize="20"
+    @select="insert"
+    :showPreview="false"
+    v-show="emoji"
+   ></Picker>
 </div>
 </template>
 
 <script>
 import state from '../state';
+import uuid from 'uuid/v4';
 import data from 'emoji-mart-vue-fast/data/all.json';
 import {
   Picker, EmojiIndex
@@ -67,13 +69,18 @@ export default {
     submit () {
       console.log('input', this.input);
       const message = {
-        id: Date.now().toString(),
-        user: this.state.messages.length % 2 ? this.state.user : 'them',
-        text: this.input
+        id: uuid(),
+        user: this.state.user,
+        text: this.input,
+        timestamp: Date.now()
       };
-      this.state.messages.push(message);
 
       this.input = '';
+
+      this.$events.emit({
+        type: 'messages:message:send',
+        data: message
+      });
     },
     insert (emoji) {
       console.log(emoji.native);
@@ -111,16 +118,17 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .chat-input {
     font-size: .875rem !important;
     background-color: #424242;
 }
 .emoji-mart {
-    position: absolute;
-    top: 26px;
-    right: 0px;
+    position: fixed;
+    bottom: 55px;
+    right: 5px;
     height: 300px !important;
     z-index: 100;
 }
@@ -128,7 +136,7 @@ export default {
     display: inline-flex;
     width: fit-content;
     margin-bottom: 12px;
-    line-height: 24px;
+    line-height: 18px;
     position: relative;
     padding: 10px 20px;
     border-radius: 25px;
