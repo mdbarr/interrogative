@@ -1,6 +1,48 @@
 <template>
 <div>
   <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50">
+    <v-list dense class="drawer">
+      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
+        <v-list-item-icon>
+          <v-icon>mdi-monitor-dashboard</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Dashboard</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
+        <v-list-item-icon>
+          <v-icon>mdi-calendar-account</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Upcoming Interviews</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
+        <v-list-item-icon>
+          <v-icon>mdi-calendar-clock</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Past Interviews</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
+        <v-list-item-icon>
+          <v-icon>mdi-calendar-plus</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Schedule new Interview</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
+        <v-list-item-icon>
+          <v-icon>mdi-settings</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Settings</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+     </v-list>
   </v-navigation-drawer>
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
     <v-btn dense small tile icon @click.stop="mini = !mini" class="pl-3">
@@ -18,6 +60,7 @@
     <v-container fluid fill-height class="ma-0 pl-0 main-area">
       <v-layout wrap>
         <v-flex xs12>
+
         </v-flex>
       </v-layout>
     </v-container>
@@ -46,5 +89,7 @@ export default {
 </script>
 
 <style>
-
+.drawer {
+    overflow: hidden;
+}
 </style>
