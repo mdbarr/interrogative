@@ -180,12 +180,12 @@ export default {
 }
 .from-me {
     color: white;
-    background: #0083af;
+    background: #0087af;
     align-self: flex-end;
 }
 .from-me:before {
     right: -7px;
-    border-right: 20px solid #0083af;
+    border-right: 20px solid #0087af;
     border-bottom-left-radius: 16px 14px;
     transform: translate(0, -2px);
 }

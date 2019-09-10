@@ -29,7 +29,7 @@
           </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="#0083af">Login</v-btn>
+            <v-btn color="#0087af">Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -53,7 +53,7 @@ export default {
 .login-logo {
     text-align: center;
     font-family: Inconsolata, monospace;
-    letter-spacing: 3px;
+    letter-spacing: 6px;
     font-size: 22px;
     line-height: 22px;
 }
