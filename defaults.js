@@ -7,6 +7,7 @@ module.exports = {
     bootstrap: true,
     engine: { socketPath: '/var/run/docker.sock' }
   },
+  database: { url: 'mongodb://mongo:27017/interrogative' },
   metadata: {
     port: 1312,
     host: '0.0.0.0'
