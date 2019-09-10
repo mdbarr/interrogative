@@ -11,6 +11,10 @@ export default new Router({
       path: '/interview/:id',
       name: 'interview',
       component: () => { return import('./views/Interview.vue'); }
+    }, {
+      path: '/login',
+      name: 'login',
+      component: () => { return import('./views/Login.vue'); }
     }
   ]
 });
