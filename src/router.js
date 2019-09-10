@@ -15,6 +15,10 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => { return import('./views/Login.vue'); }
+    }, {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => { return import('./views/Dashboard.vue'); }
     }
   ]
 });
