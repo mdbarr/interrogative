@@ -1,16 +1,36 @@
 version: '3.6'
 
 networks:
-  default:
+  interrogative:
     name: interrogative
+  interrogative-db:
+    name: interrogative-db
 
 services:
   manager:
     image: interrogative-manager:latest
     container_name: interrogative-manager
+    networks:
+      - interrogative
+      - interrogative-db
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
        - 1311:1311
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4.2
+    container_name: interrogative-mongo
+    networks:
+      - interrogative-db
+    volumes:
+      - interrogative-data:/data/db
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  interrogative-data:
+    name: interrogative-data
