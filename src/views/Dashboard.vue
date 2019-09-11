@@ -1,7 +1,5 @@
 <template>
-  <div v-if="!state.loggedIn">
-  </div>
-<div v-else>
+<div>
   <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50">
     <v-list dense class="drawer">
       <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
@@ -53,9 +51,9 @@
     <v-toolbar-title class="pl-4 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
     <v-spacer></v-spacer>
     <span class="text-uppercase subtitle-2 pr-2">
-      {{ state.name }}
+      {{ state.session.user.name }}
     </span>
-    <v-icon v-if="state.name" class="pr-1">mdi-account-circle</v-icon>
+    <v-icon class="pr-1">mdi-account-circle</v-icon>
   </v-app-bar>
 
   <v-content color="#222">
@@ -87,17 +85,7 @@ export default {
       mini: true
     };
   },
-  mounted () {
-    if (!this.state.loggedIn) {
-      this.$api.get('/session').
-        then((response) => {
-          this.$session(response.data);
-        }).
-        catch(() => {
-          this.$navigate('signin');
-        });
-    }
-  }
+  mounted () {}
 };
 </script>
 

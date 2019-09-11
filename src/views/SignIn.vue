@@ -85,20 +85,14 @@ export default {
         password: this.password
       }).
         then((response) => {
-          this.loading = false;
-
           this.$session(response.data);
+          this.$navigate('dashboard');
         }).
         catch(() => {
           this.$refs.username.focus();
           this.loading = false;
           this.alert = true;
         });
-    }
-  },
-  mounted () {
-    if (this.state.loggedIn) {
-      this.$navigate('dashboard');
     }
   }
 };

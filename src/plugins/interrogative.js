@@ -271,15 +271,11 @@ export default { install (Vue) {
 
   Vue.prototype.$session = function (session) {
     if (session) {
-      state.loggedIn = true;
       state.session = session;
 
       defaults.headers.Authorization = `Bearer ${ session.id }`;
-
-      this.$navigate('dashboard');
     } else {
-      state.loggedIn = false;
-      state.session = false;
+      state.session = null;
 
       delete defaults.headers.Authorization;
 
