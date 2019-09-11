@@ -275,7 +275,7 @@ export default { install (Vue) {
 
       defaults.headers.Authorization = `Bearer ${ session.id }`;
 
-      this.$navigate('home');
+      this.$navigate('dashboard');
     } else {
       state.loggedIn = false;
       state.session = false;
@@ -283,7 +283,7 @@ export default { install (Vue) {
 
       delete defaults.headers.Authorization;
 
-      this.$navigate('login');
+      this.$navigate('signin');
     }
   };
 } };

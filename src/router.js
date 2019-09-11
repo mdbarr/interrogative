@@ -12,9 +12,9 @@ export default new Router({
       name: 'interview',
       component: () => { return import('./views/Interview.vue'); }
     }, {
-      path: '/login',
-      name: 'login',
-      component: () => { return import('./views/Login.vue'); }
+      path: '/signin',
+      name: 'signin',
+      component: () => { return import('./views/SignIn.vue'); }
     }, {
       path: '/dashboard',
       name: 'dashboard',

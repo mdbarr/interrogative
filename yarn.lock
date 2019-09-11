@@ -2489,6 +2489,11 @@ cookie@0.4.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
+cookie@^0.1.2:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.1.5.tgz#6ab9948a4b1ae21952cd2588530a4722d4044d7c"
+  integrity sha1-armUiksa4hlSzSWIUwpHItQETXw=
+
 copy-concurrently@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/copy-concurrently/-/copy-concurrently-1.0.5.tgz#92297398cae34937fcafd6ec8139c18051f0b5e0"
@@ -7747,6 +7752,13 @@ resolve@^1.10.0, resolve@^1.11.0, resolve@^1.12.0, resolve@^1.3.2, resolve@^1.4.
   integrity sha512-B/dOmuoAik5bKcD6s6nXDCjzUKnaDvdkRyAk6rsmsKLipWj4797iothd7jmmUhWTfinVMU+wc56rYKsit2Qy4w==
   dependencies:
     path-parse "^1.0.6"
+
+restify-cookies@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/restify-cookies/-/restify-cookies-0.2.5.tgz#6e6a2d5b094627b44e684a02bd48a632a85c4e2a"
+  integrity sha512-IDw3ZJ/aTczeuSvPGWXQ2WcY/39QuxJ11DvPbA+eE/YtNBhIFwhGWNgg/Rw3zOwfJYeLGvqsGWFrCBjvGeV2XQ==
+  dependencies:
+    cookie "^0.1.2"
 
 restify-cors-middleware@^1.1.1:
   version "1.1.1"
