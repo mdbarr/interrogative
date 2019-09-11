@@ -17,6 +17,7 @@
                 type="text"
                 v-model="username"
                 ref="username"
+                @keyup.enter="pressEnter"
                 ></v-text-field>
 
               <v-text-field
@@ -26,6 +27,7 @@
                 type="password"
                 v-model="password"
                 ref="password"
+                @keyup.enter="pressEnter"
                 ></v-text-field>
             </v-form>
           </v-card-text>
@@ -92,6 +94,11 @@ export default {
           this.loading = false;
           this.alert = true;
         });
+    }
+  },
+  mounted () {
+    if (this.state.loggedIn) {
+      this.$navigate('dashboard');
     }
   }
 };

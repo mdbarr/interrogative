@@ -1,5 +1,7 @@
 <template>
-<div>
+  <div v-if="!state.loggedIn">
+  </div>
+<div v-else>
   <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50">
     <v-list dense class="drawer">
       <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
@@ -84,6 +86,17 @@ export default {
       state,
       mini: true
     };
+  },
+  mounted () {
+    if (!this.state.loggedIn) {
+      this.$api.get('/session').
+        then((response) => {
+          this.$session(response.data);
+        }).
+        catch(() => {
+          this.$navigate('signin');
+        });
+    }
   }
 };
 </script>

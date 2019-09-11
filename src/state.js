@@ -1,4 +1,9 @@
 function State () {
+  // Sign in specific
+  this.loggedIn = false;
+  this.session = null;
+
+  // Interview specific
   this.ready = false;
   this.disconnected = false;
 

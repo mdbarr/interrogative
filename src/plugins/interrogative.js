@@ -262,7 +262,9 @@ export default { install (Vue) {
   //////////
 
   Vue.prototype.$navigate = function (where) {
-    this.$router.push({ name: where });
+    if (!this.$router.currentRoute || this.$router.currentRoute.name !== where) {
+      this.$router.push({ name: where });
+    }
   };
 
   //////////
@@ -271,7 +273,6 @@ export default { install (Vue) {
     if (session) {
       state.loggedIn = true;
       state.session = session;
-      state.user = session.user;
 
       defaults.headers.Authorization = `Bearer ${ session.id }`;
 
@@ -279,7 +280,6 @@ export default { install (Vue) {
     } else {
       state.loggedIn = false;
       state.session = false;
-      state.user = false;
 
       delete defaults.headers.Authorization;
 
