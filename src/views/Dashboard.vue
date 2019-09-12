@@ -41,7 +41,13 @@
         <v-flex xs12 class="ma-2">
           <v-tabs-items v-model="sideTab">
             <v-tab-item class="tab-content">
-              Dashboard
+              <v-container fluid class="pt-0">
+                <v-row dense>
+                  <v-col md="6" class="font-weight-bold text-uppercase pl-5">
+                    <v-icon left class="pr-2">mdi-monitor-dashboard</v-icon>Dashboard
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-tab-item>
             <v-tab-item class="tab-content">
               <InterviewTemplate></InterviewTemplate>

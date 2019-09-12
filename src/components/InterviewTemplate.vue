@@ -1,15 +1,20 @@
 <template>
-<v-form>
-  <v-container fluid>
+<v-form ref="form">
+  <v-container fluid class="pt-0">
+    <v-row dense>
+      <v-col md="6" class="font-weight-bold text-uppercase pl-5">
+        <v-icon left class="pr-2">mdi-calendar-plus</v-icon>Schedule a new Interview
+      </v-col>
+    </v-row>
     <v-row align="center" justify="center" class="title title-input">
       <v-col cols="12" md="4">
-        <v-text-field single-line label="Title" width="300" v-model="title" class="title"></v-text-field>
+        <v-text-field single-line label="Title" width="300" v-model="title" class="title" autofocus></v-text-field>
       </v-col>
     </v-row>
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable prepend-icon="mdi-domain" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
+        <v-text-field clearable prepend-icon="mdi-office-builder" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
         <v-text-field clearable label="Position" :rules="[ validatePosition ]" v-model="position" class="pl-3" />
@@ -111,6 +116,52 @@
         <v-text-field clearable color="#009fcc" label="Email" type="email" :rules="[ validateEmail ]" v-model="candidate.email" class="pl-3" />
       </v-col>
     </v-row>
+    <v-row><v-col /></v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+        <v-icon left>mdi-laptop-windows</v-icon> Environment
+      </v-col>
+    </v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="4">
+        <v-select
+          color="#0087af"
+          item-text="name"
+          item-value="index"
+          :items="images"
+          v-model="image"
+          class="pr-3" />
+      </v-col>
+      <v-col cols="12" md="4" class="pl-3">
+        <v-checkbox
+          v-model="images[image].git"
+          label="Enable Git Visualization"
+          color="#009fcc"
+          class="mt-0 pt-0"
+          :disabled="!images[image].hasGit"
+          ></v-checkbox>
+        <v-checkbox
+          v-model="images[image].uploads"
+          label="Enable Uploads"
+          color="#009fcc"
+          class="mt-0 pt-0"
+          :disabled="!images[image].hasUploads"
+          ></v-checkbox>
+      </v-col>
+    </v-row>
+    <v-row><v-col /></v-row>
+    <v-row><v-col /></v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold">
+        <v-btn color="grey" @click="reset" right>Clear</v-btn>
+      </v-col>
+      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold" align="right" justify="right">
+        <v-btn color="#009fcc" @click="submit" right :loading="loading" :disabled="loading">Create</v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </v-form>
 </template>
@@ -118,6 +169,7 @@
 <script>
 import state from '../state';
 import moment from 'moment';
+import { milliseconds } from 'barrkeep/utils';
 
 export default {
   name: 'interview-template',
@@ -132,30 +184,30 @@ export default {
       dateMenu: false,
       time: '09:00',
       timeMenu: false,
-      duration: 1,
+      duration: '1h',
       durations: [ {
-        value: 0.5,
+        value: '30m',
         text: '30 minutes'
       }, {
-        value: 1,
+        value: '1h',
         text: '1 hour'
       }, {
-        value: 1.5,
+        value: '1h 30m',
         text: '1 hour 30 minutes'
       }, {
-        value: 2,
+        value: '2h',
         text: '2 hours'
       }, {
-        value: 2.5,
+        value: '2h 30m',
         text: '2 hours 30 minutes'
       }, {
-        value: 3,
+        value: '3h',
         text: '3 hours'
       }, {
-        value: 3.5,
+        value: '3h 30m',
         text: '3 hours 30 minutes'
       }, {
-        value: 4,
+        value: '4h',
         text: '4 hours'
       } ],
       interviewer: {
@@ -169,16 +221,19 @@ export default {
       users: [],
       image: 0,
       images: [ {
-        id: 0,
+        index: 0,
         name: 'Development (default)',
         image: 'interrogative-container',
+        hasGit: true,
+        hasUploads: true,
         git: true,
         uploads: true
       } ],
       git: true,
       uploads: true,
       buttons: [],
-      keypairs: []
+      keypairs: [],
+      loading: false
     };
   },
   computed: { dateFormatted () {
@@ -210,9 +265,75 @@ export default {
       return true;
     },
     reset () {
+      this.$refs.form.resetValidation();
+
+      this.title = 'Interview';
+      this.company = state.session.user.company || '';
+      this.position = '';
+      this.date = new Date().toISOString().
+        substring(0, 10);
+      this.time = '09:00';
+      this.duration = '1h';
+      this.interviewer.name = state.session.user.name;
+      this.interviewer.email = state.session.user.email;
+      this.candidate.name = '';
+      this.candidate.email = '';
+      this.users.splice(0, this.users.length);
+      this.image = 0;
     },
     submit () {
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+
+        const body = {
+          start: new Date(`${ this.date } ${ this.time }`).getTime(),
+          duration: milliseconds(this.duration),
+          title: this.title,
+          company: this.company,
+          position: this.positions,
+          users: [ {
+            name: this.interviewer.name,
+            email: this.interviewer.email,
+            role: 'interviewer'
+          }, {
+            name: this.candidate.name,
+            email: this.candidate.email,
+            role: 'candidate'
+          }, ...this.users ],
+          image: this.images[this.image].image,
+          git: this.images[this.image].git,
+          uploads: this.images[this.image].uploads,
+          buttons: this.buttons
+        };
+
+        this.$api.post('/interviews/create', body).
+          then((response) => {
+            console.log(response.data);
+            this.$events.emit({
+              type: 'notification:interview:created',
+              data: {
+                level: 'success',
+                message: 'Interview scheduled!'
+              }
+            });
+            this.loading = false;
+            this.reset();
+          }).
+          catch((error) => {
+            this.$events.emit({
+              type: 'notification:interview:failed',
+              data: {
+                level: 'failure',
+                message: `Failed to create interview: ${ error.message }`
+              }
+            });
+            this.loading = false;
+          });
+      }
     }
+  },
+  mounted () {
+    this.reset();
   }
 };
 </script>
