@@ -290,7 +290,7 @@ export default {
           duration: milliseconds(this.duration),
           title: this.title,
           company: this.company,
-          position: this.positions,
+          position: this.position,
           users: [ {
             name: this.interviewer.name,
             email: this.interviewer.email,

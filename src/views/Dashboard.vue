@@ -47,10 +47,11 @@
                     <v-icon left class="pr-2">mdi-monitor-dashboard</v-icon>Dashboard
                   </v-col>
                 </v-row>
+                <Upcoming />
               </v-container>
             </v-tab-item>
             <v-tab-item class="tab-content">
-              <InterviewTemplate></InterviewTemplate>
+              <InterviewTemplate />
             </v-tab-item>
           </v-tabs-items>
         </v-flex>
@@ -68,12 +69,14 @@
 import state from '../state';
 import InterviewTemplate from '../components/InterviewTemplate';
 import Notifications from '../components/Notifications';
+import Upcoming from '../components/Upcoming';
 
 export default {
   name: 'dashboard',
   components: {
     InterviewTemplate,
-    Notifications
+    Notifications,
+    Upcoming
   },
   data () {
     return {
