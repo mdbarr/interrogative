@@ -1,29 +1,32 @@
 <template>
 <div>
-  <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50" width="345">
-    <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
+  <v-navigation-drawer permanent expand-on-hover app clipped mini-variant-width="54" width="265">
+    <v-tabs vertical dark slider-color="white" slider-size="2" v-model="sideTab">
       <v-tab class="white--text">
-        <v-icon left>mdi-monitor-dashboard</v-icon>
+        <v-icon left class="pl-2 pr-2">mdi-monitor-dashboard</v-icon> Dashboard
+      </v-tab>
+      <v-divider></v-divider>
+      <v-tab class="white--text">
+        <v-icon left class="pl-2 pr-2">mdi-calendar-plus</v-icon> Schedule a new Interview
       </v-tab>
       <v-tab class="white--text">
-        <v-icon left>mdi-calendar-plus</v-icon>
+        <v-icon left class="pl-2 pr-2">mdi-calendar-account</v-icon> Upcoming Interviews
       </v-tab>
       <v-tab class="white--text">
-        <v-icon left>mdi-calendar-account</v-icon>
+        <v-icon left class="pl-2 pr-2">mdi-calendar-clock</v-icon> Past Interviews
+      </v-tab>
+      <v-divider></v-divider>
+      <v-tab class="white--text">
+        <v-icon left class="pl-2 pr-2">mdi-account-card-details</v-icon> Account
       </v-tab>
       <v-tab class="white--text">
-        <v-icon left>mdi-calendar-clock</v-icon>
-      </v-tab>
-      <v-tab class="white--text">
-        <v-icon left>mdi-settings</v-icon>
+        <v-icon left class="pl-2 pr-2">mdi-settings</v-icon> Settings
       </v-tab>
     </v-tabs>
     <div></div>
   </v-navigation-drawer>
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
-    <v-btn dense small tile icon @click.stop="mini = !mini" class="pl-3">
-      <img src="../assets/logo.svg" width="30" class="app-bar-logo">
-    </v-btn>
+    <img src="../assets/logo.svg" width="30" height="30">
     <v-toolbar-title class="pl-4 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
     <v-spacer></v-spacer>
     <span class="text-uppercase subtitle-2 pr-2">
@@ -35,8 +38,15 @@
   <v-content color="#222">
     <v-container fluid fill-height class="ma-0 pl-0 main-area">
       <v-layout wrap>
-        <v-flex xs12>
-
+        <v-flex xs12 class="ma-2">
+          <v-tabs-items v-model="sideTab">
+            <v-tab-item class="tab-content">
+              Dashboard
+            </v-tab-item>
+            <v-tab-item class="tab-content">
+              New Interview
+            </v-tab-item>
+          </v-tabs-items>
         </v-flex>
       </v-layout>
     </v-container>
@@ -58,15 +68,10 @@ export default {
   data () {
     return {
       state,
-      mini: true,
       sideTab: null
     };
   },
-  methods: { sideTabChange (value) {
-    if (value === undefined) {
-      this.mini = true;
-    }
-  } },
+  methods: {},
   mounted () {}
 };
 </script>
@@ -76,9 +81,9 @@ export default {
     overflow: hidden;
 }
 .v-tab {
-    min-width: 48px !important;
     padding-left: 6px !important;
-    padding-right: 0px !important;
+    padding-right: 20px !important;
+    justify-content: left;
 }
 .tab-bg {
     color: white !important;
@@ -95,5 +100,8 @@ export default {
     background-color: #303030;
     max-width: none !important;
     opacity: 1 !important;
+}
+.tab-content {
+    background-color: #303030;
 }
 </style>
