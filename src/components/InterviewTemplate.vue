@@ -9,10 +9,10 @@
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable prepend-icon="mdi-domain" label="Company" v-model="company"></v-text-field>
+        <v-text-field clearable prepend-icon="mdi-domain" label="Company" v-model="company" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable label="Position" v-model="position"></v-text-field>
+        <v-text-field clearable label="Position" v-model="position" class="pl-3" />
       </v-col>
     </v-row>
     <v-row dense>
@@ -79,6 +79,38 @@
         ></v-select>
       </v-col>
     </v-row>
+    <v-row dense><v-col /></v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+        <v-icon left>mdi-account-circle</v-icon> Interviewer
+      </v-col>
+    </v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="4" class="subtitle-2">
+        <v-text-field clearable label="Name" v-model="interviewer.name" class="pr-3" />
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-text-field clearable label="Email" v-model="interviewer.email" class="pl-3" />
+      </v-col>
+    </v-row>
+    <v-row dense><v-col /></v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+        <v-icon left>mdi-comment-account</v-icon> Candidate
+      </v-col>
+    </v-row>
+    <v-row dense>
+      <v-col cols="12" md="2"></v-col>
+      <v-col cols="12" md="4" class="subtitle-2">
+        <v-text-field clearable label="Name" v-model="candidate.name" class="pr-3" />
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-text-field clearable color="#009fcc" label="Email" v-model="candidate.email" class="pl-3" />
+      </v-col>
+    </v-row>
   </v-container>
 </v-form>
 </template>
@@ -125,7 +157,26 @@ export default {
       }, {
         value: 4,
         text: '4 hours'
-      } ]
+      } ],
+      interviewer: {
+        name: state.session.user.name,
+        email: state.session.user.email
+      },
+      candidate: {
+        name: '',
+        email: ''
+      },
+      users: [],
+      image: 0,
+      images: [ {
+        id: 0,
+        name: 'Development (default)',
+        image: 'interrogative-container'
+      } ],
+      git: true,
+      uploads: true,
+      buttons: [],
+      keypairs: []
     };
   },
   computed: { dateFormatted () {
