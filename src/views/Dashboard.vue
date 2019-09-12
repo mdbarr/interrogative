@@ -1,48 +1,24 @@
 <template>
 <div>
-  <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50">
-    <v-list dense class="drawer">
-      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
-        <v-list-item-icon>
-          <v-icon>mdi-monitor-dashboard</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Dashboard</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
-        <v-list-item-icon>
-          <v-icon>mdi-calendar-account</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Upcoming Interviews</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
-        <v-list-item-icon>
-          <v-icon>mdi-calendar-clock</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Past Interviews</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
-        <v-list-item-icon>
-          <v-icon>mdi-calendar-plus</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Schedule new Interview</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item @click="() => {}" class="subtitle-2 drawer pt-2 pb-2">
-        <v-list-item-icon>
-          <v-icon>mdi-settings</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Settings</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-     </v-list>
+  <v-navigation-drawer permanent :mini-variant.sync="mini" app clipped mini-variant-width="50" width="345">
+    <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
+      <v-tab class="white--text">
+        <v-icon left>mdi-monitor-dashboard</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-calendar-plus</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-calendar-account</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-calendar-clock</v-icon>
+      </v-tab>
+      <v-tab class="white--text">
+        <v-icon left>mdi-settings</v-icon>
+      </v-tab>
+    </v-tabs>
+    <div></div>
   </v-navigation-drawer>
   <v-app-bar app color="#222" dark clipped-left dense fixed height="40" class="title">
     <v-btn dense small tile icon @click.stop="mini = !mini" class="pl-3">
@@ -82,9 +58,15 @@ export default {
   data () {
     return {
       state,
-      mini: true
+      mini: true,
+      sideTab: null
     };
   },
+  methods: { sideTabChange (value) {
+    if (value === undefined) {
+      this.mini = true;
+    }
+  } },
   mounted () {}
 };
 </script>
@@ -92,5 +74,26 @@ export default {
 <style>
 .drawer {
     overflow: hidden;
+}
+.v-tab {
+    min-width: 48px !important;
+    padding-left: 6px !important;
+    padding-right: 0px !important;
+}
+.tab-bg {
+    color: white !important;
+    text-transform: none !important;
+    background-color: #303030;
+}
+.tab-bg.v-tab--active {
+    background-color: inherit;
+    color: white !important;
+    opacity: 1 !important;
+}
+.tab-bg-color {
+    position: relative;
+    background-color: #303030;
+    max-width: none !important;
+    opacity: 1 !important;
 }
 </style>
