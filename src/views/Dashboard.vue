@@ -44,7 +44,7 @@
               Dashboard
             </v-tab-item>
             <v-tab-item class="tab-content">
-              New Interview
+              <InterviewTemplate></InterviewTemplate>
             </v-tab-item>
           </v-tabs-items>
         </v-flex>
@@ -60,11 +60,15 @@
 
 <script>
 import state from '../state';
+import InterviewTemplate from '../components/InterviewTemplate';
 import Notifications from '../components/Notifications';
 
 export default {
   name: 'dashboard',
-  components: { Notifications },
+  components: {
+    InterviewTemplate,
+    Notifications
+  },
   data () {
     return {
       state,
