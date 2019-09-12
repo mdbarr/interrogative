@@ -9,10 +9,10 @@
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable prepend-icon="mdi-domain" label="Company" v-model="company" class="pr-3" />
+        <v-text-field clearable prepend-icon="mdi-domain" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable label="Position" v-model="position" class="pl-3" />
+        <v-text-field clearable label="Position" :rules="[ validatePosition ]" v-model="position" class="pl-3" />
       </v-col>
     </v-row>
     <v-row dense>
@@ -89,10 +89,10 @@
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4" class="subtitle-2">
-        <v-text-field clearable label="Name" v-model="interviewer.name" class="pr-3" />
+        <v-text-field clearable label="Name" v-model="interviewer.name" :rules="[ validateName ]" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable label="Email" v-model="interviewer.email" class="pl-3" />
+        <v-text-field clearable label="Email" type="email" :rules="[ validateEmail ]" v-model="interviewer.email" class="pl-3" />
       </v-col>
     </v-row>
     <v-row dense><v-col /></v-row>
@@ -105,10 +105,10 @@
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4" class="subtitle-2">
-        <v-text-field clearable label="Name" v-model="candidate.name" class="pr-3" />
+        <v-text-field clearable label="Name" v-model="candidate.name"  :rules="[ validateName ]" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable color="#009fcc" label="Email" v-model="candidate.email" class="pl-3" />
+        <v-text-field clearable color="#009fcc" label="Email" type="email" :rules="[ validateEmail ]" v-model="candidate.email" class="pl-3" />
       </v-col>
     </v-row>
   </v-container>
@@ -171,7 +171,9 @@ export default {
       images: [ {
         id: 0,
         name: 'Development (default)',
-        image: 'interrogative-container'
+        image: 'interrogative-container',
+        git: true,
+        uploads: true
       } ],
       git: true,
       uploads: true,
@@ -181,7 +183,37 @@ export default {
   },
   computed: { dateFormatted () {
     return this.date ? moment(this.date).format('dddd, MMMM Do YYYY') : '';
-  } }
+  } },
+  methods: {
+    validateEmail (value = '') {
+      if (!value.includes('@') && value !== 'administrator') {
+        return 'Please enter a valid email address';
+      }
+      return true;
+    },
+    validateName (value) {
+      if (!value) {
+        return 'Please enter a name';
+      }
+      return true;
+    },
+    validateCompany (value) {
+      if (!value) {
+        return 'Please enter a company name';
+      }
+      return true;
+    },
+    validatePosition (value) {
+      if (!value) {
+        return 'Please enter a position';
+      }
+      return true;
+    },
+    reset () {
+    },
+    submit () {
+    }
+  }
 };
 </script>
 
