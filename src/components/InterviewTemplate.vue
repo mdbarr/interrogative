@@ -325,6 +325,7 @@ export default {
             });
             this.loading = false;
             this.reset();
+            this.$emit('done');
           }).
           catch((error) => {
             this.$events.emit({

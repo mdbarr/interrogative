@@ -1,4 +1,4 @@
-g<template>
+<template>
 <div>
   <template v-if="heading">
     <v-row dense>
@@ -18,7 +18,7 @@ g<template>
       </v-col>
     </v-row>
   </template>
-  <v-row dense v-for="interview of filterLimit(interviews)" :key="interview.id">
+  <v-row dense v-for="(interview, index) of filterLimit(interviews)" :key="interview.id">
     <v-col cols="12" md="2"></v-col>
     <v-col cols="12" md="8">
       <v-card class="mb-3">
@@ -44,6 +44,11 @@ g<template>
           <v-btn v-if="owner(interview) && !upcoming" color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
         </v-card-actions>
       </v-card>
+      <div class="more-count" v-if="last(index)">
+        <v-btn small text @click="more">
+          {{ remaining() }} more&hellip;
+        </v-btn>
+      </div>
     </v-col>
   </v-row>
 </div>
@@ -116,6 +121,20 @@ export default {
       }
       return items;
     },
+    last (index) {
+      console.log('index', index);
+      if (this.limit > 0 && index === this.limit - 1 &&
+          this.interviews.length > this.limit) {
+        return true;
+      }
+      return false;
+    },
+    remaining () {
+      return this.interviews.length - this.limit;
+    },
+    more () {
+      this.$emit('more');
+    },
     list () {
       const url = this.upcoming ? '/interviews/upcoming' : '/interviews/past';
       this.$api.get(url).
@@ -152,5 +171,9 @@ export default {
 .company {
     color: #009fcc;
     font-weight: 700;
+}
+.more-count {
+    text-align: right;
+    font-size: 12px;
 }
 </style>

@@ -47,12 +47,22 @@
                     <v-icon left class="pr-2">mdi-monitor-dashboard</v-icon>Dashboard
                   </v-col>
                 </v-row>
-                <InterviewList title="Current & Upcoming Interviews" :upcoming="true" :limit="3" />
-                <InterviewList title="Past Interviews" :upcoming="false" :limit="3" />
+                <InterviewList
+                  title="Current & Upcoming Interviews"
+                  :upcoming="true"
+                  :limit="3"
+                  @more="sideTab = 2"
+                  />
+                <InterviewList
+                  title="Past Interviews"
+                  :upcoming="false"
+                  :limit="3"
+                  @more="sideTab = 3"
+                  />
               </v-container>
             </v-tab-item>
             <v-tab-item class="tab-content">
-              <InterviewTemplate />
+              <InterviewTemplate @done="sideTab = 0"/>
             </v-tab-item>
 
             <v-tab-item class="tab-content">
