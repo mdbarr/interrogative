@@ -47,11 +47,20 @@
                     <v-icon left class="pr-2">mdi-monitor-dashboard</v-icon>Dashboard
                   </v-col>
                 </v-row>
-                <Upcoming />
+                <InterviewList title="Current & Upcoming Interviews" :upcoming="true" :limit="3" />
+                <InterviewList title="Past Interviews" :upcoming="false" :limit="3" />
               </v-container>
             </v-tab-item>
             <v-tab-item class="tab-content">
               <InterviewTemplate />
+            </v-tab-item>
+
+            <v-tab-item class="tab-content">
+              <InterviewList heading="All Current & Upcoming Interviews" icon="mdi-calendar-account" :upcoming="true" />
+            </v-tab-item>
+
+            <v-tab-item class="tab-content">
+              <InterviewList heading="All Past Interviews" icon="mdi-calendar-clock" :upcoming="false" />
             </v-tab-item>
           </v-tabs-items>
         </v-flex>
@@ -67,16 +76,16 @@
 
 <script>
 import state from '../state';
+import InterviewList from '../components/InterviewList';
 import InterviewTemplate from '../components/InterviewTemplate';
 import Notifications from '../components/Notifications';
-import Upcoming from '../components/Upcoming';
 
 export default {
   name: 'dashboard',
   components: {
+    InterviewList,
     InterviewTemplate,
-    Notifications,
-    Upcoming
+    Notifications
   },
   data () {
     return {

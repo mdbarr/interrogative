@@ -1,15 +1,24 @@
 g<template>
 <div>
+  <template v-if="heading">
+    <v-row dense>
+      <v-col md="6" class="font-weight-bold text-uppercase pl-5">
+        <v-icon left class="pr-2">{{ icon }}</v-icon>{{ heading }}
+      </v-col>
+    </v-row>
+  </template>
   <v-row dense><v-col /></v-row>
   <v-row dense><v-col /></v-row>
-  <v-row dense>
+  <template v-if="title">
+    <v-row dense>
       <v-col cols="12" md="1"></v-col>
       <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
         <v-icon left>mdi-calendar-account</v-icon>
-        Current &amp; Upcoming Interviews
+        {{ title }}
       </v-col>
-  </v-row>
-  <v-row dense v-for="interview of interviews" :key="interview.id">
+    </v-row>
+  </template>
+  <v-row dense v-for="interview of filterLimit(interviews)" :key="interview.id">
     <v-col cols="12" md="2"></v-col>
     <v-col cols="12" md="8">
       <v-card class="mb-3">
@@ -25,13 +34,14 @@ g<template>
           <v-btn v-if="owner(interview)" icon class="mr-1"><v-icon>mdi-chevron-down</v-icon></v-btn>
         </v-card-title>
         <v-card-actions>
-          <v-btn color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
+          <v-btn v-if="owner(interview) && upcoming" color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
           <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
             Open<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
-          <v-btn color="#0087af" :href="email(interview)" target="_blank">
+          <v-btn v-if="upcoming" color="#0087af" :href="email(interview)" target="_blank">
             Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
           <v-spacer />
-          <v-btn v-if="owner(interview)" color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
+          <v-btn v-if="owner(interview) && upcoming" color="red">Cancel<v-icon right class="ml-3 mr-1">mdi-cancel</v-icon></v-btn>
+          <v-btn v-if="owner(interview) && !upcoming" color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -44,7 +54,20 @@ import state from '../state';
 import moment from 'moment';
 
 export default {
-  name: 'upcoming',
+  name: 'interview-list',
+  props: {
+    title: String,
+    heading: String,
+    icon: String,
+    limit: {
+      type: Number,
+      default: -1
+    },
+    upcoming: {
+      type: Boolean,
+      default: true
+    }
+  },
   data () {
     return {
       state,
@@ -87,10 +110,16 @@ export default {
       }
       return false;
     },
+    filterLimit (items) {
+      if (this.limit > 0) {
+        return items.slice(0, this.limit);
+      }
+      return items;
+    },
     list () {
-      this.$api.get('/interviews/upcoming').
+      const url = this.upcoming ? '/interviews/upcoming' : '/interviews/past';
+      this.$api.get(url).
         then((response) => {
-          console.log('upcoming', response);
           if (response.data && response.data.items) {
             this.interviews.splice(0, this.interviews.length, ...response.data.items);
           }
