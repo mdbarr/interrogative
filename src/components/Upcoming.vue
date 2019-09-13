@@ -6,7 +6,7 @@ g<template>
       <v-col cols="12" md="1"></v-col>
       <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
         <v-icon left>mdi-calendar-account</v-icon>
-        Upcoming Interviews
+        Current &amp; Upcoming Interviews
       </v-col>
   </v-row>
   <v-row dense v-for="interview of interviews" :key="interview.id">
@@ -15,8 +15,9 @@ g<template>
       <v-card>
         <v-card-title class="subtitle-1 pr-0 pt-1">
           <v-icon left class="mr-2">mdi-comment-account-outline</v-icon>
-          {{ interview.title }}:&nbsp; <span class="candidate">{{ candidates(interview.users) }}</span>
-          for {{ interview.position }}
+          {{ interview.title }}:
+          <span class="candidate font-weight-bold pl-1 pr-1"> {{ candidates(interview.users) }}</span>
+          for <span class="font-italic pl-1 pr-1">{{ interview.position }}</span>
           <v-icon small class="ml-1">mdi-at</v-icon><span class="company">{{ interview.company }}</span>
           <v-spacer />
           <v-icon class="mr-2">mdi-calendar</v-icon> {{ interview.start | calendar }}
@@ -24,11 +25,11 @@ g<template>
           <v-btn icon class="mr-1"><v-icon>mdi-chevron-down</v-icon></v-btn>
         </v-card-title>
         <v-card-actions>
-          <v-btn color="#0087af" class="mr-2">Edit</v-btn>
-          <v-btn color="#0087af" class="mr-2">Launch</v-btn>
-          <v-btn color="#0087af">Email</v-btn>
+          <v-btn color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
+          <v-btn color="#0087af" class="mr-2">Launch<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
+          <v-btn color="#0087af">Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
           <v-spacer />
-          <v-btn color="red">Delete<v-icon right class="pl-3">mdi-delete</v-icon></v-btn>
+          <v-btn color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -87,9 +88,8 @@ export default {
 </script>
 
 <style>
-.candidate {
-
-}
+.candidate {}
+.position {}
 .company {
     color: #009fcc;
     font-weight: 700;
