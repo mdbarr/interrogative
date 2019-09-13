@@ -93,6 +93,9 @@ export default {
 .drawer {
     overflow: hidden;
 }
+.v-tabs {
+    width: 265px !important;
+}
 .v-tab {
     padding-left: 6px !important;
     padding-right: 20px !important;

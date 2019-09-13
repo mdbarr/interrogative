@@ -26,8 +26,10 @@ g<template>
         </v-card-title>
         <v-card-actions>
           <v-btn color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
-          <v-btn color="#0087af" class="mr-2">Launch<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
-          <v-btn color="#0087af">Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
+          <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
+            Open<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
+          <v-btn color="#0087af" :href="email(interview)" target="_blank">
+            Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
           <v-spacer />
           <v-btn color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
         </v-card-actions>
@@ -61,6 +63,26 @@ export default {
         }
       }
       return candidates.join(', ');
+    },
+    me (interview) {
+      for (const user of interview.users) {
+        if (user.email === this.state.session.user.email) {
+          return user;
+        }
+      }
+      return false;
+    },
+    email (interview) {
+      if (this.me(interview)) {
+        return `mailto:${ this.me(interview).id }@interrogative.io`;
+      }
+      return `mailto:${ interview.id }@interrogative.io`;
+    },
+    link (interview) {
+      if (this.me(interview)) {
+        return `/interview/${ this.me(interview).id }`;
+      }
+      return false;
     },
     list () {
       this.$api.get('/interviews/upcoming').
