@@ -1,4 +1,4 @@
-all: core images container manager
+all: core images container manager templates
 
 core:
 	docker build -f images/core/Dockerfile -t interrogative-core .
@@ -13,7 +13,11 @@ container:
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
 
+templates:
+	$(MAKE) -C templates
+
 clean:
+	$(MAKE) -C templates clean
 	./bin/kill.sh
 	docker system prune -f
 	docker volume prune -f
