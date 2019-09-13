@@ -118,7 +118,6 @@ export default {
       return items;
     },
     last (index) {
-      console.log('index', index);
       if (this.limit > 0 && index === this.limit - 1 &&
           this.interviews.length > this.limit) {
         return true;

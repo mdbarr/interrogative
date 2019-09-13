@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import state from '../state';
 import events from '@mdbarr/events';
 
@@ -20,7 +21,48 @@ function jsonClone (object) {
   return JSON.parse(JSON.stringify(object));
 }
 
+const SIZES = [ 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
+
+const NUMBERS = [ 'zero', 'one', 'two', 'three', 'four', 'five', 'six',
+  'seven', 'eight', 'nine', 'ten' ];
+
+//////////
+
 export default { install (Vue) {
+  // Filters
+  Vue.filter('calendar', (value = Date.now()) => {
+    return moment(value).calendar();
+  });
+
+  Vue.filter('plural', (word, array) => {
+    if (array.length !== 1) {
+      return `${ word }s`;
+    }
+    return word;
+  });
+
+  Vue.filter('formatBytes', (bytes) => {
+    bytes = Number(bytes) || 0;
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
+    const kilobyte = 1024;
+    const places = 2;
+
+    const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
+    return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ SIZES[index] }`;
+  });
+
+  Vue.filter('number', (value) => {
+    if (NUMBERS[value]) {
+      return NUMBERS[value];
+    }
+    return value.toString();
+  });
+
+  //////////
+  // event handlers
+
   const $events = new events.EventBus();
   Vue.prototype.$events = $events;
 
@@ -171,6 +213,7 @@ export default { install (Vue) {
   });
 
   //////////
+  // api and websocket interface
 
   function api (method, url, body, progress) {
     const request = jsonClone(defaults);
@@ -260,6 +303,7 @@ export default { install (Vue) {
   };
 
   //////////
+  // navigation
 
   Vue.prototype.$navigate = function (where) {
     if (!this.$router.currentRoute || this.$router.currentRoute.name !== where) {
@@ -268,6 +312,7 @@ export default { install (Vue) {
   };
 
   //////////
+  // sessions
 
   Vue.prototype.$session = function (session) {
     if (session) {
