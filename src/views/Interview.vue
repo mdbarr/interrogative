@@ -215,7 +215,6 @@ import Settings from '../components/Settings';
 import Terminals from '../components/Terminals';
 import Upload from '../components/Upload';
 import UploadList from '../components/UploadList';
-import moment from 'moment';
 
 export default {
   name: 'interview',
@@ -261,17 +260,6 @@ export default {
 
     return duration.join(', ');
   } },
-  filters: {
-    calendar (value) {
-      return moment(value).calendar();
-    },
-    plural (word, array) {
-      if (array.length !== 1) {
-        return `${ word }s`;
-      }
-      return word;
-    }
-  },
   methods: {
     userFilter (role) {
       return this.state.interview.users.filter((user) => {

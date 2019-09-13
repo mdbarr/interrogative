@@ -46,7 +46,7 @@
       </v-card>
       <div class="more-count" v-if="last(index)">
         <v-btn small text @click="more">
-          {{ remaining() }} more&hellip;
+          {{ remaining() | number }} more <v-icon small>mdi-chevron-right</v-icon>
         </v-btn>
       </div>
     </v-col>
@@ -56,7 +56,6 @@
 
 <script>
 import state from '../state';
-import moment from 'moment';
 
 export default {
   name: 'interview-list',
@@ -79,9 +78,6 @@ export default {
       interviews: []
     };
   },
-  filters: { calendar (value) {
-    return moment(value || undefined).calendar();
-  } },
   methods: {
     candidates (users) {
       const candidates = [];

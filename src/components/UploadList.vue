@@ -39,28 +39,11 @@
 
 <script>
 import state from '../state';
-import moment from 'moment';
 
 export default {
   name: 'upload-list',
   data () {
     return { state };
-  },
-  filters: {
-    calendar (value = Date.now()) {
-      return moment(value).calendar();
-    },
-    formatBytes (bytes) {
-      bytes = Number(bytes) || 0;
-      if (bytes === 0) {
-        return '0 Bytes';
-      }
-      const kilobyte = 1024;
-      const places = 2;
-      const sizes = [ 'Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' ];
-      const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
-      return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ sizes[index] }`;
-    }
   },
   methods: { open (item) {
     if (item.progress === 100) {
