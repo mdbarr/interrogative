@@ -12,7 +12,7 @@ g<template>
   <v-row dense v-for="interview of interviews" :key="interview.id">
     <v-col cols="12" md="2"></v-col>
     <v-col cols="12" md="8">
-      <v-card>
+      <v-card class="mb-3">
         <v-card-title class="subtitle-1 pr-0 pt-1">
           <v-icon left class="mr-2">mdi-comment-account-outline</v-icon>
           {{ interview.title }}:
@@ -22,7 +22,7 @@ g<template>
           <v-spacer />
           <v-icon class="mr-2">mdi-calendar</v-icon> {{ interview.start | calendar }}
           <v-spacer />
-          <v-btn icon class="mr-1"><v-icon>mdi-chevron-down</v-icon></v-btn>
+          <v-btn v-if="owner(interview)" icon class="mr-1"><v-icon>mdi-chevron-down</v-icon></v-btn>
         </v-card-title>
         <v-card-actions>
           <v-btn color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
@@ -31,7 +31,7 @@ g<template>
           <v-btn color="#0087af" :href="email(interview)" target="_blank">
             Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
           <v-spacer />
-          <v-btn color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
+          <v-btn v-if="owner(interview)" color="red">Delete<v-icon right class="ml-3 mr-1">mdi-delete</v-icon></v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -73,14 +73,17 @@ export default {
       return false;
     },
     email (interview) {
-      if (this.me(interview)) {
-        return `mailto:${ this.me(interview).id }@interrogative.io`;
-      }
       return `mailto:${ interview.id }@interrogative.io`;
     },
     link (interview) {
       if (this.me(interview)) {
         return `/interview/${ this.me(interview).id }`;
+      }
+      return false;
+    },
+    owner (interview) {
+      if (this.state.session.user.id === interview.owner) {
+        return true;
       }
       return false;
     },
@@ -104,7 +107,12 @@ export default {
     }
   },
   mounted () {
+    this.$events.on('notification:interview:created', this.list);
+
     this.list();
+  },
+  destroyed () {
+    this.$events.off('notification:interview:created', this.list);
   }
 };
 </script>

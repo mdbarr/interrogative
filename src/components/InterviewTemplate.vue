@@ -35,6 +35,7 @@
               readonly
               v-on="on"
               prepend-icon="mdi-calendar"
+              :rules="[ validateDate ]"
             ></v-text-field>
           </template>
           <v-date-picker
@@ -50,7 +51,6 @@
         v-model="timeMenu"
         :close-on-content-click="false"
         :nudge-right="40"
-        :return-value.sync="time"
         transition="scale-transition"
         offset-y
         max-width="290px"
@@ -261,6 +261,13 @@ export default {
     validatePosition (value) {
       if (!value) {
         return 'Please enter a position';
+      }
+      return true;
+    },
+    validateDate (value) {
+      const start = new Date(`${ this.date } ${ this.time }`).getTime();
+      if (start < Date.now()) {
+        return "Interviews can't be scheduled in the past";
       }
       return true;
     },
