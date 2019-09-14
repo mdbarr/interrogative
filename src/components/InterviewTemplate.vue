@@ -14,7 +14,7 @@
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="4">
-        <v-text-field clearable prepend-icon="mdi-office-builder" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
+        <v-text-field clearable prepend-icon="mdi-office-building" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
       </v-col>
       <v-col cols="12" md="4">
         <v-text-field clearable label="Position" :rules="[ validatePosition ]" v-model="position" class="pl-3" />
