@@ -240,6 +240,7 @@ export default { install (Vue) {
 
   Vue.prototype.$api = {
     del: (url, body) => { return api('delete', url, body); },
+    delete: (url, body) => { return api('delete', url, body); },
     get: (url, body) => { return api('get', url, body); },
     head: (url, body) => { return api('head', url, body); },
     opts: (url, body) => { return api('options', url, body); },

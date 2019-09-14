@@ -29,10 +29,23 @@
     <img src="../assets/logo.svg" width="30" height="30">
     <v-toolbar-title class="pl-4 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
     <v-spacer></v-spacer>
-    <span class="text-uppercase subtitle-2 pr-2">
-      {{ state.session.user.name }}
-    </span>
-    <v-icon class="pr-1">mdi-account-circle</v-icon>
+    <v-menu offset-y left>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" class="elevation-0">
+          <span class="text-uppercase subtitle-2 pr-2">
+            {{ state.session.user.name }}
+          </span>
+          <v-icon right>mdi-account-circle</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list dense class="pa-0">
+        <v-list-item dense class="body-2 ma-0" @click="signout">
+          SIGN OUT<v-spacer />
+          <v-icon right>mdi-logout-variant</v-icon>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 
   <v-content color="#222">
@@ -103,7 +116,12 @@ export default {
       sideTab: null
     };
   },
-  methods: {},
+  methods: { signout () {
+    this.$api.delete('/session').
+      then(() => {
+        this.$session(false);
+      });
+  } },
   mounted () {}
 };
 </script>
