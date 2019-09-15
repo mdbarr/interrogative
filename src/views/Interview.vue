@@ -248,13 +248,25 @@ export default {
 
     const duration = [];
     if (days > 0) {
-      duration.push(`${ days } days`);
+      if (days === 1) {
+        duration.push(`${ days } day`);
+      } else {
+        duration.push(`${ days } day`);
+      }
     }
     if (hours > 0) {
-      duration.push(`${ hours } hours`);
+      if (hours === 1) {
+        duration.push(`${ hours } hour`);
+      } else {
+        duration.push(`${ hours } hours`);
+      }
     }
     if (minutes > 0) {
-      duration.push(`${ minutes } minutes`);
+      if (minutes === 1) {
+        duration.push(`${ minutes } minute`);
+      } else {
+        duration.push(`${ minutes } minutes`);
+      }
     }
 
     return duration.join(', ');
