@@ -21,6 +21,19 @@ services:
        - 1311:1311
     depends_on:
       - mongo
+  emailer:
+    image: interrogative-emailer:latest
+    container_name: interrogative-emailer
+    networks:
+      - interrogative-db
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+       - 25:25
+       - 587:587
+    depends_on:
+      - mongo
   mongo:
     image: mongo:4.2
     container_name: interrogative-mongo

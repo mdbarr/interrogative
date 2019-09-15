@@ -26,5 +26,13 @@ module.exports = {
   uploads: {
     maxSize: 10485760,
     path: '~/uploads'
+  },
+  emailer: {
+    enabled: false,
+    intervals: {
+      registration: 10000,
+      invitation: 300000,
+      reminder: 300000
+    }
   }
 };

@@ -1,9 +1,9 @@
-all: core images container manager templates
+all: core images container manager templates emailer
 
 core:
 	docker build -f images/core/Dockerfile -t interrogative-core .
 
-.PHONY: core images container manager
+.PHONY: core images container manager emailer
 images:
 	$(MAKE) -C images
 
@@ -12,6 +12,9 @@ container:
 
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
+
+manager:
+	docker build -f lib/emailer/Dockerfile -t interrogative-emailer .
 
 templates:
 	$(MAKE) -C templates

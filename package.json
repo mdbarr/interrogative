@@ -23,6 +23,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.3.2",
     "node-pty": "^0.8.1",
+    "nodemailer": "^6.3.0",
     "request": "^2.88.0",
     "restify": "^8.4.0",
     "restify-cookies": "^0.2.5",
