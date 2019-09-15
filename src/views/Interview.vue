@@ -4,7 +4,7 @@
     <v-overlay>
       <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
       <div v-if="error" class="error-message">
-        <img v-if="error.includes('schedule')" src="../assets/logo-clock.svg" width="250">
+        <img v-if="error.includes('available')" src="../assets/logo-clock.svg" width="250">
         <img v-else src="../assets/logo-frown.svg" width="250">
         <br><br>
         <span v-html="error"></span>
@@ -235,7 +235,6 @@ export default {
       state,
       mini: true,
       error: false,
-      errorColor: 'red darken-2',
       sideTab: undefined
     };
   },
@@ -292,13 +291,13 @@ export default {
       }).
       catch((error) => {
         if (error.response) {
+          console.log(error.response);
           if (error.response.status === 404) {
             this.error = `Interview ${ this.state.id } was not found.`;
           } else if (error.response.status === 409) {
-            this.errorColor = 'green';
-            this.error = 'This interview is currently unavailable. <br>Please try again during the scheduled time.';
+            this.error = error.response.data.message;
           } else {
-            this.error = error.response.statusText;
+            this.error = error.response.data.message;
           }
         } else {
           this.error = error.message;
