@@ -4,15 +4,10 @@
 
 <script>
 import { Terminal } from 'xterm';
-import * as attach from 'xterm/lib/addons/attach/attach';
-import * as fit from 'xterm/lib/addons/fit/fit';
-import * as webLinks from 'xterm/lib/addons/webLinks/webLinks';
+import { AttachAddon } from 'xterm-addon-attach';
+import { FitAddon } from 'xterm-addon-fit';
 
-import 'xterm/dist/xterm.css';
-
-Terminal.applyAddon(attach);
-Terminal.applyAddon(fit);
-Terminal.applyAddon(webLinks);
+import 'xterm/css/xterm.css';
 
 export default {
   name: 'terminal',
@@ -52,8 +47,12 @@ export default {
       }
     });
 
+    const fitAddon = new FitAddon();
+    this.xterm.loadAddon(fitAddon);
+
     this.socket = this.$socket(`/shell?id=${ this.id }`);
-    this.xterm.attach(this.socket);
+    const attachAddon = new AttachAddon(this.socket);
+    this.xterm.loadAddon(attachAddon);
 
     this.$events.on('terminal:tab:focus', this.focus);
 
