@@ -35,7 +35,7 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo:4.2
+    image: interrogative-mongo:latest
     container_name: interrogative-mongo
     networks:
       - interrogative-db

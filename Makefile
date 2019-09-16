@@ -1,9 +1,14 @@
-all: core images container manager templates emailer
+all: pull core images container manager templates emailer
+
+.PHONY: pull core images container manager emailer
+pull:
+	docker pull mongo:4.2
+	docker pull node:10
+	docker pull node:10-alpine
 
 core:
 	docker build -f images/core/Dockerfile -t interrogative-core .
 
-.PHONY: core images container manager emailer
 images:
 	$(MAKE) -C images
 
