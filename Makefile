@@ -13,7 +13,7 @@ container:
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
 
-manager:
+emailer:
 	docker build -f lib/emailer/Dockerfile -t interrogative-emailer .
 
 templates:
