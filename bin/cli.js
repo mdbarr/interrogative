@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-const argv = require('yargs').argv;
+// Force set timezone
+const fs = require('fs');
+process.env.TZ = fs.readFileSync('/etc/timezone').toString().trim();
 
+// Handle command line options
+const argv = require('yargs').argv;
 if (argv.manager) {
   const Manager = require('../lib/manager/manager');
   const manager = new Manager({ options: argv });
