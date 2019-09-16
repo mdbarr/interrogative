@@ -23,6 +23,9 @@ const router = new Router({
       name: 'dashboard',
       alias: '/',
       component: () => { return import('./views/Dashboard.vue'); }
+    }, {
+      path: '*',
+      component: () => { return import('./views/SignIn.vue'); }
     }
   ]
 });
