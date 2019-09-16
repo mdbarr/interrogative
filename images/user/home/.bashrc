@@ -1,3 +1,5 @@
+export USER=`whoami`
+
 export LANG="en_US.UTF-8"
 HISTCONTROL=ignoreboth
 shopt -s histappend
