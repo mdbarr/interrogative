@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-navigation-drawer permanent expand-on-hover app clipped mini-variant-width="54" width="265">
+  <v-navigation-drawer expand-on-hover permanent app clipped mini-variant-width="54">
     <v-tabs vertical dark slider-color="white" slider-size="2" v-model="sideTab">
       <v-tab class="white--text">
         <v-icon left class="pl-2 pr-2">mdi-monitor-dashboard</v-icon> Dashboard
@@ -129,9 +129,11 @@ export default {
 <style>
 .drawer {
     overflow: hidden;
+    width: 312px;
 }
 .v-tabs {
-    width: 265px !important;
+    overflow: hidden;
+    width: 312px;
 }
 .v-tab {
     padding-left: 6px !important;
