@@ -7,7 +7,7 @@
     <v-tab v-for="item of state.terminals" :key="item.index" class="tab-bg pl-2 pr-2">
       <v-icon v-if="item.icon" small class="pr-2">mdi-{{ item.icon }}</v-icon>
       <span class="pr-1">{{ item.name }}</span>
-      <v-icon v-if="item.closeable" small class="pl-2">mdi-close</v-icon>
+      <v-icon v-if="item.closeable" small class="pl-2" @click="close(item.id)">mdi-close</v-icon>
     </v-tab>
   </v-tabs>
   <div v-for="item of state.terminals" :key="item.index">
@@ -77,7 +77,11 @@ export default {
     plus () {
       this.$events.emit({ type: 'terminal:tab:open' });
     },
-    close () {
+    close (id) {
+      this.$events.emit({
+        type: 'terminal:tab:close',
+        data: { id }
+      });
     }
   },
   mounted () {

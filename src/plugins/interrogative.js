@@ -204,6 +204,17 @@ export default { install (Vue) {
     state.terminals.push(event.data);
   });
 
+  $events.on('terminal:tab:closed', (event) => {
+    for (let i = 0; i < state.terminals.length; i++) {
+      if (state.terminals[i].id === event.data.id) {
+        state.terminals.splice(i, 1);
+        console.log('terminal closed', event.data);
+        return true;
+      }
+    }
+    return false;
+  });
+
   $events.on('messages:message:send', (event) => {
     state.messages.push(event.data);
   });
