@@ -15,10 +15,3 @@ alias la='ls -A'
 alias l='ls -CF'
 
 source /usr/share/powerline/bindings/bash/powerline.sh
-
-open() {
-    local file
-    file=$(realpath "$1")
-
-    curl -s -X PUT -H "Content-Type: application/json" -d "{ \"path\": \"$file\" }" http://localhost:1314/api/open
-}

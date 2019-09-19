@@ -1,0 +1,22 @@
+#!/bin/bash
+
+file=$(realpath "$1")
+extension=${file##*.}
+
+case "$extension" in
+    js)
+        node "$file"
+        ;;
+    pl)
+        perl "$file"
+        ;;
+    py)
+        python "$file"
+        ;;
+    rb)
+        ruby "$file"
+        ;;
+    *)
+        echo "interrogative.io: unsure how to run $file"
+        exit 1
+esac

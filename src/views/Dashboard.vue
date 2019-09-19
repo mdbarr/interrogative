@@ -1,13 +1,13 @@
 <template>
 <div>
-  <v-navigation-drawer expand-on-hover permanent app clipped mini-variant-width="54">
+  <v-navigation-drawer expand-on-hover permanent app clipped mini-variant-width="54" width="240">
     <v-tabs vertical dark slider-color="white" slider-size="2" v-model="sideTab">
       <v-tab class="white--text">
         <v-icon left class="pl-2 pr-2">mdi-monitor-dashboard</v-icon> Dashboard
       </v-tab>
       <v-divider></v-divider>
       <v-tab class="white--text">
-        <v-icon left class="pl-2 pr-2">mdi-calendar-plus</v-icon> Schedule a new Interview
+        <v-icon left class="pl-2 pr-2">mdi-calendar-plus</v-icon> Schedule an Interview
       </v-tab>
       <v-tab class="white--text">
         <v-icon left class="pl-2 pr-2">mdi-calendar-account</v-icon> Upcoming Interviews
@@ -129,11 +129,11 @@ export default {
 <style>
 .drawer {
     overflow: hidden;
-    width: 312px;
+    width: 300px;
 }
 .v-tabs {
     overflow: hidden;
-    width: 312px;
+    width: 300px;
 }
 .v-tab {
     padding-left: 6px !important;

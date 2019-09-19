@@ -7,6 +7,7 @@ RUN useradd -m -d /home/user user && \
 
 WORKDIR /home/user
 COPY home /home/user
+COPY bin /usr/local/bin
 RUN chown -R user.user /home/user
 USER user
 RUN HOME=/home/user git init && \

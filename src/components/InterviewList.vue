@@ -2,7 +2,7 @@
 <div>
   <template v-if="heading">
     <v-row dense>
-      <v-col md="6" class="font-weight-bold text-uppercase pl-5">
+      <v-col md="10" class="font-weight-bold text-uppercase pl-5">
         <v-icon left class="pr-2">{{ icon }}</v-icon>{{ heading }}
       </v-col>
     </v-row>

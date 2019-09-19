@@ -172,7 +172,8 @@
       </v-btn>
       <v-toolbar-title class="pl-4 app-bar-title">INTERROGATIVE.IO</v-toolbar-title>
       <v-spacer></v-spacer>
-      <span class="text-uppercase subtitle-2 pr-2">
+      <ActionButton v-for="action of state.interview.actions" :key="action.id" :action="action" />
+      <span class="text-uppercase subtitle-2 pl-2 pr-2">
         {{ state.name }}
       </span>
       <v-icon v-if="state.name" class="pr-1">mdi-account-circle</v-icon>
@@ -205,6 +206,7 @@
 
 <script>
 import state from '../state';
+import ActionButton from '../components/ActionButton';
 import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
@@ -219,6 +221,7 @@ import UploadList from '../components/UploadList';
 export default {
   name: 'interview',
   components: {
+    ActionButton,
     Editor,
     FileTabs,
     FileTree,

@@ -11,7 +11,9 @@ import 'xterm/css/xterm.css';
 
 export default {
   name: 'terminal',
-  props: { id: String },
+  props: {
+    id: String, type: String
+  },
   data () {
     return {
       element: null,
@@ -28,7 +30,7 @@ export default {
     }
   } },
   mounted () {
-    console.log('creating terminal', this.id);
+    console.log(`creating ${ this.type }: ${ this.id }`);
     this.element = this.$refs.terminal;
 
     this.xterm = new Terminal({
@@ -50,7 +52,12 @@ export default {
     const fitAddon = new FitAddon();
     this.xterm.loadAddon(fitAddon);
 
-    this.socket = this.$socket(`/shell?id=${ this.id }`);
+    if (this.type === 'terminal') {
+      this.socket = this.$socket(`/shell?id=${ this.id }`);
+    } else {
+      this.socket = this.$socket(`/action?id=${ this.id }`);
+    }
+
     const attachAddon = new AttachAddon(this.socket);
     this.xterm.loadAddon(attachAddon);
 
