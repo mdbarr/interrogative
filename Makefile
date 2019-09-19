@@ -29,3 +29,13 @@ clean:
 	./bin/kill.sh
 	docker system prune -f
 	docker volume prune -f
+
+spotless:
+	docker rmi interrogative-base
+	docker rmi interrogative-container
+	docker rmi interrogative-core
+	docker rmi interrogative-emailer
+	docker rmi interrogative-manager
+	docker rmi interrogative-mongo
+	docker rmi interrogative-user
+	docker system prune -f

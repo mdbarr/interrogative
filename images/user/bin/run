@@ -16,6 +16,9 @@ case "$extension" in
     rb)
         ruby "$file"
         ;;
+    sh)
+        bash "$file"
+        ;;
     *)
         echo "interrogative.io: unsure how to run $file"
         exit 1
