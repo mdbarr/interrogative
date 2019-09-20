@@ -46,17 +46,14 @@ export default {
       theme: {
         background: '#222',
         selection: 'rgba(0, 165, 255, 0.25)'
-      }
+      },
+      convertEol: (this.type === 'action-simple')
     });
 
     const fitAddon = new FitAddon();
     this.xterm.loadAddon(fitAddon);
 
-    if (this.type === 'terminal') {
-      this.socket = this.$socket(`/shell?id=${ this.id }`);
-    } else {
-      this.socket = this.$socket(`/action?id=${ this.id }`);
-    }
+    this.socket = this.$socket(`/terminal?id=${ this.id }`);
 
     const attachAddon = new AttachAddon(this.socket);
     this.xterm.loadAddon(attachAddon);

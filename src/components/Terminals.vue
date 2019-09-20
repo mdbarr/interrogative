@@ -77,7 +77,10 @@ export default {
       }
     },
     plus () {
-      this.$events.emit({ type: 'terminal:tab:open' });
+      this.$events.emit({
+        type: 'terminal:tab:open',
+        data: { type: 'terminal' }
+      });
     },
     close (id) {
       this.$events.emit({

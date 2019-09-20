@@ -12,10 +12,8 @@ export default {
     return { state };
   },
   methods: { click () {
-    console.log('clicked', this.action, this.state.focus);
-    console.log('focus', this.state.focus);
     this.$events.emit({
-      type: 'action:tab:open',
+      type: 'terminal:tab:open',
       data: this.action
     });
   } }
