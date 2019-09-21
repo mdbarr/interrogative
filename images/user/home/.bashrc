@@ -14,4 +14,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+if [ -x "$(command -v yarn)" ]; then
+    export PATH="$(yarn global bin):$PATH"
+fi
+
 source /usr/share/powerline/bindings/bash/powerline.sh
