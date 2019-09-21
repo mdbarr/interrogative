@@ -10,6 +10,7 @@ COPY home /home/user
 COPY bin /usr/local/bin
 RUN chown -R user.user /home/user
 USER user
+RUN yarn global add eslint marked
 RUN HOME=/home/user git init && \
         git add WELCOME.md .gitignore && \
         git commit -a -m "Initial Commit"

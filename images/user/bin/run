@@ -7,6 +7,9 @@ case "$extension" in
     js)
         node "$file"
         ;;
+    md)
+        marked "$file"
+        ;;
     pl)
         perl "$file"
         ;;
