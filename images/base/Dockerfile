@@ -16,14 +16,19 @@ RUN apt-get update && \
         gettext \
         git  \
         gnupg2 \
+        hexedit \
         iproute2 \
         iputils-ping \
         keychain \
         less \
         libtool \
+        locales \
+        locales-all \
+        man \
         manpages \
         nano \
         netbase \
+        netcat \
         openssh-client \
         powerline \
         python-dev \
@@ -32,6 +37,7 @@ RUN apt-get update && \
         shellcheck \
         sudo \
         telnet \
+        tig \
         tmux \
         vim \
         wget && \
@@ -44,3 +50,7 @@ RUN apt-get update && \
         apt-get autoremove && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
