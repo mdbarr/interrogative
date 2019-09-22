@@ -1,7 +1,12 @@
 <template>
-<v-btn v-if="show" icon tile height="40" @click="click">
-  <v-icon>mdi-{{ action.icon }}</v-icon>
-</v-btn>
+<v-tooltip bottom v-if="show">
+  <template v-slot:activator="{ on }">
+    <v-btn v-on="on" icon tile height="40" @click="click">
+      <v-icon>mdi-{{ action.icon }}</v-icon>
+    </v-btn>
+  </template>
+  <span>{{ action.hint }}</span>
+</v-tooltip>
 </template>
 
 <script>
@@ -32,7 +37,6 @@ export default {
         } else if (this.action.filter === 'name') {
           this.show = this.matcher.test(this.name);
         }
-        console.log('action', this.show);
       }
     },
     click () {
@@ -43,7 +47,6 @@ export default {
     }
   },
   mounted () {
-    console.log('button', this.matcher, this.action.match);
     if (!this.matcher && this.action.match) {
       const matcher = this.action.match.
         split(/[\s,]+/).
