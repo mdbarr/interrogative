@@ -826,13 +826,13 @@
     barrkeep "^2.2.7"
     uuid "^3.3.3"
 
-"@mdbarr/griff@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.1.tgz#0db0cd0696e948906c91587f086a2eea7049b440"
-  integrity sha512-HgOx2dmzFaCK8DGb9oBSIz8/uMhUU3TUQOZyzBVrmG7JJ7lkUzqIz/HV0yhm1eEPkhEViWK05JmPYQj/VCtoCg==
+"@mdbarr/griff@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.3.tgz#276a6c2dd37b6ec85a7d23c0fe9dab20f8157e52"
+  integrity sha512-JHQU8PtDlZVDZ5/TLK9/8lzk8J6G15pmNJ4jeztoPkOmDOmWqa799X4iSMHA51uF7VZe5z5POMaE+Nl/IEW1uA==
   dependencies:
     minimist "^1.2.0"
-    nodegit "^0.25.1"
+    nodegit "^0.26.1"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -6596,10 +6596,10 @@ nodegit-promise@~4.0.0:
   dependencies:
     asap "~2.0.3"
 
-nodegit@^0.25.1:
-  version "0.25.1"
-  resolved "https://registry.yarnpkg.com/nodegit/-/nodegit-0.25.1.tgz#70b9d89e62cbc1153237a10a196e3228a669895b"
-  integrity sha512-j2kEd4jTraimRPKDX31DsLcfY9fWpcYG8zT0tiLVtN5jMm9fDFgn3WOQ+Nk+3NcBqxr4p5N5pZqNrCS0nGdTbg==
+nodegit@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/nodegit/-/nodegit-0.26.1.tgz#2fc97ea69b186143ba2f469489d555ded1cdbb01"
+  integrity sha512-ZNky4TMBob4ld2eWyfwjlhsaY8H5vniDtW7ENy6TbfIF40D844uDLdJ+JAf++6lENKBPPClKvGza8h0ohN0IZg==
   dependencies:
     fs-extra "^7.0.0"
     json5 "^2.1.0"
