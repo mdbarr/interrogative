@@ -55,6 +55,9 @@
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.3.0"
   },
+  "resolutions": {
+    "minipass": "2.7.0"
+  },
   "scripts": {
     "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
     "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
