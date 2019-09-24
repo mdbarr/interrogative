@@ -7,7 +7,11 @@ module.exports = {
     bootstrap: true,
     engine: { socketPath: '/var/run/docker.sock' }
   },
-  database: { url: 'mongodb://mongo:27017/interrogative' },
+  database: {
+    retry: 5000,
+    slowStart: 10000,
+    url: 'mongodb://mongo:27017/interrogative'
+  },
   sessions: { cookie: 'dapper-session' },
   oplog: { url: 'mongodb://mongo:27017/local' },
   metadata: {
