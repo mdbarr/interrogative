@@ -44,10 +44,14 @@ export default {
       rightClickSelectsWord: true,
       macOptionIsMeta: true,
       theme: {
+        foreground: '#fff',
         background: '#222',
+        cursorAccent: '#222',
         selection: 'rgba(0, 165, 255, 0.25)'
       },
-      convertEol: (this.type === 'action-simple')
+      convertEol: this.type === 'action-simple',
+      cursorBlink: this.type !== 'action-simple',
+      disableStdin: this.type === 'action-simple'
     });
 
     const fitAddon = new FitAddon();
