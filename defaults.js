@@ -5,7 +5,11 @@ module.exports = {
     host: '0.0.0.0',
     storage: '/interrogative/interviews',
     bootstrap: true,
-    engine: { socketPath: '/var/run/docker.sock' }
+    engine: { socketPath: '/var/run/docker.sock' },
+    networks: {
+      container: 'interrogative',
+      database: 'interrogative-db'
+    }
   },
   database: {
     retry: 5000,
@@ -22,7 +26,8 @@ module.exports = {
     port: 1313,
     host: '0.0.0.0',
     ttl: '2h',
-    heartbeat: '30s'
+    heartbeat: '30s',
+    openMaxSize: 262144
   },
   interaction: {
     port: 1314,
