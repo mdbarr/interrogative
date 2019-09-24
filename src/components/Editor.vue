@@ -4,6 +4,9 @@
     <textarea ref="textarea"></textarea>
   </div>
   <div ref="image" v-show="image" class="image-preview"></div>
+  <div v-show="hexdump" class="hexdump">
+    <pre ref="hexdump" class="hexdump-pre"></pre>
+  </div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
     <div class="interrogative-editor-panel-left">
       <i :class="lintedIcon"></i>
@@ -122,6 +125,7 @@ export default {
 
       editor: true,
       image: false,
+      hexdump: false,
 
       width: 0,
       height: 0,
@@ -184,6 +188,7 @@ export default {
 
       if (this.file.mime.startsWith('image')) {
         this.image = true;
+        this.hexdump = false;
 
         const image = this.asImage(this.file);
 
@@ -201,8 +206,53 @@ export default {
         console.log('height', this.height);
 
         this.$refs.image.appendChild(image);
+      } else if (this.file.binary) {
+        this.hexdump = true;
+        this.image = false;
+
+        let content = '';
+
+        const padding = Math.max(this.file.stat.size.toString(16).length, 8);
+        const data = this.file.contents;
+        for (let i = 0; i < data.length; i += 32) {
+          const characters = [];
+          content += i.toString(16).padStart(padding, '0');
+          content += '  ';
+          for (let j = 0; j < 32; j++) {
+            if (j >= 8 && j % 8 === 0) {
+              content += ' ';
+            }
+            const value = data[i + j];
+            if (value === undefined) {
+              content += ' ';
+            } else {
+              content += value.toUpperCase();
+            }
+            if (j % 2) {
+              content += ' ';
+              let character = parseInt(`${ data[i + j - 1] }${ data[i + j] }`, 16);
+              if (Number.isNaN(character)) {
+                character = '';
+              } else if (character >= 32 && character <= 126) {
+                character = String.fromCharCode(character);
+              } else {
+                character = '.';
+              }
+              characters.push(character);
+            }
+          }
+          content += '  ';
+          content += characters.join('');
+          content += '\n';
+        }
+
+        this.$refs.hexdump.style.width = `${ this.width }px`;
+        this.$refs.hexdump.style.height = `${ this.height }px`;
+
+        this.$refs.hexdump.innerHTML = content;
       } else if (!this.file.binary) {
         this.image = false;
+        this.hexdump = false;
 
         const doc = this.asDocument(this.file);
 
@@ -533,5 +583,21 @@ export default {
     padding: 0px;
     margin: 0px;
     z-index: 20;
+}
+.hexdump {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: #222;
+    padding: 0px;
+    margin: 0px;
+    z-index: 30;
+}
+.hexdump-pre {
+    padding: 2px 8px;
+    font-size: 14px;
+    font-family: "Source Code Pro", monospace;
 }
 </style>
