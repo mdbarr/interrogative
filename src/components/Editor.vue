@@ -214,11 +214,11 @@ export default {
 
         const padding = Math.max(this.file.stat.size.toString(16).length, 8);
         const data = this.file.contents;
-        for (let i = 0; i < data.length; i += 32) {
+        for (let i = 0; i < data.length; i += 64) {
           const characters = [];
           content += i.toString(16).padStart(padding, '0');
           content += '  ';
-          for (let j = 0; j < 32; j++) {
+          for (let j = 0; j < 64; j++) {
             if (j >= 8 && j % 8 === 0) {
               content += ' ';
             }
@@ -597,7 +597,7 @@ export default {
 }
 .hexdump-pre {
     padding: 2px 8px;
-    font-size: 14px;
-    font-family: "Source Code Pro", monospace;
+    font-size: 12px;
+    font-family: Source Code Pro, monospace;
 }
 </style>
