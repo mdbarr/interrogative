@@ -1,6 +1,6 @@
-all: pull core images container manager templates emailer
+all: pull core images container manager templates messanger
 
-.PHONY: pull core images container manager emailer
+.PHONY: pull core images container manager messanger
 pull:
 	docker pull mongo:4.2
 	docker pull node:10
@@ -18,8 +18,8 @@ container:
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
 
-emailer:
-	docker build -f lib/emailer/Dockerfile -t interrogative-emailer .
+messanger:
+	docker build -f lib/messanger/Dockerfile -t interrogative-messanger .
 
 templates:
 	$(MAKE) -C templates
@@ -34,7 +34,7 @@ spotless:
 	docker rmi interrogative-base
 	docker rmi interrogative-container
 	docker rmi interrogative-core
-	docker rmi interrogative-emailer
+	docker rmi interrogative-messanger
 	docker rmi interrogative-manager
 	docker rmi interrogative-mongo
 	docker rmi interrogative-user

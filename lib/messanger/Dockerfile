@@ -4,4 +4,4 @@ FROM node:10-alpine
 WORKDIR /interrogative
 COPY --from=build /interrogative .
 EXPOSE 1311
-ENTRYPOINT [ "/interrogative/bin/cli.js", "--emailer" ]
+ENTRYPOINT [ "/interrogative/bin/cli.js", "--messanger" ]

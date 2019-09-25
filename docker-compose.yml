@@ -21,9 +21,9 @@ services:
        - 1311:1311
     depends_on:
       - mongo
-  emailer:
-    image: interrogative-emailer:latest
-    container_name: interrogative-emailer
+  messanger:
+    image: interrogative-messanger:latest
+    container_name: interrogative-messanger
     networks:
       - interrogative-db
     volumes:
