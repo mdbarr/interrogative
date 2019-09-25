@@ -17,7 +17,10 @@ module.exports = {
     url: 'mongodb://mongo:27017/interrogative'
   },
   sessions: { cookie: 'dapper-session' },
-  oplog: { url: 'mongodb://mongo:27017/local' },
+  oplog: {
+    retry: 5000,
+    url: 'mongodb://mongo:27017/local'
+  },
   metadata: {
     port: 1312,
     host: '0.0.0.0'
