@@ -29,6 +29,8 @@
     "restify": "^8.4.0",
     "restify-cookies": "^0.2.5",
     "restify-cors-middleware": "^1.1.1",
+    "selfsigned": "^1.10.6",
+    "smtp-server": "^3.5.0",
     "uuid": "^3.3.3",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",

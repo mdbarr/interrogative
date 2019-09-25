@@ -3,5 +3,5 @@ FROM interrogative-core:latest as build
 FROM node:10-alpine
 WORKDIR /interrogative
 COPY --from=build /interrogative .
-EXPOSE 1311
+EXPOSE 25 587
 ENTRYPOINT [ "/interrogative/bin/cli.js", "--messanger" ]

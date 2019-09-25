@@ -40,9 +40,15 @@ module.exports = {
     maxSize: 10485760,
     path: '~/uploads'
   },
-  messanger: { intervals: {
-    registration: 10000,
-    invitation: 300000,
-    reminder: 300000
-  } }
+  messanger: {
+    smtp: {
+      port: 25,
+      host: '0.0.0.0'
+    },
+    intervals: {
+      registration: 10000,
+      invitation: 300000,
+      reminder: 300000
+    }
+  }
 };
