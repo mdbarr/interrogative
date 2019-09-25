@@ -39,3 +39,9 @@ spotless:
 	docker rmi interrogative-mongo
 	docker rmi interrogative-user
 	docker system prune -f
+
+rebuild:
+	yarn lint
+	yarn api:lint
+	make clean
+	make all
