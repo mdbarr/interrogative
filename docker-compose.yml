@@ -21,9 +21,9 @@ services:
        - 1311:1311
     depends_on:
       - mongo
-  messanger:
-    image: interrogative-messanger:latest
-    container_name: interrogative-messanger
+  messenger:
+    image: interrogative-messenger:latest
+    container_name: interrogative-messenger
     networks:
       - interrogative-db
     volumes:

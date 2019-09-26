@@ -40,7 +40,7 @@ module.exports = {
     maxSize: 10485760,
     path: '~/uploads'
   },
-  messanger: {
+  messenger: {
     smtp: {
       port: 25,
       host: '0.0.0.0'
