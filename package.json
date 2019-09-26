@@ -20,6 +20,7 @@
     "dockerode": "^3.0.1",
     "dree": "^2.1.11",
     "glob": "^7.1.4",
+    "mailparser": "^2.7.1",
     "mime": "^2.4.4",
     "moment": "^2.24.0",
     "mongodb": "^3.3.2",
