@@ -45,3 +45,8 @@ rebuild:
 	yarn api:lint
 	make clean
 	make all
+
+redeploy:
+	make
+	make clean
+	docker-compose up -d
