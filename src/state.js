@@ -30,7 +30,7 @@ function State () {
 
   this.user = '';
   this.name = '';
-  this.role = 'user';
+  this.role = 'candidate';
 
   this.online = {};
 

@@ -40,6 +40,12 @@
         <v-tab class="white--text">
           <v-icon left>mdi-settings</v-icon>
         </v-tab>
+        <v-tab v-if="state.role === 'interviewer'" class="white--text">
+          <v-icon left>mdi-timeline-text</v-icon>
+        </v-tab>
+        <v-tab v-if="state.role === 'interviewer'"  class="white--text">
+          <v-icon left>mdi-tools</v-icon>
+        </v-tab>
 
         <v-tab-item v-if="!mini">
           <v-card flat>
@@ -159,6 +165,22 @@
             <v-card-text class="white--text">
               <div class="section-heading">Settings</div>
               <Settings></Settings>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item v-if="!mini && state.role === 'interviewer'">
+          <v-card flat>
+            <v-card-text class="white--text">
+              <div class="section-heading">Timeline</div>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item v-if="!mini && state.role === 'interviewer'">
+          <v-card flat>
+            <v-card-text class="white--text">
+              <div class="section-heading">Tools</div>
             </v-card-text>
           </v-card>
         </v-tab-item>
