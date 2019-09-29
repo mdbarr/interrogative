@@ -817,12 +817,12 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@mdbarr/events@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@mdbarr/events/-/events-0.1.1.tgz#0a30192c2d224044023f72c6bf3cb8ae74c907ec"
-  integrity sha512-/ihNNrl0N+nFxyWPjJng2rv0LXSf7L90zHzADph4m9sFpA3v8DlYU/8ssMRE1XgSefvonbRyB/2rhn1G3r9/BQ==
+"@mdbarr/events@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@mdbarr/events/-/events-0.1.2.tgz#0a2a686b50302c4a9d17e0f0bd396e2b3aad2528"
+  integrity sha512-piXkIz3c44XGjDf1Zf0Jf3Dj7JFX+lv+vtTirxH+Wx9Lqj++BOEUzBkKc4YSkghdG0Z4kxAjMRqJPQIS0FWaEg==
   dependencies:
-    barrkeep "^2.2.7"
+    barrkeep "^2.2.9"
     uuid "^3.3.3"
 
 "@mdbarr/griff@^0.2.3":
@@ -1728,7 +1728,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-barrkeep@^2.2.7, barrkeep@^2.2.9:
+barrkeep@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/barrkeep/-/barrkeep-2.2.9.tgz#3055baf1052136f30e0a299dc6c3d0ffb7017a82"
   integrity sha512-9qqGevBEkWkrAJK/7pDaZdqD49PZhoLyFf0eYLicr9ZRb3zpmHwmkAWxYVHPBioIKv0xcdl0n9xDoZl0KL4UtA==
@@ -2548,9 +2548,9 @@ commander@2.17.x:
   integrity sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==
 
 commander@^2.11.0, commander@^2.15.1, commander@^2.18.0, commander@^2.19.0, commander@^2.20.0:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
-  integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.1.tgz#3863ce3ca92d0831dcf2a102f5fb4b5926afd0f9"
+  integrity sha512-cCuLsMhJeWQ/ZpsFTbE765kvVfoeSddc4nU3up4fV+fDBcfUXnbITJ+JzhkdjzOqhURjZgujxaioam4RM9yGUg==
 
 commander@~2.19.0:
   version "2.19.0"
@@ -3843,10 +3843,10 @@ eslint@^4.19.1:
     table "4.0.2"
     text-table "~0.2.0"
 
-eslint@^6.3.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.4.0.tgz#5aa9227c3fbe921982b2eda94ba0d7fae858611a"
-  integrity sha512-WTVEzK3lSFoXUovDHEbkJqCVPEPwbhCq4trDktNI6ygs7aO41d4cDT0JFAT5MivzZeVLWlg7vHL+bgrQv/t3vA==
+eslint@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.5.0.tgz#304623eec903969dd5c9f2d61c6ce3d6ecec8750"
+  integrity sha512-IIbSW+vKOqMatPmS9ayyku4tvWxHY2iricSRtOz6+ZA5IPRlgXzEL0u/j6dr4eha0ugmhMwDTqxtmNu3kj9O4w==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -5267,9 +5267,9 @@ is-absolute-url@^2.0.0, is-absolute-url@^2.1.0:
   integrity sha1-UFMN+4T8yap9vnhS6Do3uTufKqY=
 
 is-absolute-url@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/is-absolute-url/-/is-absolute-url-3.0.2.tgz#554f2933e7385cc46e94351977ca2081170a206e"
-  integrity sha512-+5g/wLlcm1AcxSP7014m6GvbPHswDx980vD/3bZaap8aGV9Yfs7Q6y6tfaupgZ5O74Byzc8dGrSCJ+bFXx0KdA==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/is-absolute-url/-/is-absolute-url-3.0.3.tgz#96c6a22b6a23929b11ea0afb1836c36ad4a5d698"
+  integrity sha512-opmNIX7uFnS96NtPmhWQgQx6/NYFgsUXYMllcfzwWKUMwfo8kku1TvE6hkNcH+Q1ts5cMVrsY7j0bxXQDciu9Q==
 
 is-accessor-descriptor@^0.1.6:
   version "0.1.6"
