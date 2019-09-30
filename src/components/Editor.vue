@@ -8,7 +8,7 @@
     <pre ref="hexdump" class="hexdump-pre"></pre>
   </div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
-    <v-btn x-small flat tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
+    <v-btn x-small tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
       <v-icon small class="bump pr-2">{{ fullscreenIcon }}</v-icon> {{ fullscreenText }}
     </v-btn>
   </div>
