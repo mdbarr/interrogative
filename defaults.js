@@ -42,10 +42,16 @@ module.exports = {
   },
   messenger: {
     smtp: {
-      port: 25,
-      securePort: 587,
-      host: '0.0.0.0',
-      domain: 'interrogative.io'
+      domain: 'interrogative.io',
+      incoming: {
+        host: '0.0.0.0',
+        port: 25,
+        securePort: 587
+      },
+      outgoing: {
+        host: 'localhost',
+        port: 25
+      }
     },
     intervals: {
       registration: 10000,
