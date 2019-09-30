@@ -53,7 +53,7 @@
                 :type="visible ? 'text' : 'password'"
                 ></v-text-field>
             </v-form>
-            <div class="caption align-left">By clicking “Sign up” below, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account-related emails.</div>
+            <div class="caption align-left">By clicking “Sign up” below, you agree to our <router-link to="/terms">Terms of Service</router-link> and <router-link to="/privacy">Privacy Statement</router-link>. We’ll occasionally send you account-related emails.</div>
           </v-card-text>
           <v-card-actions>
             <span class="caption pl-2">Already have an account?
@@ -63,7 +63,7 @@
             <v-btn
               :loading="loading"
               :disabled="!name || !email || !password"
-              @click.stop="signin"
+              @click.stop="signup"
               color="#0087af"
               >
               Sign up
@@ -96,8 +96,8 @@ export default {
     pressEnter () {
       console.log('enter');
     },
-    comparePasswords () {
-      console.log('compare');
+    signup () {
+      console.log('sign up');
     }
   }
 };

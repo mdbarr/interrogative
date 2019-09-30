@@ -32,6 +32,12 @@
             </v-form>
           </v-card-text>
           <v-card-actions>
+            <span class="caption">No account?
+              <router-link to="/signup">Sign Up</router-link>
+            </span>
+            <div class="flex-grow-1"></div>
+            <span class="caption"><router-link to="/forgot">Forgot Password?</router-link>
+            </span>
             <div class="flex-grow-1"></div>
             <v-btn
               :loading="loading"
