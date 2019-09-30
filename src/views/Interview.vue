@@ -15,8 +15,13 @@
     <v-overlay class="error-message">
       <img src="../assets/logo-hourglass.svg" width="250">
       <br><br>
-      Your interview session has timed out.
-      <a @click="reload">Refresh the browser</a> to reconnect.
+      <span v-if="state.role === 'candidate'">
+        This interview has concluded.
+      </span>
+      <span v-else>
+        Your interview session has timed out.
+        <a @click="reload">Refresh the browser</a> to reconnect.
+      </span>
     </v-overlay>
   </div>
   <div v-else>
