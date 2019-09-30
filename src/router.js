@@ -13,15 +13,23 @@ const router = new Router({
     {
       path: '/interview/:id',
       name: 'interview',
+      meta: { requiresAuth: false },
       component: () => { return import('./views/Interview.vue'); }
+    }, {
+      path: '/signup',
+      name: 'signup',
+      meta: { requiresAuth: false },
+      component: () => { return import('./views/SignUp.vue'); }
     }, {
       path: '/signin',
       name: 'signin',
+      meta: { requiresAuth: false },
       component: () => { return import('./views/SignIn.vue'); }
     }, {
       path: '/dashboard',
       name: 'dashboard',
       alias: '/',
+      meta: { requiresAuth: true },
       component: () => { return import('./views/Dashboard.vue'); }
     }, {
       path: '*',
@@ -31,7 +39,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'interview') {
+  if (to.meta.requiresAuth === false) {
     return next();
   }
 
