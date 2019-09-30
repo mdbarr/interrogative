@@ -32,6 +32,11 @@ services:
     ports:
       - 0.0.0.0:25:25
       - 0.0.0.0:587:587
+    environment:
+      - INTERROGATIVE_MAIL_HOST
+      - INTERROGATIVE_MAIL_PORT
+      - INTERROGATIVE_MAIL_USER
+      - INTERROGATIVE_MAIL_PASSWORD
     depends_on:
       - mongo
   mongo:
