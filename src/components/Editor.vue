@@ -8,16 +8,9 @@
     <pre ref="hexdump" class="hexdump-pre"></pre>
   </div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
-    <div class="interrogative-editor-panel-left">
-      <i :class="lintedIcon"></i>
-      <i class="mdi mdi-auto-fix interrogative-editor-clickable interrogative-editor-spacer-left" v-if="fixable" @click.stop="fix"></i>
-    </div>
-    <div class="interrogative-editor-panel-center">
-      <i class="mdi mdi-drag-horizontal interrogative-editor-clickable" @click.stop="fix"></i>
-    </div>
-    <div class="interrogative-editor-panel-right">
-      <i :class="fullscreenIcon" @click.stop="toggleFullscreen"></i>
-    </div>
+    <v-btn x-small flat tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
+      <v-icon small class="bump pr-2">{{ fullscreenIcon }}</v-icon> {{ fullscreenText }}
+    </v-btn>
   </div>
 </div>
 </template>
@@ -101,19 +94,17 @@ export default {
       return state.keymap;
     },
     fullscreenIcon () {
-      let icon = 'interrogative-editor-clickable mdi mdi-fullscreen';
+      let icon = 'mdi-fullscreen';
       if (this.fullscreen) {
         icon += '-exit';
       }
       return icon;
     },
-    lintedIcon () {
-      if (this.linted === true) {
-        return 'mdi mdi-check-circle-outline';
-      } else if (this.linted === false) {
-        return 'mdi mdi-alert-circle-outline';
+    fullscreenText () {
+      if (this.fullscreen) {
+        return 'exit fullscreen';
       }
-      return 'mdi mdi-dots-horizontal-circle-outline';
+      return 'fullscreen';
     }
   },
   data () {
@@ -299,7 +290,7 @@ export default {
     },
     resize () {
       this.width = this.app.clientWidth - 45;
-      this.height = this.app.clientHeight - 484;
+      this.height = this.app.clientHeight - 480;
 
       this.$refs.container.style.width = `${ this.width }px`;
       this.$refs.container.style.height = `${ this.height }px`;
@@ -543,10 +534,10 @@ export default {
     background-color: #595959;
     height: 20px;
     width: 100%;
-    padding-top: 0px;
-    font-size: 16px;
-    line-height: 20px;
-    padding-left: 5px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    line-height: 18px;
 }
 .interrogative-editor-panel-fullscreen {
     position: fixed;
@@ -555,26 +546,6 @@ export default {
     left: 0;
     border-radius: 0 !important;
 }
-.interrogative-editor-panel-left {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 33%;
-    text-align: left;
-    padding-left: 4px;
-}
-.interrogative-editor-panel-center {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 33%;
-    text-align: center;
-}
-.interrogative-editor-panel-right {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 34%;
-    text-align: right;
-    padding-right: 4px;
-}
 .interrogative-editor-spacer-left {
     padding-left: 8px;
 }
@@ -582,7 +553,7 @@ export default {
     font-size: 14px;
 }
 .CodeMirror-fullscreen {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 .image-preview {
     position: absolute;
@@ -609,5 +580,8 @@ export default {
     padding: 2px 8px;
     font-size: 12px;
     font-family: Source Code Pro, monospace;
+}
+.bump {
+    padding-top: 1px;
 }
 </style>
