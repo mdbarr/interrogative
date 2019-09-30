@@ -104,6 +104,7 @@ export default {
     font-family: Inconsolata, monospace;
     letter-spacing: 6px;
     font-size: 22px;
+    font-weight: 700;
     line-height: 22px;
 }
 </style>
