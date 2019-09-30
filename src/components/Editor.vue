@@ -292,10 +292,10 @@ export default {
       this.instance.focus();
     },
     toggleFullscreen () {
-      this.fullscreen = !this.instance.getOption('fullScreen');
-      this.instance.setOption('fullScreen', this.fullscreen);
-      this.panel.classList.toggle('interrogative-editor-panel-fullscreen');
-      this.instance.focus();
+      this.$events.emit({
+        type: 'editor:fullscreen:toggle',
+        data: this.fullscreen
+      });
     },
     resize () {
       this.width = this.app.clientWidth - 45;
@@ -357,7 +357,10 @@ export default {
       smartIndent: true,
       styleActiveLine: true,
       tabSize: 2,
-      theme: this.state.theme
+      theme: this.state.theme,
+      extraKeys: { 'Alt-Enter': () => {
+        this.toggleFullscreen();
+      } }
     });
 
     this.instance.vue = this;
@@ -497,6 +500,13 @@ export default {
       if (this.state.images.has(event.data.path)) {
         this.state.images.delete(event.data.path);
       }
+    });
+
+    this.$events.on('editor:fullscreen:toggle', (event) => {
+      this.fullscreen = !this.instance.getOption('fullScreen');
+      this.instance.setOption('fullScreen', this.fullscreen);
+      this.panel.classList.toggle('interrogative-editor-panel-fullscreen');
+      this.instance.focus();
     });
   },
   destroyed () {
