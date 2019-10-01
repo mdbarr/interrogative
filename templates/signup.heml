@@ -28,8 +28,9 @@
       INTERROGATIVE.IO
     </div>
     <br />
-    {{ candidate.name | first }},<br />
-    You're scheduled for an interactive, online interview with {{ company }} for the role of {{ role }} on {{ calendar }} with {{ interview.name }}{{ interviewer.title | with }}.<br /><br />
-    <a href="https://interrogative.io/interview/{{ id }}">Join this interview</a> from your browser at the scheduled time on <a href="https://interrogative.io">interrogative.io</a>.
+    {{ name | first }},<br />
+
+    Thank you for joining Interrogative.io! Please click the link below to activate your account.<br /><br />
+    <a href="https://interrogative.io/activate/{{ id }}">https://interrogative.io/activate/{{ id }}</a>
   </body>
 </heml>
