@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import state from '../state';
 import { Terminal } from 'xterm';
 import { AttachAddon } from 'xterm-addon-attach';
 import { FitAddon } from 'xterm-addon-fit';
@@ -16,11 +17,15 @@ export default {
   },
   data () {
     return {
+      state,
       element: null,
       xterm: null,
       socket: null
     };
   },
+  computed: { bell () {
+    return state.bell;
+  } },
   methods: { focus (event) {
     if (event.data.id === this.id) {
       this.$nextTick(() => {
@@ -51,7 +56,8 @@ export default {
       },
       convertEol: this.type === 'action-simple',
       cursorBlink: this.type !== 'action-simple',
-      disableStdin: this.type === 'action-simple'
+      disableStdin: this.type === 'action-simple',
+      bellStyle: 'sound'
     });
 
     const fitAddon = new FitAddon();
@@ -71,7 +77,11 @@ export default {
   },
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
-  }
+  },
+  watch: { bell (value) {
+    this.xterm.setOption('bellStyle', value);
+    window.localStorage.setItem('bell', value);
+  } }
 };
 </script>
 

@@ -12,6 +12,7 @@ function State () {
 
   this.theme = window.localStorage.getItem('theme') || 'argonaut';
   this.keymap = window.localStorage.getItem('keymap') || 'default';
+  this.bell = window.localStorage.getItem('bell') || 'sound';
 
   this.tree = [];
   this.treeOpen = [];

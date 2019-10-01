@@ -26,7 +26,14 @@
     <span class="font-weight-bold">Terminal</span><v-icon class="float-right">mdi-console</v-icon>
   </div>
   <br>
-
+  <v-switch class="pl-5 ma-0" color="white" v-model="state.bell" label="Bell" :false-value="'none'" :true-value="'sound'">
+    <template v-slot:prepend>
+      <v-icon small class="pt-1">mdi-bell-off</v-icon>
+    </template>
+    <template v-slot:append>
+      <v-icon small class="pt-1">mdi-bell</v-icon>
+    </template>
+  </v-switch>
 </div>
 </template>
 
