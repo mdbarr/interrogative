@@ -85,17 +85,14 @@
       </v-col>
     </v-row>
   </v-container>
-  <Notifications></Notifications>
 </v-content>
 </template>
 
 <script>
 import state from '../state';
-import Notifications from '../components/Notifications';
 
 export default {
   name: 'signup',
-  components: { Notifications },
   data () {
     return {
       state,
@@ -240,4 +237,7 @@ export default {
     text-align: left;
     width: 100%;
 }
+s {
+  color: #2196f3;
+};
 </style>

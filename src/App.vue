@@ -1,8 +1,22 @@
 <template>
   <v-app id="app">
     <router-view/>
+    <Notifications></Notifications>
   </v-app>
 </template>
+
+<script>
+import state from './state';
+import Notifications from './components/Notifications';
+
+export default {
+  name: 'app',
+  components: { Notifications },
+  data () {
+    return { state };
+  }
+};
+</script>
 
 <style>
 html {

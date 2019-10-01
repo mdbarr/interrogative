@@ -226,7 +226,6 @@
     <v-footer color="#333" app dark height="20" class="caption pa-0 ma-0">
       <span class="pl-2">&copy; 2019</span>
     </v-footer>
-    <Notifications></Notifications>
   </div>
 </div>
 </template>
@@ -238,7 +237,6 @@ import Editor from '../components/Editor';
 import FileTabs from '../components/FileTabs';
 import FileTree from '../components/FileTree';
 import Git from '../components/Git';
-import Notifications from '../components/Notifications';
 import Search from '../components/Search';
 import Settings from '../components/Settings';
 import Terminals from '../components/Terminals';
@@ -253,7 +251,6 @@ export default {
     FileTabs,
     FileTree,
     Git,
-    Notifications,
     Search,
     Settings,
     Terminals,

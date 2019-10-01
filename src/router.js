@@ -16,6 +16,11 @@ const router = new Router({
       meta: { requiresAuth: false },
       component: () => { return import('./views/Interview.vue'); }
     }, {
+      path: '/activate/:id',
+      name: 'activate',
+      meta: { requiresAuth: false },
+      component: () => { return import('./views/Activate.vue'); }
+    }, {
       path: '/signup',
       name: 'signup',
       meta: { requiresAuth: false },

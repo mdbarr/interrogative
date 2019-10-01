@@ -93,7 +93,6 @@
   <v-footer color="#333" app dark height="24" class="subtitle-2 pa-0 ma-0">
     <span class="pl-2">&copy; 2019</span>
   </v-footer>
-  <Notifications></Notifications>
 </div>
 </template>
 
@@ -101,14 +100,12 @@
 import state from '../state';
 import InterviewList from '../components/InterviewList';
 import InterviewTemplate from '../components/InterviewTemplate';
-import Notifications from '../components/Notifications';
 
 export default {
   name: 'dashboard',
   components: {
     InterviewList,
-    InterviewTemplate,
-    Notifications
+    InterviewTemplate
   },
   data () {
     return {
