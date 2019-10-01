@@ -28,6 +28,7 @@
                 v-model="email"
                 ref="email"
                 @keyup.enter="pressEnter"
+                @input="available = null"
                 :rules="[ validateEmail ]"
                 ></v-text-field>
 
@@ -97,7 +98,8 @@ export default {
       hint: '',
       visible: false,
       loading: false,
-      explanation: false
+      explanation: false,
+      available: true
     };
   },
   methods: {
@@ -170,7 +172,17 @@ export default {
     validateEmail (value = '') {
       if (!/^[^]+@[^]+\.[^]+$/.test(value)) {
         return 'Please enter a valid email address';
+      } else if (this.available === false) {
+        return 'Email is already associated with an account';
       }
+
+      this.$api.get(`/users/available?email=${ value }`).
+        then((response) => {
+          if (response.data.email === this.email) {
+            this.available = response.data.free;
+          }
+        });
+
       return true;
     },
     validatePassword (value = '') {
@@ -179,7 +191,10 @@ export default {
       }
       return true;
     }
-  }
+  },
+  watch: { available () {
+    this.$refs.email.validate();
+  } }
 };
 </script>
 
