@@ -1,0 +1,25 @@
+<mjml>
+  <mj-head>
+    <mj-title>Interrogative.io Account Activation</mj-title>
+    <mj-preview>Activate your account at interrogative.io</mj-preview>
+    <mj-style inline="inline">
+      .main-link {
+      	color: #FFF;
+      	text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#333">
+    <mj-section>
+      <mj-column>
+        <mj-image width="200px" src="{{ url }}/logo.png"></mj-image>
+        <mj-text align="center" font-size="20px" font-family="Inconsolas, monospace" letter-spacing="6px"><a href="{{ url }}" class="main-link">INTERROGATIVE.IO</a></mj-text>
+        <mj-text color="#FFF">{{ name | first }},</mj-text>
+        <mj-text color="#FFF">Thank you for joining Interrogative.io!</mj-text>
+        <mj-text color="#FFF">Please click the button below to verify your email and activate your account.</mj-text>
+        <mj-button background-color="#0087af" color="#FFF" font-family="Inconsolas, monospace" href="{{ url }}/activate/{{ id }}">Activate Account</mj-button>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+

@@ -1,9 +1,9 @@
-SRCS=$(wildcard *.heml)
+SRCS=$(wildcard *.mjml)
 
-OBJS=$(SRCS:.heml=.html)
+OBJS=$(SRCS:.mjml=.html)
 
-%.html: %.heml
-	../node_modules/.bin/heml build $<
+%.html: %.mjml
+	../node_modules/.bin/mjml $< -o $@
 
 all: $(OBJS)
 
