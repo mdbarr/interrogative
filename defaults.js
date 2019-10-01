@@ -1,5 +1,7 @@
 module.exports = {
   name: 'Interrogative',
+  url: 'https://interrogative.io',
+  domain: 'interrogative.io',
   manager: {
     port: 1311,
     host: '0.0.0.0',
@@ -16,7 +18,7 @@ module.exports = {
     slowStart: 10000,
     url: 'mongodb://mongo:27017/interrogative'
   },
-  sessions: { cookie: 'dapper-session' },
+  sessions: { cookie: 'interrogative-session' },
   oplog: {
     retry: 5000,
     url: 'mongodb://mongo:27017/local'
@@ -42,7 +44,6 @@ module.exports = {
   },
   messenger: {
     smtp: {
-      domain: 'interrogative.io',
       incoming: {
         host: '0.0.0.0',
         port: 25,

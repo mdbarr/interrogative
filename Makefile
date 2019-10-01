@@ -1,6 +1,6 @@
 all: pull core images container manager templates messenger
 
-.PHONY: pull core images container manager messenger
+.PHONY: pull core images container manager templates messenger
 pull:
 	docker pull mongo:4.2
 	docker pull node:10
@@ -18,7 +18,7 @@ container:
 manager:
 	docker build -f lib/manager/Dockerfile -t interrogative-manager .
 
-messenger:
+messenger: templates
 	docker build -f lib/messenger/Dockerfile -t interrogative-messenger .
 
 templates:

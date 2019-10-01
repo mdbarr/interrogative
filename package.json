@@ -8,6 +8,7 @@
   "dependencies": {
     "@mdbarr/events": "^0.1.2",
     "@mdbarr/griff": "^0.2.3",
+    "@mdbarr/uscript": "^0.1.2",
     "argon2": "^0.24.1",
     "async": "^3.1.0",
     "axios": "^0.19.0",

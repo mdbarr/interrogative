@@ -833,6 +833,13 @@
     minimist "^1.2.0"
     nodegit "^0.26.1"
 
+"@mdbarr/uscript@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@mdbarr/uscript/-/uscript-0.1.2.tgz#834e08025d08528974646defe04439b8f027e557"
+  integrity sha512-bw2rf6j+MddQ0Whg8vXv8oZzxMaIXNNCXogIT6qea2dnb7Wl1FLGMtwDKGb3/CWjp67DrmkQXjX2y+ak9NALIg==
+  dependencies:
+    barrkeep "^2.2.4"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1728,7 +1735,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-barrkeep@^2.2.9:
+barrkeep@^2.2.4, barrkeep@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/barrkeep/-/barrkeep-2.2.9.tgz#3055baf1052136f30e0a299dc6c3d0ffb7017a82"
   integrity sha512-9qqGevBEkWkrAJK/7pDaZdqD49PZhoLyFf0eYLicr9ZRb3zpmHwmkAWxYVHPBioIKv0xcdl0n9xDoZl0KL4UtA==
