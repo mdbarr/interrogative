@@ -9,7 +9,7 @@
             INTERROGATIVE.IO - SIGN UP
           </div>
           <v-card-text>
-            <v-form ref="form">
+            <v-form ref="form" v-if="!done">
               <v-text-field
                 autofocus
                 label="Full Name *"
@@ -59,10 +59,15 @@
                 @blur="explanation = false"
                 :rules="[ validatePassword ]"
                 ></v-text-field>
+              <div class="caption align-left pt-4">By clicking “Sign up” below, you agree to our <router-link to="/terms">Terms of Service</router-link> and <router-link to="/privacy">Privacy Statement</router-link>. We’ll occasionally send you interview reminders and account-related emails.</div>
             </v-form>
-            <div class="caption align-left pt-4">By clicking “Sign up” below, you agree to our <router-link to="/terms">Terms of Service</router-link> and <router-link to="/privacy">Privacy Statement</router-link>. We’ll occasionally send you interview reminders and account-related emails.</div>
+            <div v-else class="subtitle-1 white--text">
+              Thank you!<br>
+              We've sent an email to <span class="font-weight-bold">{{ email }}</span>.<br>
+              Please click the link in that message to activate your account.
+            </div>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="!done">
             <span class="caption pl-2">Already have an account?
               <router-link to="/signin">Sign In</router-link>
             </span>
@@ -80,14 +85,17 @@
       </v-col>
     </v-row>
   </v-container>
+  <Notifications></Notifications>
 </v-content>
 </template>
 
 <script>
 import state from '../state';
+import Notifications from '../components/Notifications';
 
 export default {
   name: 'signup',
+  components: { Notifications },
   data () {
     return {
       state,
@@ -99,7 +107,8 @@ export default {
       visible: false,
       loading: false,
       explanation: false,
-      available: true
+      available: true,
+      done: false
     };
   },
   methods: {
@@ -119,6 +128,26 @@ export default {
     signup () {
       if (this.$refs.form.validate()) {
         this.loading = true;
+
+        this.$api.post('/users/signup', {
+          name: this.name,
+          email: this.email,
+          company: this.company,
+          password: this.password
+        }).
+          then((response) => {
+            this.done = true;
+            this.loading = false;
+          }).
+          catch((error) => {
+            this.$events.emit({
+              type: 'notification:signup:failed',
+              data: {
+                level: 'failure',
+                message: error.message
+              }
+            });
+          });
       }
     },
     passwordHint () {
@@ -173,7 +202,7 @@ export default {
       if (!/^[^]+@[^]+\.[^]+$/.test(value)) {
         return 'Please enter a valid email address';
       } else if (this.available === false) {
-        return 'Email is already associated with an account';
+        return 'This email address is already associated with an account';
       }
 
       this.$api.get(`/users/available?email=${ value }`).

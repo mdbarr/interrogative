@@ -62,3 +62,7 @@ typings/
 
 # webpack build
 dist
+
+# environment files
+*.env
+
