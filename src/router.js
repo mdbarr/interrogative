@@ -21,6 +21,16 @@ const router = new Router({
       meta: { requiresAuth: false },
       component: () => { return import('./views/Activate.vue'); }
     }, {
+      path: '/reset/:id',
+      name: 'reset',
+      meta: { requiresAuth: false },
+      component: () => { return import('./views/ResetPassword.vue'); }
+    }, {
+      path: '/forgot',
+      name: 'forgot',
+      meta: { requiresAuth: false },
+      component: () => { return import('./views/ForgotPassword.vue'); }
+    }, {
       path: '/signup',
       name: 'signup',
       meta: { requiresAuth: false },

@@ -1,0 +1,142 @@
+<template>
+<v-content>
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="4" align="center" justify="center">
+        <img src="../assets/logo-signup.svg" width="150" class="pb-3">
+        <v-card flat>
+          <div class="signup-logo pa-2">
+            INTERROGATIVE.IO - RESET PASSWORD
+          </div>
+          <v-card-text>
+            <v-form ref="form">
+              <v-text-field
+                label="Password"
+                prepend-icon="mdi-lock"
+                v-model="password"
+                ref="password"
+                :append-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="() => (visible = !visible)"
+                :type="visible ? 'text' : 'password'"
+                :persistent-hint="explanation"
+                :hint="hint"
+                @focus="explanation = true"
+                @blur="explanation = false"
+                :rules="[ validatePassword ]"
+                ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <div class="flex-grow-1"></div>
+            <v-btn
+              :loading="loading"
+              :disabled="!password"
+              @click.stop="reset"
+              color="#0087af"
+              >
+              Reset and Sign In
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</v-content>
+</template>
+
+<script>
+import state from '../state';
+
+export default {
+  name: 'reset-password',
+  data () {
+    return {
+      state,
+      password: '',
+      hint: '',
+      visible: false,
+      loading: false,
+      explanation: false
+    };
+  },
+  methods: {
+    reset () {
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+
+        this.$api.post(`/users/${ this.$route.params.id }/reset`, {
+          id: this.$route.params.id,
+          password: this.password
+        }).
+          then((response) => {
+            this.loading = false;
+          }).
+          catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    passwordHint () {
+      const hints = [];
+      let valid = true;
+
+      if (/[A-Z]/.test(this.password)) {
+        hints.push('<s>Uppercase Letter</s>');
+      } else {
+        hints.push('Uppercase Letter');
+        valid = false;
+      }
+
+      if (/[a-z]/.test(this.password)) {
+        hints.push('<s>Lowercase Letter</s>');
+      } else {
+        hints.push('Lowercase Letter');
+        valid = false;
+      }
+
+      if (/[0-9]/.test(this.password)) {
+        hints.push('<s>Number</s>');
+      } else {
+        hints.push('Number');
+        valid = false;
+      }
+
+      if (/[!@#$%^&*(),.?":{}|<>]/.test(this.password)) {
+        hints.push('<s>Special Character</s>');
+      } else {
+        hints.push('Special Character');
+        valid = false;
+      }
+
+      if (this.password.length >= 8) {
+        hints.push('<s>Eight Character Minimum</s>');
+      } else {
+        hints.push('Eight Character Minimum');
+        valid = false;
+      }
+
+      this.hint = hints.join(', ');
+      return valid;
+    },
+    validatePassword (value = '') {
+      if (!this.passwordHint()) {
+        return this.hint;
+      }
+      return true;
+    }
+  }
+};
+</script>
+
+<style>
+.signup-logo {
+    text-align: center;
+    font-family: Inconsolata, monospace;
+    letter-spacing: 3px;
+    font-size: 18px;
+    font-weight: 700;
+}
+s {
+  color: #2196f3;
+};
+</style>
