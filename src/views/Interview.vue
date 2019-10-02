@@ -110,7 +110,7 @@
               </div>
               <br>
               <div>
-                {{ state.interview.start | calendar }} for {{ duration | duration }}
+                {{ state.interview.start | calendar }} for {{ state.interview.duration | duration }}
               </div>
               <div v-if="state.interview.notes">
                 <br>
@@ -265,9 +265,6 @@ export default {
       sideTab: undefined
     };
   },
-  computed: { duration () {
-    return this.state.interview.stop - this.state.interview.start;
-  } },
   methods: {
     userFilter (role) {
       return this.state.interview.users.filter((user) => {

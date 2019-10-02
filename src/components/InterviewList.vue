@@ -44,7 +44,7 @@
         <v-card-text class="subtitle-1">
           <span>
             <v-icon left class="mr-2">mdi-calendar</v-icon> {{ interview.start | calendar }} for
-            {{ interview.stop - interview.start | duration }}
+            {{ interview.duration | duration }}
           </span>
         </v-card-text>
         <v-card-text class="pt-0 pb-0" v-if="!candidate(interview)">
@@ -63,7 +63,12 @@
           </v-expand-transition>
         </v-card-text>
         <v-card-actions>
-          <v-btn v-if="owner(interview) && upcoming" color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
+          <v-dialog v-model="editing" width="800" v-if="owner(interview) && upcoming">
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
+            </template>
+              <InterviewEdit :interview="interview" @done="editing = false"/>
+          </v-dialog>
           <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
             Open<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
           <v-btn v-if="upcoming" color="#0087af" :href="email(interview)" target="_blank">
@@ -85,9 +90,11 @@
 
 <script>
 import state from '../state';
+import InterviewEdit from '../components/InterviewEdit';
 
 export default {
   name: 'interview-list',
+  components: { InterviewEdit },
   props: {
     title: String,
     heading: String,
@@ -106,7 +113,8 @@ export default {
       state,
       interviews: [],
       expanded: {},
-      interval: null
+      interval: null,
+      editing: false
     };
   },
   methods: {
@@ -189,7 +197,6 @@ export default {
       this.$set(this.expanded, interview.id, !this.expanded[interview.id]);
     },
     chevron (interview) {
-      console.log(interview);
       if (this.expanded[interview.id]) {
         return 'mdi-chevron-up';
       }
