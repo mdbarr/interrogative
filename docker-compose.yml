@@ -19,6 +19,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 0.0.0.0:1311:1311
+    environment:
+      - INTERROGATIVE_ADMIN_EMAIL
+      - INTERROGATIVE_ADMIN_PASSWORD
     depends_on:
       - mongo
   messenger:
