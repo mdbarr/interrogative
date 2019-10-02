@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="state.session">
   <v-navigation-drawer expand-on-hover permanent app clipped mini-variant-width="54" width="240">
     <v-tabs vertical dark slider-color="white" slider-size="2" v-model="sideTab">
       <v-tab class="white--text">
