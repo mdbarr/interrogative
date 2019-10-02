@@ -20,19 +20,48 @@
   </template>
   <v-row dense v-for="(interview, index) of filterLimit(interviews)" :key="interview.id">
     <v-col cols="12" md="2"></v-col>
-    <v-col cols="12" md="8">
-      <v-card class="mb-3">
+   <v-col cols="12" md="8">
+      <v-card :class="cardClass(interview)">
         <v-card-title class="subtitle-1 pr-0 pt-1">
-          <v-icon left class="mr-2">mdi-comment-account-outline</v-icon>
-          {{ interview.title }}:
-          <span class="candidate font-weight-bold pl-1 pr-1"> {{ candidates(interview.users) }}</span>
-          for <span class="font-italic pl-1 pr-1">{{ interview.position }}</span>
-          <v-icon small class="ml-1">mdi-at</v-icon><span class="company">{{ interview.company }}</span>
-          <v-spacer />
-          <v-icon class="mr-2">mdi-calendar</v-icon> {{ interview.start | calendar }}
-          <v-spacer />
-          <v-btn v-if="owner(interview)" icon class="mr-1"><v-icon>mdi-chevron-down</v-icon></v-btn>
+          <span v-if="candidate(interview)">
+            <v-icon left class="mr-2">mdi-comment-account mdi-flip-h</v-icon>
+            {{ interview.title }} for <span class="font-weight-bold pl-1 pr-1">{{ interview.position }}</span>
+            <v-icon small class="ml-1">mdi-at</v-icon><span class="company">{{ interview.company }}</span>
+            with <span class="candidate font-weight-bold pl-1 pr-1"> {{ interviewers(interview.users) }}</span>
+          </span>
+          <span v-else>
+            <v-icon left class="mr-2">mdi-comment-account-outline</v-icon>
+            {{ interview.title }}
+            <span class="candidate font-weight-bold pl-1 pr-1"> {{ candidates(interview.users) }}</span>
+            for <span class="font-weight-bold pl-1 pr-1">{{ interview.position }}</span>
+            <v-icon small class="ml-1">mdi-at</v-icon><span class="company">{{ interview.company }}</span>
+          </span>
+          <v-spacer v-if="!candidate(interview)" />
+          <v-btn v-if="!candidate(interview)" icon class="mr-1">
+            <v-icon @click="expand(interview)">{{ chevron(interview) }}</v-icon>
+          </v-btn>
         </v-card-title>
+        <v-card-text class="subtitle-1">
+          <span>
+            <v-icon left class="mr-2">mdi-calendar</v-icon> {{ interview.start | calendar }} for
+            {{ interview.stop - interview.start | duration }}
+          </span>
+        </v-card-text>
+        <v-card-text class="pt-0 pb-0" v-if="!candidate(interview)">
+          <v-expand-transition>
+            <div v-show="expanded[interview.id]" class="pl-2">
+              <v-icon small>mdi-account-multiple</v-icon><span class="pl-2 white--text">People</span>
+              <v-list dense class="pa-0">
+                <v-list-item v-for="user in interview.users" :key="user.id">
+                  {{ user.name }} ({{ user.role | capitalize }})
+                  <a :href="'/interview/' + user.id " class="interview-link pl-3" target="_blank">
+                    Interview Link <v-icon small color="#3491B5">mdi-open-in-new</v-icon>
+                  </a>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-expand-transition>
+        </v-card-text>
         <v-card-actions>
           <v-btn v-if="owner(interview) && upcoming" color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
           <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
@@ -75,18 +104,26 @@ export default {
   data () {
     return {
       state,
-      interviews: []
+      interviews: [],
+      expanded: {},
+      interval: null
     };
   },
   methods: {
-    candidates (users) {
-      const candidates = [];
+    who (users, role) {
+      const who = [];
       for (const user of users) {
-        if (user.role === 'candidate') {
-          candidates.push(user.name);
+        if (user.role === role) {
+          who.push(user.name);
         }
       }
-      return candidates.join(', ');
+      return who.join(', ');
+    },
+    candidates (users) {
+      return this.who(users, 'candidate');
+    },
+    interviewers (users) {
+      return this.who(users, 'interviewer');
     },
     me (interview) {
       for (const user of interview.users) {
@@ -95,6 +132,9 @@ export default {
         }
       }
       return false;
+    },
+    role (interview, value) {
+      return this.me(interview).role === value;
     },
     email (interview) {
       return `mailto:${ interview.id }@interrogative.io`;
@@ -110,6 +150,15 @@ export default {
         return true;
       }
       return false;
+    },
+    interviewer (interview) {
+      return this.role(interview, 'interviewer');
+    },
+    candidate (interview) {
+      return this.role(interview, 'candidate');
+    },
+    observer (interview) {
+      return this.role(interview, 'observer');
     },
     filterLimit (items) {
       if (this.limit > 0) {
@@ -130,9 +179,25 @@ export default {
     more () {
       this.$emit('more');
     },
+    cardClass (interview) {
+      if (this.candidate(interview)) {
+        return 'mb-3 card-candidate';
+      }
+      return 'mb-3';
+    },
+    expand (interview) {
+      this.$set(this.expanded, interview.id, !this.expanded[interview.id]);
+    },
+    chevron (interview) {
+      console.log(interview);
+      if (this.expanded[interview.id]) {
+        return 'mdi-chevron-up';
+      }
+      return 'mdi-chevron-down';
+    },
     list () {
       const url = this.upcoming ? '/interviews/upcoming' : '/interviews/past';
-      this.$api.get(url).
+      return this.$api.get(url).
         then((response) => {
           if (response.data && response.data.items) {
             this.interviews.splice(0, this.interviews.length, ...response.data.items);
@@ -152,10 +217,16 @@ export default {
   mounted () {
     this.$events.on('notification:interview:created', this.list);
 
-    this.list();
+    this.list().
+      then(() => {
+        this.interval = setInterval(() => {
+          // this.list();
+        }, 10000);
+      });
   },
   destroyed () {
     this.$events.off('notification:interview:created', this.list);
+    clearInterval(this.interval);
   }
 };
 </script>
@@ -170,5 +241,13 @@ export default {
 .more-count {
     text-align: right;
     font-size: 12px;
+}
+.card-candidate {
+    border-left: 6px solid #3491B5 !important;
+}
+.interview-link {
+    color: #3491B5 !important;
+    text-decoration: none;
+    font-weight: 700;
 }
 </style>

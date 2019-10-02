@@ -110,7 +110,7 @@
               </div>
               <br>
               <div>
-                {{ state.interview.start | calendar }} for {{ duration }}
+                {{ state.interview.start | calendar }} for {{ duration | duration }}
               </div>
               <div v-if="state.interview.notes">
                 <br>
@@ -266,37 +266,7 @@ export default {
     };
   },
   computed: { duration () {
-    let diff = this.state.interview.stop - this.state.interview.start;
-    const days = Math.floor(diff / 86400000);
-    diff = diff % 86400000;
-    const hours = Math.floor(diff / 3600000);
-    diff = diff % 3600000;
-    const minutes = Math.floor(diff / 60000);
-
-    const duration = [];
-    if (days > 0) {
-      if (days === 1) {
-        duration.push(`${ days } day`);
-      } else {
-        duration.push(`${ days } day`);
-      }
-    }
-    if (hours > 0) {
-      if (hours === 1) {
-        duration.push(`${ hours } hour`);
-      } else {
-        duration.push(`${ hours } hours`);
-      }
-    }
-    if (minutes > 0) {
-      if (minutes === 1) {
-        duration.push(`${ minutes } minute`);
-      } else {
-        duration.push(`${ minutes } minutes`);
-      }
-    }
-
-    return duration.join(', ');
+    return this.state.interview.stop - this.state.interview.start;
   } },
   methods: {
     userFilter (role) {

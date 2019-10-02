@@ -34,6 +34,10 @@ export default { install (Vue) {
     return moment(value).calendar();
   });
 
+  Vue.filter('capitalize', (value) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  });
+
   Vue.filter('plural', (word, array) => {
     if (array.length !== 1) {
       return `${ word }s`;
@@ -58,6 +62,39 @@ export default { install (Vue) {
       return NUMBERS[value];
     }
     return value.toString();
+  });
+
+  Vue.filter('duration', (diff) => {
+    const days = Math.floor(diff / 86400000);
+    diff = diff % 86400000;
+    const hours = Math.floor(diff / 3600000);
+    diff = diff % 3600000;
+    const minutes = Math.floor(diff / 60000);
+
+    const duration = [];
+    if (days > 0) {
+      if (days === 1) {
+        duration.push(`${ days } day`);
+      } else {
+        duration.push(`${ days } day`);
+      }
+    }
+    if (hours > 0) {
+      if (hours === 1) {
+        duration.push(`${ hours } hour`);
+      } else {
+        duration.push(`${ hours } hours`);
+      }
+    }
+    if (minutes > 0) {
+      if (minutes === 1) {
+        duration.push(`${ minutes } minute`);
+      } else {
+        duration.push(`${ minutes } minutes`);
+      }
+    }
+
+    return duration.join(', ');
   });
 
   //////////
