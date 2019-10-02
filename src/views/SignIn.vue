@@ -65,7 +65,6 @@ export default {
       state,
       username: '',
       password: '',
-      alert: false,
       loading: false
     };
   },
@@ -83,7 +82,6 @@ export default {
       this.$router.push({ name: where });
     },
     signin () {
-      this.alert = false;
       this.loading = true;
 
       this.$api.post('/session', {
@@ -94,10 +92,17 @@ export default {
           this.$session(response.data);
           this.$navigate('dashboard');
         }).
-        catch(() => {
+        catch((error) => {
           this.$refs.username.focus();
           this.loading = false;
-          this.alert = true;
+
+          this.$events.emit({
+            type: 'notification:signin:failure',
+            data: {
+              level: 'failure',
+              message: error.response.data.message
+            }
+          });
         });
     }
   }
