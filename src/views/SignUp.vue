@@ -3,7 +3,8 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4" align="center" justify="center">
-        <img src="../assets/logo-signup.svg" width="150" class="pb-3">
+        <img v-if="!done" src="../assets/logo-signup.svg" width="150" class="pb-3">
+        <img v-else src="../assets/logo-user.svg" width="150" class="pb-3">
         <v-card flat>
           <div class="signup-logo pa-2">
             INTERROGATIVE.IO - SIGN UP
