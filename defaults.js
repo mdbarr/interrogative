@@ -43,6 +43,7 @@ module.exports = {
     path: '~/uploads'
   },
   messenger: {
+    concurrency: 2,
     smtp: {
       incoming: {
         host: '0.0.0.0',
