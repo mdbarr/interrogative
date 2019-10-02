@@ -3,16 +3,16 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4" align="center" justify="center">
-        <img src="../assets/logo-signup.svg" width="150" class="pb-3">
+        <img src="../assets/logo-lock.svg" width="150" class="pb-3">
         <v-card flat>
-          <div class="signup-logo pa-2">
+          <div class="lock-logo pa-2">
             INTERROGATIVE.IO - FORGOT PASSWORD
           </div>
-          <v-card-text>
+          <v-card-text v-if="!done">
+            Enter your email address and we will send you a link to reset your password.
             <v-form ref="form">
               <v-text-field
                 label="Email"
-                prepend-icon="mdi-email"
                 type="email"
                 v-model="email"
                 ref="email"
@@ -21,11 +21,14 @@
                 ></v-text-field>
             </v-form>
           </v-card-text>
-          <v-card-actions>
+          <v-card-text v-else>
+            We've sent you an email with a link to reset your password.
+          </v-card-text>
+          <v-card-actions v-if="!done">
             <div class="flex-grow-1"></div>
             <v-btn
               :loading="loading"
-              :disabled="!email"
+              :disabled="!valid"
               @click.stop="forgot"
               color="#0087af"
               >
@@ -48,9 +51,13 @@ export default {
     return {
       state,
       email: '',
-      loading: false
+      loading: false,
+      done: false
     };
   },
+  computed: { valid () {
+    return this.email && this.validateEmail(this.email) === true;
+  } },
   methods: {
     forgot () {
       if (this.$refs.form.validate()) {
@@ -59,9 +66,19 @@ export default {
         this.$api.post('/users/forgot', { email: this.email }).
           then((response) => {
             this.loading = false;
+            this.done = true;
           }).
           catch((error) => {
-            console.log(error);
+            this.loading = false;
+            this.email = '';
+
+            this.$events.emit({
+              type: 'notification:email:not-found',
+              data: {
+                level: 'failure',
+                message: error.response.data.message
+              }
+            });
           });
       }
     },
@@ -76,7 +93,7 @@ export default {
 </script>
 
 <style>
-.signup-logo {
+.lock-logo {
     text-align: center;
     font-family: Inconsolata, monospace;
     letter-spacing: 3px;

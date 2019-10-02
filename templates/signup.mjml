@@ -1,10 +1,10 @@
 <mjml>
   <mj-head>
     <mj-title>Interrogative.io Account Activation</mj-title>
-    <mj-preview>Activate your account at interrogative.io</mj-preview>
+    <mj-preview>Activate your account on Interrogative.io</mj-preview>
     <mj-style inline="inline">
       .main-link {
-      	color: #FFF;
+        color: #FFF;
       	text-decoration: none;
       }
     </mj-style>
@@ -22,4 +22,3 @@
     </mj-section>
   </mj-body>
 </mjml>
-
