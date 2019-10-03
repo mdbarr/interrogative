@@ -54,11 +54,6 @@ module.exports = {
         host: 'localhost',
         port: 25
       }
-    },
-    intervals: {
-      registration: 10000,
-      invitation: 300000,
-      reminder: 300000
     }
   }
 };
