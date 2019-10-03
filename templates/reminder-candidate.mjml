@@ -1,0 +1,26 @@
+<mjml>
+  <mj-head>
+    <mj-title>REMINDER: You have an interview with {{ company }} soon!</mj-title>
+    <mj-preview>REMINDER: You have an interview with {{ company }} {{ when }}</mj-preview>
+    <mj-style inline="inline">
+      .main-link {
+        color: #FFF;
+        text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#333">
+    <mj-section>
+      <mj-column>
+        <mj-image width="200px" src="{{ url }}/logo.png"></mj-image>
+        <mj-text align="center" font-size="20px" font-family="Inconsolas, monospace" letter-spacing="6px"><a href="{{ url }}" class="main-link">INTERROGATIVE.IO</a></mj-text>
+        <mj-text color="#FFF">{{ name | first }},</mj-text>
+        <mj-text color="#FFF">Just a quick reminder that you have an interview with {{ company }} coming up on {{ when }}.</mj-text>
+        <mj-text color="#FFF">Use the button below to join the interview at the scheduled time.</mj-text>
+        <mj-button background-color="#0087af" color="#FFF" font-family="Inconsolas, monospace" href="{{ url }}/interview/{{ link }}">Join Interview</mj-button>
+        <mj-text color="#FFF">Thanks!<br /><br />- Interrogative.io Support Team</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+
