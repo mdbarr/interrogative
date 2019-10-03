@@ -50,3 +50,4 @@ redeploy:
 	make
 	make clean
 	docker-compose up -d
+	sudo systemctl restart nginx || true
