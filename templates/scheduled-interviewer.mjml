@@ -1,0 +1,27 @@
+<mjml>
+  <mj-head>
+    <mj-title>Interview with {{ candidate }} scheduled on Interrogative.io</mj-title>
+    <mj-preview>You scheduled an interview with {{ candidate }} on Interrogative.io</mj-preview>
+    <mj-style inline="inline">
+      .main-link {
+        color: #FFF;
+        text-decoration: none;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#333">
+    <mj-section>
+      <mj-column>
+        <mj-image width="200px" src="{{ url }}/logo.png"></mj-image>
+        <mj-text align="center" font-size="20px" font-family="Inconsolas, monospace" letter-spacing="6px"><a href="{{ url }}" class="main-link">INTERROGATIVE.IO</a></mj-text>
+        <mj-text color="#FFF">{{ interviewer | first }},</mj-text>
+        <mj-text color="#FFF">You scheduled an online, interactive interview for {{ candidate }} on {{ when }} for the role of {{ position }} at {{ company }}. Your preconfigured environment is ready and can be accessed at any time before or after interview (the candidate will only be able to access it at the scheduled time).</mj-text>
+        <mj-text color="#FFF">Use the button below to join the interview at the scheduled time.</mj-text>
+        <mj-button background-color="#0087af" color="#FFF" font-family="Inconsolas, monospace" href="{{ url }}/interview/{{ id }}">Join Interview</mj-button>
+        <mj-text color="#FFF">If you want to get in touch with {{ candidate }} in an anonomized way, any replies to this email will be forwarded to them (we strip out your email address and your private interview link).</mj-text>
+        <mj-text color="#FFF">Thanks!<br /><br />- Interrogative.io Support Team</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+
