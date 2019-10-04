@@ -44,6 +44,7 @@ module.exports = {
   },
   messenger: {
     concurrency: 2,
+    interval: 30000,
     smtp: {
       incoming: {
         host: '0.0.0.0',
