@@ -33,7 +33,10 @@ module.exports = {
     ttl: '2h',
     heartbeat: '30s',
     openMaxSize: 262144,
-    persistence: '~/.interrogative'
+    persistence: {
+      directory: '~/.interrogative',
+      interval: 300000
+    }
   },
   interaction: {
     port: 1314,
