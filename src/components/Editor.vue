@@ -1,11 +1,14 @@
 <template>
 <div class="interrogative-editor-container" ref="container">
-  <div ref="editor" v-show="editor">
+  <div ref="editor" v-show="mode === 'editor'">
     <textarea ref="textarea"></textarea>
   </div>
-  <div ref="image" v-show="image" class="image-preview"></div>
-  <div v-show="hexdump" class="hexdump">
+  <div ref="image" v-show="mode === 'image'" class="image-preview"></div>
+  <div v-show="mode === 'hexdump'" class="hexdump">
     <pre ref="hexdump" class="hexdump-pre"></pre>
+  </div>
+  <div v-show="mode === 'stl'" ref="stl">
+    <model-stl :src="blob" v-if="blob" :width="width" :height="height" :lights="lights" backgroundColor="#222"/>
   </div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
     <v-btn x-small tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
@@ -82,10 +85,14 @@ import 'codemirror/mode/xml/xml';
 // Themes
 import './code-mirror-themes.css';
 
+// STL
+import { ModelStl } from 'vue-3d-model';
+
 import state from '../state';
 
 export default {
   name: 'editor',
+  components: { ModelStl },
   computed: {
     theme () {
       return state.theme;
@@ -114,9 +121,21 @@ export default {
       focus: null,
       file: null,
 
-      editor: true,
-      image: false,
-      hexdump: false,
+      mode: 'editor',
+
+      blob: '',
+      lights: [ {
+        type: 'AmbientLight',
+        color: 0xffffff,
+        intensity: 0.5
+      }, {
+        type: 'DirectionalLight',
+        position: {
+          x: 1, y: 1, z: 1
+        },
+        color: 0xffffff,
+        intensity: 0.2
+      } ],
 
       width: 0,
       height: 0,
@@ -137,6 +156,22 @@ export default {
     };
   },
   methods: {
+    toBlob (file) {
+      let blob;
+
+      if (file.binary) {
+        const data = file.contents;
+        const bytes = new Uint8Array(data.length / 2);
+
+        for (let i = 0; i < data.length; i += 2) {
+          bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
+        }
+        blob = new Blob([ bytes ], { type: file.mime });
+      } else {
+        blob = new Blob([ file.contents ], { type: file.mime });
+      }
+      return blob;
+    },
     asDocument (file) {
       if (!this.state.documents.has(file.path)) {
         const doc = CodeMirror.Doc(file.contents, file.mime);
@@ -148,20 +183,7 @@ export default {
     },
     asImage (file) {
       if (!this.state.images.has(file.path)) {
-        let blob;
-
-        if (file.binary) {
-          const data = file.contents;
-          const bytes = new Uint8Array(data.length / 2);
-
-          for (let i = 0; i < data.length; i += 2) {
-            bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
-          }
-          blob = new Blob([ bytes ], { type: file.mime });
-        } else {
-          blob = new Blob([ file.contents ], { type: file.mime });
-        }
-
+        const blob = this.toBlob(file);
         const image = new Image();
         image.src = URL.createObjectURL(blob);
 
@@ -178,8 +200,7 @@ export default {
       console.log('focusing', this.focus, this.file.path);
 
       if (this.file.mime.startsWith('image')) {
-        this.image = true;
-        this.hexdump = false;
+        this.mode = 'image';
 
         const image = this.asImage(this.file);
 
@@ -197,9 +218,13 @@ export default {
         console.log('height', this.height);
 
         this.$refs.image.appendChild(image);
+      } else if (this.file.extension === 'stl') {
+        console.log('stl mode');
+        this.mode = 'stl';
+        this.blob = URL.createObjectURL(this.toBlob(this.file));
+        console.log(this.blob);
       } else if (this.file.binary) {
-        this.hexdump = true;
-        this.image = false;
+        this.mode = 'hexdump';
 
         let content = '';
 
@@ -242,8 +267,7 @@ export default {
 
         this.$refs.hexdump.innerHTML = content;
       } else if (!this.file.binary) {
-        this.image = false;
-        this.hexdump = false;
+        this.mode = 'editor';
 
         const doc = this.asDocument(this.file);
 

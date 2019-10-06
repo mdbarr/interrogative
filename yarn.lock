@@ -9146,6 +9146,11 @@ thread-loader@^2.1.2:
     loader-utils "^1.1.0"
     neo-async "^2.6.0"
 
+three@^0.105.2:
+  version "0.105.2"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.105.2.tgz#d135f1549bdcf5a9acd904ba3dbf9198a0268984"
+  integrity sha512-L3Al37k4g3hVbgFFS251UVtIc25chhyN0/RvXzR0C+uIBToV6EKDG+MZzEXm9L2miGUVMK27W46/VkP6WUZXMg==
+
 through2@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -9548,6 +9553,13 @@ vm-browserify@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
+
+vue-3d-model@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-3d-model/-/vue-3d-model-1.1.1.tgz#dd03c4d79a4a2d0a7837c99377b98b884bf032f3"
+  integrity sha512-JiFps3Uiho2wHtcapx+WwuTIxGHZXYsrOdG+T9bEy12FtNQcAo/JN58pG+RyChi8DUphnZXBt+XeeZLbeDz/jA==
+  dependencies:
+    three "^0.105.2"
 
 vue-cli-plugin-vuetify@^0.6.3:
   version "0.6.3"
