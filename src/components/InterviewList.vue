@@ -32,8 +32,10 @@
           <span v-else>
             <v-icon left class="mr-2">mdi-comment-account-outline</v-icon>
             {{ interview.title }}
-            <span class="candidate font-weight-bold pl-1 pr-1"> {{ candidates(interview.users) }}</span>
-            for <span class="font-weight-bold pl-1 pr-1">{{ interview.position }}</span>
+            <span v-if="candidates(interview.users) && interview.position">
+              <span class="candidate font-weight-bold pl-1 pr-1"> {{ candidates(interview.users) }}</span>
+              for <span class="font-weight-bold pl-1 pr-1">{{ interview.position }}</span>
+            </span>
             <v-icon small class="ml-1">mdi-at</v-icon><span class="company">{{ interview.company }}</span>
           </span>
           <v-spacer v-if="!candidate(interview)" />
