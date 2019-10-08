@@ -69,7 +69,7 @@
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" color="#0087af" class="mr-2">Edit<v-icon right class="ml-3 mr-1">mdi-pencil</v-icon></v-btn>
             </template>
-              <InterviewEdit :interview="interview" @done="editing = false"/>
+              <EditInterview :interview="interview" @done="editing = false"/>
           </v-dialog>
           <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
             Open<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
@@ -92,11 +92,11 @@
 
 <script>
 import state from '../state';
-import InterviewEdit from '../components/InterviewEdit';
+import EditInterview from '../components/EditInterview';
 
 export default {
   name: 'interview-list',
-  components: { InterviewEdit },
+  components: { EditInterview },
   props: {
     title: String,
     heading: String,

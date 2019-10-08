@@ -75,7 +75,7 @@
               </v-container>
             </v-tab-item>
             <v-tab-item class="tab-content">
-              <InterviewTemplate @done="sideTab = 0"/>
+              <ScheduleInterview @done="sideTab = 0"/>
             </v-tab-item>
 
             <v-tab-item class="tab-content">
@@ -99,13 +99,13 @@
 <script>
 import state from '../state';
 import InterviewList from '../components/InterviewList';
-import InterviewTemplate from '../components/InterviewTemplate';
+import ScheduleInterview from '../components/ScheduleInterview';
 
 export default {
   name: 'dashboard',
   components: {
     InterviewList,
-    InterviewTemplate
+    ScheduleInterview
   },
   data () {
     return {

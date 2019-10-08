@@ -1,28 +1,21 @@
 <template>
 <v-form ref="form">
   <v-container fluid class="pt-0 background">
-    <v-row dense>
-      <v-col md="6" class="font-weight-bold text-uppercase pl-5">
-        <v-icon left class="pr-2">mdi-calendar-plus</v-icon>Schedule a new Interview
-      </v-col>
-    </v-row>
     <v-row align="center" justify="center" class="title title-input">
       <v-col cols="12" md="4">
         <v-text-field single-line label="Title" width="300" v-model="title" class="title" autofocus></v-text-field>
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <v-text-field clearable prepend-icon="mdi-office-building" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <v-text-field clearable label="Position" :rules="[ validatePosition ]" v-model="position" class="pl-3" />
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="6">
         <v-menu
           v-model="dateMenu"
           :close-on-content-click="false"
@@ -72,7 +65,7 @@
         ></v-time-picker>
       </v-menu>
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="4">
         <v-select
           color="#0087af"
           item-text="text"
@@ -86,46 +79,40 @@
     </v-row>
     <v-row dense><v-col /></v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
         <v-icon left>mdi-account-circle</v-icon> Interviewer
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="4" class="subtitle-2">
+      <v-col cols="12" md="6" class="subtitle-2">
         <v-text-field clearable label="Name" v-model="interviewer.name" :rules="[ validateName ]" class="pr-3" />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <v-text-field clearable label="Email" type="email" :rules="[ validateEmail ]" v-model="interviewer.email" class="pl-3" />
       </v-col>
     </v-row>
     <v-row dense><v-col /></v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
         <v-icon left>mdi-comment-account</v-icon> Candidate
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="4" class="subtitle-2">
+      <v-col cols="12" md="6" class="subtitle-2">
         <v-text-field clearable label="Name" v-model="candidate.name"  :rules="[ validateName ]" class="pr-3" />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <v-text-field clearable color="#009fcc" label="Email" type="email" :rules="[ validateEmail ]" v-model="candidate.email" class="pl-3" />
       </v-col>
     </v-row>
     <v-row><v-col /></v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="3" class="subtitle-1 font-weight-bold">
+      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
         <v-icon left>mdi-laptop-windows</v-icon> Environment
       </v-col>
     </v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="6">
         <v-select
           color="#0087af"
           item-text="name"
@@ -134,7 +121,7 @@
           v-model="image"
           class="pr-3" />
       </v-col>
-      <v-col cols="12" md="4" class="pl-3">
+      <v-col cols="12" md="6" class="pl-3">
         <v-checkbox
           v-model="images[image].git"
           label="Enable Git Visualization"
@@ -154,15 +141,14 @@
     <v-row><v-col /></v-row>
     <v-row><v-col /></v-row>
     <v-row dense>
-      <v-col cols="12" md="2"></v-col>
       <v-col cols="12" md="2" class="subtitle-1 font-weight-bold">
-        <v-btn color="grey" @click="reset" right>Clear</v-btn>
+        <v-btn color="grey" @click="reset">Reset</v-btn>
       </v-col>
-      <v-col cols="12" md="1" class="subtitle-1 font-weight-bold">
-        <v-btn color="grey" @click="cancel" right>Cancel</v-btn>
+      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold">
+        <v-btn color="grey" @click="cancel">Cancel</v-btn>
       </v-col>
-      <v-col cols="12" md="5" class="subtitle-1 font-weight-bold" align="right" justify="right">
-        <v-btn color="#009fcc" @click="submit" right :loading="loading" :disabled="loading">Create</v-btn>
+      <v-col cols="12" md="6" class="subtitle-1 font-weight-bold" align="right" justify="right">
+        <v-btn color="#009fcc" @click="update" right :loading="loading" :disabled="loading">Update</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -175,7 +161,8 @@ import moment from 'moment';
 import { milliseconds } from 'barrkeep/utils';
 
 export default {
-  name: 'interview-template',
+  name: 'edit-interview',
+  props: { interview: Object },
   data () {
     return {
       state,
@@ -277,28 +264,29 @@ export default {
     reset () {
       this.$refs.form.resetValidation();
 
-      this.title = 'Interview';
-      this.company = state.session.user.company || '';
-      this.position = '';
-      this.date = new Date().toISOString().
-        substring(0, 10);
-      this.time = '09:00';
+      const when = moment(this.interview.start);
+
+      this.title = this.interview.title;
+      this.company = this.interview.company;
+      this.position = this.interview.position;
+      this.date = when.format('YYYY-MM-DD');
+      this.time = when.format('HH:mm');
       this.duration = '1h';
-      this.interviewer.name = state.session.user.name;
-      this.interviewer.email = state.session.user.email;
-      this.candidate.name = '';
-      this.candidate.email = '';
+      this.interviewer.name = this.interview.users[0].name;
+      this.interviewer.email = this.interview.users[0].email;
+      this.candidate.name = this.interview.users[1].name;
+      this.candidate.email = this.interview.users[1].email;
       this.users.splice(0, this.users.length);
       this.image = 0;
     },
     cancel () {
       this.$emit('done');
     },
-    submit () {
+    update () {
       if (this.$refs.form.validate()) {
         this.loading = true;
 
-        const body = {
+        const body = Object.assign(this.interview, {
           start: new Date(`${ this.date } ${ this.time }`).getTime(),
           duration: milliseconds(this.duration),
           title: this.title,
@@ -317,19 +305,19 @@ export default {
           git: this.images[this.image].git,
           uploads: this.images[this.image].uploads,
           buttons: this.buttons
-        };
+        });
 
-        this.$api.post('/interviews/create', body).
+        this.$api.post(`/interviews/:${ body.id }`, body).
           then((response) => {
-            console.log(response.data);
             this.$events.emit({
-              type: 'notification:interview:created',
+              type: 'notification:interview:updated',
               data: {
                 level: 'success',
-                message: 'Interview scheduled!'
+                message: 'Interview updated'
               }
             });
             this.loading = false;
+            this.reset();
             this.$emit('done');
           }).
           catch((error) => {
@@ -337,7 +325,7 @@ export default {
               type: 'notification:interview:failed',
               data: {
                 level: 'failure',
-                message: `Failed to create interview: ${ error.message }`
+                message: `Failed to update interview: ${ error.message }`
               }
             });
             this.loading = false;
@@ -356,6 +344,6 @@ export default {
     text-align: center;
 }
 .background {
-    background-color: #303030;
+    background-color: #333;
 }
 </style>
