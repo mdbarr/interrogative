@@ -191,7 +191,7 @@ export default {
       return valid;
     },
     validateName (value = '') {
-      if (!/^\w+\s+\w+/.test(value)) {
+      if (!/^[^]+\s+[^]+/.test(value)) {
         return 'Please enter a first and last name';
       }
       return true;
