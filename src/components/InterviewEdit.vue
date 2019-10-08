@@ -141,8 +141,11 @@
     <v-row><v-col /></v-row>
     <v-row><v-col /></v-row>
     <v-row dense>
-      <v-col cols="12" md="6" class="subtitle-1 font-weight-bold">
-        <v-btn color="grey" @click="reset" right>Reset</v-btn>
+      <v-col cols="12" md="2" class="subtitle-1 font-weight-bold">
+        <v-btn color="grey" @click="reset">Reset</v-btn>
+      </v-col>
+      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold">
+        <v-btn color="grey" @click="cancel">Cancel</v-btn>
       </v-col>
       <v-col cols="12" md="6" class="subtitle-1 font-weight-bold" align="right" justify="right">
         <v-btn color="#009fcc" @click="update" right :loading="loading" :disabled="loading">Update</v-btn>
@@ -275,6 +278,9 @@ export default {
       this.candidate.email = this.interview.users[1].email;
       this.users.splice(0, this.users.length);
       this.image = 0;
+    },
+    cancel () {
+      this.$emit('done');
     },
     update () {
       if (this.$refs.form.validate()) {

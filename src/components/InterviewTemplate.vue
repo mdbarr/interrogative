@@ -155,10 +155,13 @@
     <v-row><v-col /></v-row>
     <v-row dense>
       <v-col cols="12" md="2"></v-col>
-      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold">
+      <v-col cols="12" md="2" class="subtitle-1 font-weight-bold">
         <v-btn color="grey" @click="reset" right>Clear</v-btn>
       </v-col>
-      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold" align="right" justify="right">
+      <v-col cols="12" md="1" class="subtitle-1 font-weight-bold">
+        <v-btn color="grey" @click="cancel" right>Cancel</v-btn>
+      </v-col>
+      <v-col cols="12" md="5" class="subtitle-1 font-weight-bold" align="right" justify="right">
         <v-btn color="#009fcc" @click="submit" right :loading="loading" :disabled="loading">Create</v-btn>
       </v-col>
     </v-row>
@@ -288,6 +291,9 @@ export default {
       this.users.splice(0, this.users.length);
       this.image = 0;
     },
+    cancel () {
+      this.$emit('done');
+    },
     submit () {
       if (this.$refs.form.validate()) {
         this.loading = true;
@@ -324,7 +330,6 @@ export default {
               }
             });
             this.loading = false;
-            this.reset();
             this.$emit('done');
           }).
           catch((error) => {
@@ -351,6 +356,6 @@ export default {
     text-align: center;
 }
 .background {
-    background-color: #333;
+    background-color: #303030;
 }
 </style>
