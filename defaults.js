@@ -32,7 +32,7 @@ module.exports = {
     host: '0.0.0.0',
     ttl: '2h',
     heartbeat: '30s',
-    openMaxSize: 262144,
+    openMaxSize: 524288,
     persistence: {
       directory: '~/.interrogative',
       interval: 300000
