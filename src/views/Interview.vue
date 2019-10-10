@@ -178,6 +178,7 @@
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Timeline</div>
+              <Timeline></Timeline>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -186,6 +187,7 @@
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Tools</div>
+              <Tools></Tools>
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -240,6 +242,8 @@ import Git from '../components/Git';
 import Search from '../components/Search';
 import Settings from '../components/Settings';
 import Terminals from '../components/Terminals';
+import Timeline from '../components/Timeline';
+import Tools from '../components/Tools';
 import Upload from '../components/Upload';
 import UploadList from '../components/UploadList';
 
@@ -254,6 +258,8 @@ export default {
     Search,
     Settings,
     Terminals,
+    Timeline,
+    Tools,
     Upload,
     UploadList
   },
