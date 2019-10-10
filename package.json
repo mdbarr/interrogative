@@ -62,9 +62,11 @@
   },
   "scripts": {
     "api:lint": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
-    "docker:build:base": "cd base; docker build -t interrogative-base .; cd -",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "make": "make",
+    "rebuild": "make rebuild",
+    "redeploy": "make redeploy"
   }
 }
