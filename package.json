@@ -1,5 +1,5 @@
 {
-  "name": "interrogative",
+  "name": "@mdbarr/interrogative",
   "version": "0.1.0",
   "private": true,
   "bin": {
