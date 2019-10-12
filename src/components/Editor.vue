@@ -94,6 +94,9 @@ export default {
   name: 'editor',
   components: { ModelStl },
   computed: {
+    mini () {
+      return state.mini;
+    },
     theme () {
       return state.theme;
     },
@@ -319,6 +322,12 @@ export default {
       this.$refs.container.style.width = `${ this.width }px`;
       this.$refs.container.style.height = `${ this.height }px`;
 
+      this.$refs.image.style.width = `${ this.width }px`;
+      this.$refs.image.style.height = `${ this.height }px`;
+
+      this.$refs.hexdump.style.width = `${ this.width }px`;
+      this.$refs.hexdump.style.height = `${ this.height }px`;
+
       this.instance.setSize(this.width, this.height);
     }
   },
@@ -528,6 +537,9 @@ export default {
     window.removeEventListener('resize', this.resize);
   },
   watch: {
+    mini () {
+      this.resize();
+    },
     theme (value) {
       this.instance.setOption('theme', value);
       window.localStorage.setItem('theme', value);

@@ -25,7 +25,7 @@
     </v-overlay>
   </div>
   <div v-else>
-    <v-navigation-drawer permanent :mini-variant.sync="mini" mini-variant-width="45" width="345" app clipped>
+    <v-navigation-drawer permanent :mini-variant.sync="state.mini" mini-variant-width="45" width="345" app clipped>
       <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
         <v-tab class="white--text">
           <v-icon left>mdi-account-multiple</v-icon>
@@ -52,7 +52,7 @@
           <v-icon left>mdi-tools</v-icon>
         </v-tab>
 
-        <v-tab-item v-if="!mini">
+        <v-tab-item v-if="!state.mini">
           <v-card flat>
             <v-card-text class="white--text" v-if="state.interview.id">
               <div v-if="state.interview.title" class="section-heading">{{ state.interview.title }}</div>
@@ -129,7 +129,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini">
+        <v-tab-item v-if="!state.mini">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Files</div>
@@ -138,7 +138,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini">
+        <v-tab-item v-if="!state.mini">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Search</div>
@@ -165,7 +165,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini">
+        <v-tab-item v-if="!state.mini">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Settings</div>
@@ -282,12 +282,12 @@ export default {
     },
     sideTabChange (value) {
       if (value === undefined) {
-        this.mini = true;
+        this.state.mini = true;
       }
     },
     toggleSide () {
-      this.mini = !this.mini;
-      if (!this.mini && this.sideTab === undefined) {
+      this.state.mini = !this.state.mini;
+      if (!this.state.mini && this.sideTab === undefined) {
         this.sideTab = 0;
       }
     }

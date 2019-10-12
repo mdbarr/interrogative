@@ -29,6 +29,8 @@ function State () {
 
   this.session = false;
 
+  this.mini = true;
+
   this.user = '';
   this.name = '';
   this.role = 'candidate';
