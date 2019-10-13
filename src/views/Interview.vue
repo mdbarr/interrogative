@@ -147,7 +147,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini && state.interview.git">
+        <v-tab-item v-if="!state.mini && state.interview.git">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Repository</div>
@@ -156,7 +156,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini && state.interview.uploads">
+        <v-tab-item v-if="!state.mini && state.interview.uploads">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Uploads</div>
@@ -174,7 +174,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini && state.role === 'interviewer'">
+        <v-tab-item v-if="!state.mini && state.role === 'interviewer'">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Timeline</div>
@@ -183,7 +183,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item v-if="!mini && state.role === 'interviewer'">
+        <v-tab-item v-if="!state.mini && state.role === 'interviewer'">
           <v-card flat>
             <v-card-text class="white--text">
               <div class="section-heading">Tools</div>
@@ -266,7 +266,6 @@ export default {
   data: () => {
     return {
       state,
-      mini: true,
       error: false,
       sideTab: undefined
     };
