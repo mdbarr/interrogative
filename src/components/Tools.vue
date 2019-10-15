@@ -12,7 +12,7 @@
     Clear Chat History
   </v-btn><br>
   <v-btn small color="red" class="mt-9" @click="endInterview">
-    <v-icon small left>mdi-close-circle-outline</v-icon>End Interview
+    <v-icon small left>mdi-phone-hangup</v-icon>End Interview
   </v-btn>
 </div>
 </template>
