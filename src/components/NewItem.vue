@@ -7,6 +7,14 @@
       </v-icon> Create {{ isFolder ? 'Folder' : 'File' }}
     </v-card-title>
     <v-card-text class="pb-0">
+      <v-switch v-model="isFolder" color="amber lighten-2">
+        <template v-slot:prepend>
+          <v-icon>mdi-file</v-icon>
+        </template>
+        <template v-slot:append>
+          <v-icon color="amber lighten-2">mdi-folder-open</v-icon>
+        </template>
+      </v-switch>
       <v-text-field
         autofocus
         dense
@@ -14,6 +22,7 @@
         v-model="name"
         ref="name"
         @keyup.enter="create"
+        class="mb-5"
         >
         <template v-slot:prepend>
           <v-icon v-if="isFolder" color="amber lighten-2">mdi-folder</v-icon>
@@ -28,6 +37,7 @@
         item-value="path"
         label="Folder"
         v-model="path"
+        class="mb-3"
         >
         <template v-slot:prepend>
           <v-icon color="amber lighten-2">mdi-folder-open</v-icon>
@@ -38,14 +48,6 @@
           {{ item.name }}
         </template>
       </v-select>
-      <v-switch v-model="isFolder" color="amber lighten-2">
-        <template v-slot:prepend>
-          <v-icon>mdi-file</v-icon>
-        </template>
-        <template v-slot:append>
-          <v-icon color="amber lighten-2">mdi-folder-open</v-icon>
-        </template>
-      </v-switch>
     </v-card-text>
      <v-card-actions>
        <v-btn text @click="show = false">Cancel</v-btn>
