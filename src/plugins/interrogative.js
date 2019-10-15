@@ -260,6 +260,10 @@ export default { install (Vue) {
     state.messages.splice(0, state.messages.length, ...event.data);
   });
 
+  $events.on('timeline:events:list', (event) => {
+    state.timeline.splice(0, state.timeline.length, ...event.data);
+  });
+
   //////////
   // api and websocket interface
 

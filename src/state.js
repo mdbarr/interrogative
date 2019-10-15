@@ -41,6 +41,7 @@ function State () {
   this.terminal = '';
 
   this.messages = [];
+  this.timeline = [];
 
   this.gitSVG = '';
 }
