@@ -36,9 +36,11 @@ export default {
 }
 .timeline-description {
     font-size: 11px !important;
+    width: 192px !important;
 }
 .timeline-timestamp {
-    font-size: 10px !important;
     color: #959595;
+    font-size: 10px !important;
+    width: 192px !important;
 }
 </style>
