@@ -212,13 +212,13 @@
       <v-container fluid fill-height class="ma-0 pl-0 main-area">
         <v-layout wrap>
           <v-flex xs12>
-            <v-card class="ma-0" flat tile>
+            <v-card class="ma-0 main-card" flat tile>
               <FileTabs></FileTabs>
               <Editor></Editor>
             </v-card>
           </v-flex>
           <v-flex xs12>
-            <v-card class="ma-0" flat tile>
+            <v-card class="ma-0 main-card" flat tile>
               <Terminals></Terminals>
             </v-card>
           </v-flex>
@@ -346,6 +346,9 @@ export default {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
     padding-right: 0px !important;
+}
+.main-card {
+    background-color: #222 !important;
 }
 .plus-button {
     border-right: 1px solid #595959;

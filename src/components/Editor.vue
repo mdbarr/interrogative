@@ -8,7 +8,7 @@
     <pre ref="hexdump" class="hexdump-pre"></pre>
   </div>
   <div v-show="mode === 'stl'" ref="stl">
-    <model-stl :src="blob" v-if="blob" :width="width" :height="height" :lights="lights" backgroundColor="#222"/>
+    <model-stl :src="blob" v-if="blob" :width="width" :height="height" :lights="lights" backgroundColor="#222" :key="width" />
   </div>
   <div id="interrogative-editor-panel" class="interrogative-editor-panel">
     <v-btn x-small tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
