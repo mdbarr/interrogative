@@ -47,7 +47,8 @@ export default {
     endInterview () {
       this.$events.emit({
         type: 'tools:interview:end',
-        data: { auth: this.state.user }
+        data: { auth: this.state.user },
+        scope: { role: 'candidate' }
       });
     }
   }
