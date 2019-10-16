@@ -68,3 +68,6 @@ dist
 
 # built templates
 templates/*.html
+
+# emacs desktop
+.emacs.*
