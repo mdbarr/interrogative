@@ -94,9 +94,6 @@ export default {
   name: 'editor',
   components: { ModelStl },
   computed: {
-    mini () {
-      return state.mini;
-    },
     theme () {
       return state.theme;
     },
@@ -316,8 +313,12 @@ export default {
       });
     },
     resize () {
-      this.width = this.app.clientWidth - 45;
+      const drawerWidth = this.state.mini ? 45 : 345;
+
+      this.width = this.app.clientWidth - drawerWidth;
       this.height = this.app.clientHeight - 480;
+
+      console.log('resize', this.state.mini, this.width, this.height);
 
       this.$refs.container.style.width = `${ this.width }px`;
       this.$refs.container.style.height = `${ this.height }px`;
@@ -537,9 +538,6 @@ export default {
     window.removeEventListener('resize', this.resize);
   },
   watch: {
-    mini () {
-      this.resize();
-    },
     theme (value) {
       this.instance.setOption('theme', value);
       window.localStorage.setItem('theme', value);
