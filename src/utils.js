@@ -106,6 +106,8 @@ export default { setAttributes (item) {
   } else if (item.extension === 'sh' || item.extension === 'bash') {
     item.mime = 'text/x-sh';
     item.icon = 'file-code';
+  } else if (item.extension === 'stl') {
+    item.icon = 'cube-scan';
   } else if (item.extension === 'svg') {
     item.icon = 'svg';
   } else if (item.extension === 'ts') {
