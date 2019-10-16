@@ -1,16 +1,21 @@
 <template>
-<div>
-  <v-timeline dense align-top class="timeline-margin">
-    <v-timeline-item v-for="item of state.timeline" color="#0087af" :key="item.id" :icon="item.icon" right small fill-dot>
-      <div class="timeline-description">
-        {{ item.description }}
-      </div>
-      <div class="timeline-timestamp">
-        {{ item.timestamp | calendar }}
-      </div>
-    </v-timeline-item>
-  </v-timeline>
-</div>
+<v-timeline dense align-top class="timeline-margin">
+  <v-timeline-item
+    v-for="item of state.timeline" :key="item.id"
+    :color="item.color"
+    :icon="item.icon"
+    fill-dot
+    right
+    small
+    >
+    <div class="timeline-description">
+      {{ item.description }}
+    </div>
+    <div class="timeline-timestamp">
+      {{ item.timestamp | calendar }}
+    </div>
+  </v-timeline-item>
+</v-timeline>
 </template>
 
 <script>
