@@ -1,6 +1,7 @@
 FROM ubuntu:bionic
 
 RUN apt-get update && \
+    rm /etc/dpkg/dpkg.cfg.d/excludes && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         autoconf \
         automake \
@@ -26,6 +27,9 @@ RUN apt-get update && \
         locales-all \
         man \
         manpages \
+        manpages-dev \
+        manpages-posix \
+        manpages-posix-dev \
         nano \
         netbase \
         netcat \
