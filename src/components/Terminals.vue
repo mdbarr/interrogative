@@ -7,6 +7,9 @@
     <v-tab v-for="item of state.terminals" :key="item.index" class="tab-bg pl-2 pr-2">
       <v-icon v-if="item.icon" small :color="item.color || 'white'" class="pr-2">
         mdi-{{ item.icon }}
+        <template v-if="item.color === '#0087af'">
+          mdi-flashing
+        </template>
       </v-icon>
       <span class="pr-1">{{ item.name }}</span>
       <v-icon v-if="item.closeable" small class="pl-2" @click="close(item.id)">mdi-close</v-icon>
@@ -105,5 +108,19 @@ export default {
 </script>
 
 <style>
+.mdi-flashing:before {
+  -webkit-animation: mdi-flashing 2s infinite ease-in-out;
+  animation: mdi-flashing 2s infinite ease-in-out;
+}
 
+@-webkit-keyframes mdi-flashing {
+    0% { opacity: 1; }
+    50% { opacity: .25; }
+    100% { opacity: 1; }
+}
+@keyframes mdi-flashing {
+    0% { opacity: 1; }
+    50% { opacity: .25; }
+    100% { opacity: 1; }
+}
 </style>
