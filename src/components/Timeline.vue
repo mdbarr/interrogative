@@ -31,6 +31,15 @@ export default {
 </script>
 
 <style>
+.mdi-interrogative::before {
+    content: '';
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../assets/logo.svg);
+    background-size: 14px 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+}
 .timeline-margin {
     margin-left: -24px !important;
 }
