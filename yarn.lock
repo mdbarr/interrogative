@@ -1628,6 +1628,11 @@ barrkeep@^2.2.4, barrkeep@^2.2.9:
   resolved "https://registry.yarnpkg.com/barrkeep/-/barrkeep-2.2.9.tgz#3055baf1052136f30e0a299dc6c3d0ffb7017a82"
   integrity sha512-9qqGevBEkWkrAJK/7pDaZdqD49PZhoLyFf0eYLicr9ZRb3zpmHwmkAWxYVHPBioIKv0xcdl0n9xDoZl0KL4UtA==
 
+barrkeep@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/barrkeep/-/barrkeep-2.3.0.tgz#4ca3e36f12de406f36b477dc81d5c9617e9e5c9b"
+  integrity sha512-9EadR2rOxLKNiwaYpw8sFCSoOeAh6hSV0bYELdqDx7HIjeZr1yRsZ3XuVBFuGoG88iJcp9uouuO3IRMqjrd+0g==
+
 base32.js@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/base32.js/-/base32.js-0.1.0.tgz#b582dec693c2f11e893cf064ee6ac5b6131a2202"

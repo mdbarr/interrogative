@@ -12,7 +12,7 @@
     "argon2": "^0.25.0",
     "async": "^3.1.0",
     "axios": "^0.19.0",
-    "barrkeep": "^2.2.9",
+    "barrkeep": "^2.3.0",
     "chokidar": "^3.2.2",
     "cidr-matcher": "^2.1.1",
     "code-mirror-themes": "^1.0.0",
