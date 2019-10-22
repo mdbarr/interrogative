@@ -33,12 +33,14 @@ export default {
 <style>
 .mdi-interrogative::before {
     content: '';
+    position: relative;
+    margin-top: -2px;
     background-position: center;
     background-repeat: no-repeat;
     background-image: url(../assets/logo.svg);
-    background-size: 14px 14px !important;
-    width: 14px !important;
-    height: 14px !important;
+    background-size: 16px 16px !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 .timeline-margin {
     margin-left: -24px !important;
