@@ -6,9 +6,9 @@
     "interrogative": "./bin/cli.js"
   },
   "dependencies": {
-    "@mdbarr/events": "^0.1.4",
-    "@mdbarr/griff": "^0.2.3",
-    "@mdbarr/uscript": "^0.1.2",
+    "@mdbarr/events": "^0.1.5",
+    "@mdbarr/griff": "^0.2.4",
+    "@mdbarr/uscript": "^0.2.0",
     "argon2": "^0.25.0",
     "async": "^3.1.0",
     "axios": "^0.19.0",

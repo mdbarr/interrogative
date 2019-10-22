@@ -725,28 +725,28 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@mdbarr/events@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@mdbarr/events/-/events-0.1.4.tgz#66e7ec1d77312a0f9cd19eff27ae6a74cfb38b19"
-  integrity sha512-+qGowl1d76y5cz4y2bBmdm2wgWRBzrjjEj7sVvry/niX95kI6tXOA/f8YZ6PK55yXnMW2DMlDeSq/D4rKEViig==
+"@mdbarr/events@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@mdbarr/events/-/events-0.1.5.tgz#c8ef4ed1f9f4ee7e106c703a9de9cec9629a6d1e"
+  integrity sha512-JeC8mWxZu5bQWZEROIWBnGNvzzyC0ShhWoGA4qHL5HPJk5jk8PhQvn6XBPgAWEBSpzK7s7hdezLR2w0Vkhp4cA==
   dependencies:
-    barrkeep "^2.2.9"
+    barrkeep "^2.3.0"
     uuid "^3.3.3"
 
-"@mdbarr/griff@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.3.tgz#276a6c2dd37b6ec85a7d23c0fe9dab20f8157e52"
-  integrity sha512-JHQU8PtDlZVDZ5/TLK9/8lzk8J6G15pmNJ4jeztoPkOmDOmWqa799X4iSMHA51uF7VZe5z5POMaE+Nl/IEW1uA==
+"@mdbarr/griff@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@mdbarr/griff/-/griff-0.2.4.tgz#9801b7220978f908f273fd50a137e2b9153dee07"
+  integrity sha512-w8he+1Suw3S6I8cIXafCtbaLbvfYCXVA1bOf6Umwaw7i7wWaEC/Ua7eEnqkDM17Mg0FwqZ4AENkmbZr0p7JFLg==
   dependencies:
     minimist "^1.2.0"
-    nodegit "^0.26.1"
+    nodegit "^0.26.2"
 
-"@mdbarr/uscript@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@mdbarr/uscript/-/uscript-0.1.2.tgz#834e08025d08528974646defe04439b8f027e557"
-  integrity sha512-bw2rf6j+MddQ0Whg8vXv8oZzxMaIXNNCXogIT6qea2dnb7Wl1FLGMtwDKGb3/CWjp67DrmkQXjX2y+ak9NALIg==
+"@mdbarr/uscript@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@mdbarr/uscript/-/uscript-0.2.0.tgz#be4dccf2dece99994a68c3675a9346656b45a9e2"
+  integrity sha512-pJ1qgydhXTZ/+ow/d7RfHH8+V6eOxvs+2b5odOe1SMXAJQme941hI7HsIfVKXAMnuCWBKu+/bzkXmFimTkGEsw==
   dependencies:
-    barrkeep "^2.2.4"
+    barrkeep "^2.3.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1622,11 +1622,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
-
-barrkeep@^2.2.4, barrkeep@^2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/barrkeep/-/barrkeep-2.2.9.tgz#3055baf1052136f30e0a299dc6c3d0ffb7017a82"
-  integrity sha512-9qqGevBEkWkrAJK/7pDaZdqD49PZhoLyFf0eYLicr9ZRb3zpmHwmkAWxYVHPBioIKv0xcdl0n9xDoZl0KL4UtA==
 
 barrkeep@^2.3.0:
   version "2.3.0"
@@ -6571,7 +6566,7 @@ nodegit-promise@~4.0.0:
   dependencies:
     asap "~2.0.3"
 
-nodegit@^0.26.1:
+nodegit@^0.26.2:
   version "0.26.2"
   resolved "https://registry.yarnpkg.com/nodegit/-/nodegit-0.26.2.tgz#15e9eb4308afdffd975051144fc5098c8db4be63"
   integrity sha512-wf3Su4+kyAeN1fMMg/rl66sb+J2W+RFDYbfzLy4/ZGCS1V/DRd1YMWcXiu6JpYm6x9/6MobVAO+9aHQdC5i8Pw==
