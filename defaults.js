@@ -60,5 +60,25 @@ module.exports = {
         port: 25
       }
     }
-  }
+  },
+  files: { exclusions: [
+    '.bash_history$',
+    '.bash_logout$',
+    '.bashrc$',
+    '.cache$',
+    '.config$',
+    '.emacs$',
+    '.emacs.d',
+    '.git$',
+    '.gitconfig$',
+    '.gitignore$',
+    '.interrogative',
+    '.local$',
+    '.node-gyp$',
+    '.profile$',
+    '.ssh$',
+    '.swp$',
+    '.yarn$',
+    'node_modules'
+  ] }
 };
