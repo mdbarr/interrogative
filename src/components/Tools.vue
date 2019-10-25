@@ -11,7 +11,7 @@
     <v-icon small left>mdi-forum</v-icon>
     Clear Chat History
   </v-btn><br>
-  <v-btn small color="red" class="mt-9" @click="endInterview">
+  <v-btn v-if="endable" small color="red" class="mt-9" @click="endInterview">
     <v-icon small left>mdi-phone-hangup</v-icon>End Interview
   </v-btn>
 </div>
@@ -25,6 +25,19 @@ export default {
   data () {
     return { state };
   },
+  computed: { endable () {
+    if (this.state.interview.start >= Date.now() && this.state.interview.stop <= Date.now()) {
+      return true;
+    }
+
+    for (const id in this.state.online) {
+      if (this.state.online[id].role === 'candidate') {
+        return true;
+      }
+    }
+
+    return false;
+  } },
   methods: {
     clearOpenFiles () {
       this.$events.emit({
