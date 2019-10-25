@@ -251,6 +251,18 @@ export default {
                 character = '';
               } else if (character >= 32 && character <= 126) {
                 character = String.fromCharCode(character);
+
+                if (character === '<') {
+                  character = '&lt;';
+                } else if (character === '>') {
+                  character = '&gt;';
+                } else if (character === '&') {
+                  character = '&amp;';
+                } else if (character === '"') {
+                  character = '&quot;';
+                } else if (character === "'") {
+                  character = '&apos';
+                }
               } else {
                 character = '.';
               }
