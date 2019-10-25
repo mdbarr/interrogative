@@ -68,8 +68,13 @@ export default {
 
       const files = event.dataTransfer.files;
       console.log(files);
-      for (const file of files) {
-        this.upload(file);
+
+      if (files.length === 1) {
+        this.upload(files[0], true);
+      } else {
+        for (const file of files) {
+          this.upload(file);
+        }
       }
     },
     formatBytes (bytes) {
@@ -83,7 +88,7 @@ export default {
       const index = Math.floor(Math.log(bytes) / Math.log(kilobyte));
       return `${ parseFloat((bytes / Math.pow(kilobyte, index)).toFixed(places)) } ${ sizes[index] }`;
     },
-    upload (file) {
+    upload (file, open = false) {
       const item = {
         id: uuid(),
         name: file.name,
@@ -137,6 +142,13 @@ export default {
               type: 'file:upload:success',
               data: item
             });
+
+            if (open) {
+              this.$events.emit({
+                type: 'files:file:open',
+                data: { path: item.path }
+              });
+            }
           }).
           catch((error) => {
             item.failed = true;
