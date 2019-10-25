@@ -71,7 +71,7 @@
             </template>
               <EditInterview :interview="interview" @done="editing = false"/>
           </v-dialog>
-          <v-btn v-if="link(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
+          <v-btn v-if="link(interview) && canOpen(interview)" color="#0087af" class="mr-2" :to="{ path: link(interview) }" target="_blank">
             Open<v-icon right class="ml-3 mr-1">mdi-launch</v-icon></v-btn>
           <v-btn v-if="upcoming" color="#0087af" :href="email(interview)" target="_blank">
             Email<v-icon right class="ml-3 mr-1">mdi-email</v-icon></v-btn>
@@ -169,6 +169,18 @@ export default {
     },
     observer (interview) {
       return this.role(interview, 'observer');
+    },
+    canOpen (interview) {
+      if (this.owner(interview) || this.interviewer(interview)) {
+        return true;
+      }
+
+      const now = Date.now();
+      if (interview.start >= now && interview.stop <= now) {
+        return true;
+      }
+
+      return false;
     },
     filterLimit (items) {
       if (this.limit > 0) {
