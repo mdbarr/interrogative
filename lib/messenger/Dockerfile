@@ -1,6 +1,6 @@
 FROM interrogative-core:latest as build
 
-FROM node:10-alpine
+FROM node:12-alpine
 WORKDIR /interrogative
 COPY --from=build /interrogative .
 COPY templates templates

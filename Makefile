@@ -31,13 +31,13 @@ clean:
 	docker volume prune -f
 
 spotless:
-	docker rmi interrogative-base
-	docker rmi interrogative-container
-	docker rmi interrogative-core
-	docker rmi interrogative-messenger
-	docker rmi interrogative-manager
-	docker rmi interrogative-mongo
-	docker rmi interrogative-user
+	docker rmi interrogative-base \
+	interrogative-container \
+	interrogative-core \
+	interrogative-messenger \
+	interrogative-manager \
+	interrogative-mongo \
+	interrogative-user || true
 	docker system prune -f
 
 rebuild:
