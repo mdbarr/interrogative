@@ -3,6 +3,7 @@ FROM ubuntu:bionic
 RUN apt-get update && \
     rm /etc/dpkg/dpkg.cfg.d/excludes && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        apt-transport-https \
         autoconf \
         automake \
         bison \
@@ -22,6 +23,13 @@ RUN apt-get update && \
         iputils-ping \
         keychain \
         less \
+        libbz2-dev \
+        libffi-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libreadline-dev \
+        libssh-dev \
+        libssl-dev \
         libtool \
         locales \
         locales-all \
@@ -35,8 +43,9 @@ RUN apt-get update && \
         netcat \
         openssh-client \
         powerline \
+        python \
         python-dev \
-        python3-dev \
+        python-pip \
         shared-mime-info \
         shellcheck \
         sudo \
@@ -44,7 +53,8 @@ RUN apt-get update && \
         tig \
         tmux \
         vim \
-        wget && \
+        wget \
+        zlib1g-dev && \
         curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
         echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
@@ -54,6 +64,17 @@ RUN apt-get update && \
         apt-get autoremove && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/local/src && \
+  wget https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz && \
+  tar -xvf Python-3.7.5.tgz && \
+  cd Python-3.7.5/ && \
+  ./configure --enable-shared && \
+  make install && \
+  ldconfig -v && \
+  cd .. && \
+  rm -rf Python* && \
+  pip3 install virtualenv
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
