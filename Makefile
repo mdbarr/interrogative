@@ -3,8 +3,8 @@ all: pull core images container manager templates messenger
 .PHONY: pull core images container manager templates messenger
 pull:
 	docker pull mongo:4.2
-	docker pull node:10
-	docker pull node:10-alpine
+	docker pull node:12
+	docker pull node:12-alpine
 
 core:
 	docker build -f images/core/Dockerfile -t interrogative-core .
