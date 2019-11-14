@@ -61,24 +61,30 @@ module.exports = {
       }
     }
   },
-  files: { exclusions: [
-    '.bash_history$',
-    '.bash_logout$',
-    '.bashrc$',
-    '.cache$',
-    '.config$',
-    '.emacs$',
-    '.emacs.d',
-    '.git$',
-    '.gitconfig$',
-    '.gitignore$',
-    '.interrogative',
-    '.local$',
-    '.node-gyp$',
-    '.profile$',
-    '.ssh$',
-    '.swp$',
-    '.yarn$',
-    'node_modules'
-  ] }
+  files: {
+    depth: 5,
+    exclusions: [
+      '.bash_history$',
+      '.bash_logout$',
+      '.bashrc$',
+      '.cache$',
+      '.config$',
+      '.emacs$',
+      '.emacs.d',
+      '.git$',
+      '.gitconfig$',
+      '.gitignore$',
+      '.interrogative',
+      '.local$',
+      '.node-gyp$',
+      '.profile$',
+      '.ssh$',
+      '.swp$',
+      '.venv$',
+      '.yarn$',
+      'node_modules',
+      'python3.7',
+      'site-packages'
+    ]
+  }
 };
