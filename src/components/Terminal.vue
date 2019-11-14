@@ -20,7 +20,9 @@ export default {
       state,
       element: null,
       xterm: null,
-      socket: null
+      socket: null,
+      cols: 100,
+      rows: 24
     };
   },
   computed: { bell () {
@@ -29,7 +31,7 @@ export default {
   methods: { focus (event) {
     if (event.data.id === this.id) {
       this.$nextTick(() => {
-        this.xterm.resize(100, 24);
+        this.xterm.$fitAddon.fit();
         this.xterm.focus();
       });
     }
@@ -60,8 +62,8 @@ export default {
       bellStyle: 'sound'
     });
 
-    const fitAddon = new FitAddon();
-    this.xterm.loadAddon(fitAddon);
+    this.xterm.$fitAddon = new FitAddon();
+    this.xterm.loadAddon(this.xterm.$fitAddon);
 
     this.socket = this.$socket(`/terminal?id=${ this.id }`);
 
@@ -70,10 +72,13 @@ export default {
 
     this.$events.on('terminal:tab:focus', this.focus);
 
-    this.$nextTick(() => {
+    setTimeout(() => {
       this.xterm.open(this.element);
+      this.xterm.$fitAddon.fit();
       this.xterm.focus();
-    });
+
+      console.log('xterm fit', this.xterm.rows, this.xterm.cols);
+    }, 0);
   },
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
