@@ -144,10 +144,7 @@ module.exports = {
     'use-isnan': 'error',
     'valid-typeof': 'error',
     'yield-star-spacing': [ 'error', 'before' ],
-    'yoda': 'error',
-    // Development rules
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'yoda': 'error'
   },
   parserOptions: { parser: 'babel-eslint' }
 };
