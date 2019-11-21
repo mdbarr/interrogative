@@ -152,37 +152,27 @@ export default {
       const hints = [];
       let valid = true;
 
-      if (/[A-Z]/.test(this.password)) {
-        hints.push('<s>Uppercase Letter</s>');
-      } else {
+      if (!/[A-Z]/.test(this.password)) {
         hints.push('Uppercase Letter');
         valid = false;
       }
 
-      if (/[a-z]/.test(this.password)) {
-        hints.push('<s>Lowercase Letter</s>');
-      } else {
+      if (!/[a-z]/.test(this.password)) {
         hints.push('Lowercase Letter');
         valid = false;
       }
 
-      if (/[0-9]/.test(this.password)) {
-        hints.push('<s>Number</s>');
-      } else {
+      if (!/[0-9]/.test(this.password)) {
         hints.push('Number');
         valid = false;
       }
 
-      if (/[!@#$%^&*(),.?":{}|<>]/.test(this.password)) {
-        hints.push('<s>Special Character</s>');
-      } else {
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password)) {
         hints.push('Special Character');
         valid = false;
       }
 
-      if (this.password.length >= 8) {
-        hints.push('<s>Eight Character Minimum</s>');
-      } else {
+      if (this.password.length < 8) {
         hints.push('Eight Character Minimum');
         valid = false;
       }
