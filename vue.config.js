@@ -12,6 +12,5 @@ module.exports = {
         ws: true
       }
     }
-  },
-  filenameHashing: process.env.NODE_ENV !== 'production'
+  }
 };
