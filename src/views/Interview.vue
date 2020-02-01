@@ -25,8 +25,8 @@
     </v-overlay>
   </div>
   <div v-else>
-    <v-navigation-drawer permanent :mini-variant.sync="state.mini" mini-variant-width="45" width="345" app clipped>
-      <v-tabs vertical dark slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
+    <v-navigation-drawer color="#424242" permanent :mini-variant.sync="state.mini" mini-variant-width="45" width="345" app clipped>
+      <v-tabs vertical background-color="#424242" slider-color="white" slider-size="2" optional @change="sideTabChange" v-model="sideTab">
         <v-tab class="white--text">
           <v-icon left>mdi-account-multiple</v-icon>
         </v-tab>
@@ -53,7 +53,7 @@
         </v-tab>
 
         <v-tab-item v-if="!state.mini">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text" v-if="state.interview.id">
               <div v-if="state.interview.title" class="section-heading">{{ state.interview.title }}</div>
               <div v-else class="section-heading">Interview</div>
@@ -130,7 +130,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Files</div>
               <FileTree></FileTree>
@@ -139,7 +139,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Search</div>
               <Search :tab="sideTab" :id="2"></Search>
@@ -148,7 +148,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini && state.interview.git">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Repository</div>
               <Git></Git>
@@ -157,7 +157,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini && state.interview.uploads">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Uploads</div>
               <UploadList></UploadList>
@@ -166,7 +166,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Settings</div>
               <Settings></Settings>
@@ -175,7 +175,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini && state.role === 'interviewer'">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Timeline</div>
               <Timeline></Timeline>
@@ -184,7 +184,7 @@
         </v-tab-item>
 
         <v-tab-item v-if="!state.mini && state.role === 'interviewer'">
-          <v-card flat>
+          <v-card flat tile color="#424242">
             <v-card-text class="white--text">
               <div class="section-heading">Tools</div>
               <Tools></Tools>
@@ -325,7 +325,9 @@ export default {
     padding-left: 6px !important;
     padding-right: 0px !important;
 }
-
+.v-tabs-items {
+    background-color: #424242 !important;
+}
 .tab-bg {
     color: white !important;
     text-transform: none !important;

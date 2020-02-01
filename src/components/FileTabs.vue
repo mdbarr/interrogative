@@ -1,5 +1,5 @@
 <template>
-<v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back" @change="editorTabChange">
+<v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back" @change="editorTabChange" background-color="#424242">
   <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="newItem = true">
     <v-icon small>mdi-plus</v-icon>
   </v-btn>
@@ -89,5 +89,8 @@ export default {
 <style>
 .closeable:hover {
     color: red !important;
+}
+.v-tabs-items {
+    background-color: #424242 !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" @change="tabChange">
+  <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" @change="tabChange" background-color="#424242">
     <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="plus">
       <v-icon small>mdi-plus</v-icon>
     </v-btn>
