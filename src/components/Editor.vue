@@ -325,7 +325,7 @@ export default {
       });
     },
     resize () {
-      const drawerWidth = this.state.mini ? 45 : 345;
+      const drawerWidth = 45; // this.state.mini ? 45 : 345;
 
       this.width = this.app.clientWidth - drawerWidth;
       this.height = this.app.clientHeight - 480;
@@ -576,10 +576,10 @@ export default {
 }
 .interrogative-editor-panel {
     position: relative;
+    flex-grow: 1;
     box-sizing: border-box;
     background-color: #595959;
     height: 20px;
-    width: 100%;
     padding: 0px;
     margin: 0px;
     font-size: 12px;
