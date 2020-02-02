@@ -8,4 +8,5 @@
 .node-gyp
 .profile
 .ssh
+.yarn
 uploads
