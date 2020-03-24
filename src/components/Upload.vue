@@ -1,20 +1,36 @@
 <template>
-<div
-  class="dropzone"
-  @dragover.prevent="dragover"
-  @dragleave="dragleave"
-  @drop="drop"
-  @click="$refs.file.click()"
-  ref="dropzone"
+  <div
+    ref="dropzone"
+    class="dropzone"
+    @dragover.prevent="dragover"
+    @dragleave="dragleave"
+    @drop="drop"
+    @click="$refs.file.click()"
   >
-  <div v-if="!dragging" class="unactionable">
-    Click or Drop files here to upload
+    <div
+      v-if="!dragging"
+      class="unactionable"
+    >
+      Click or Drop files here to upload
+    </div>
+    <div
+      v-else
+      class="unactionable"
+    >
+      <v-icon
+        x-large
+        color="#3598DA"
+      >
+        mdi-check
+      </v-icon>
+    </div>
+    <input
+      ref="file"
+      type="file"
+      style="display: none"
+      @change="changed"
+    >
   </div>
-  <div v-else class="unactionable">
-    <v-icon x-large color="#3598DA">mdi-check</v-icon>
-  </div>
-  <input type="file" ref="file" style="display: none" @change="changed">
-</div>
 </template>
 
 <script>
@@ -23,7 +39,7 @@ import state from '../state';
 import utils from '../utils';
 
 export default {
-  name: 'upload',
+  name: 'Upload',
   data () {
     return {
       state,

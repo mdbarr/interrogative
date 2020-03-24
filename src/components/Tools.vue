@@ -1,27 +1,62 @@
 <template>
-<div class="tools pl-4">
-  <v-btn small @click="clearOpenFiles">
-    <v-icon small left>mdi-file</v-icon> Clear Open Files
-  </v-btn><br>
-  <v-btn small @click="clearUploadsList">
-    <v-icon small left>mdi-cloud-upload</v-icon>
-    Clear Uploads List
-  </v-btn><br>
-  <v-btn small @click="clearChatHistory">
-    <v-icon small left>mdi-forum</v-icon>
-    Clear Chat History
-  </v-btn><br>
-  <v-btn v-if="endable" small color="red" class="mt-9" @click="endInterview">
-    <v-icon small left>mdi-phone-hangup</v-icon>End Interview
-  </v-btn>
-</div>
+  <div class="tools pl-4">
+    <v-btn
+      small
+      @click="clearOpenFiles"
+    >
+      <v-icon
+        small
+        left
+      >
+        mdi-file
+      </v-icon> Clear Open Files
+    </v-btn><br>
+    <v-btn
+      small
+      @click="clearUploadsList"
+    >
+      <v-icon
+        small
+        left
+      >
+        mdi-cloud-upload
+      </v-icon>
+      Clear Uploads List
+    </v-btn><br>
+    <v-btn
+      small
+      @click="clearChatHistory"
+    >
+      <v-icon
+        small
+        left
+      >
+        mdi-forum
+      </v-icon>
+      Clear Chat History
+    </v-btn><br>
+    <v-btn
+      v-if="endable"
+      small
+      color="red"
+      class="mt-9"
+      @click="endInterview"
+    >
+      <v-icon
+        small
+        left
+      >
+        mdi-phone-hangup
+      </v-icon>End Interview
+    </v-btn>
+  </div>
 </template>
 
 <script>
 import state from '../state';
 
 export default {
-  name: 'tools',
+  name: 'Tools',
   data () {
     return { state };
   },

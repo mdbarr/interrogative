@@ -1,54 +1,70 @@
 <template>
-<v-content>
-  <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center">
-      <v-col cols="12" sm="8" md="4" align="center" justify="center">
-        <img src="../assets/logo-lock.svg" width="150" class="pb-3">
-        <v-card flat>
-          <div class="lock-logo pa-2">
-            INTERROGATIVE.IO - RESET PASSWORD
-          </div>
-          <v-card-text>
-            <v-form ref="form">
-              <v-text-field
-                label="Password"
-                prepend-icon="mdi-lock"
-                v-model="password"
-                ref="password"
-                :append-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                @click:append="() => (visible = !visible)"
-                :type="visible ? 'text' : 'password'"
-                :persistent-hint="explanation"
-                :hint="hint"
-                @focus="explanation = true"
-                @blur="explanation = false"
-                :rules="[ validatePassword ]"
-                ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <div class="flex-grow-1"></div>
-            <v-btn
-              :loading="loading"
-              :disabled="!password"
-              @click.stop="reset"
-              color="#0087af"
+  <v-content>
+    <v-container
+      class="fill-height"
+      fluid
+    >
+      <v-row
+        align="center"
+        justify="center"
+      >
+        <v-col
+          cols="12"
+          sm="8"
+          md="4"
+          align="center"
+          justify="center"
+        >
+          <img
+            src="../assets/logo-lock.svg"
+            width="150"
+            class="pb-3"
+          >
+          <v-card flat>
+            <div class="lock-logo pa-2">
+              INTERROGATIVE.IO - RESET PASSWORD
+            </div>
+            <v-card-text>
+              <v-form ref="form">
+                <v-text-field
+                  ref="password"
+                  v-model="password"
+                  label="Password"
+                  prepend-icon="mdi-lock"
+                  :append-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                  :type="visible ? 'text' : 'password'"
+                  :persistent-hint="explanation"
+                  :hint="hint"
+                  :rules="[ validatePassword ]"
+                  @click:append="() => (visible = !visible)"
+                  @focus="explanation = true"
+                  @blur="explanation = false"
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <div class="flex-grow-1" />
+              <v-btn
+                :loading="loading"
+                :disabled="!password"
+                color="#0087af"
+                @click.stop="reset"
               >
-              Reset and Sign In
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
-</v-content>
+                Reset and Sign In
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
 import state from '../state';
 
 export default {
-  name: 'reset-password',
+  name: 'ResetPassword',
   data () {
     return {
       state,

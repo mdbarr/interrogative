@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
-    <router-view/>
-    <Notifications></Notifications>
+    <router-view />
+    <Notifications />
   </v-app>
 </template>
 
@@ -10,7 +10,7 @@ import state from './state';
 import Notifications from './components/Notifications';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: { Notifications },
   data () {
     return { state };

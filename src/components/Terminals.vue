@@ -1,29 +1,74 @@
 <template>
-<div>
-  <v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" @change="tabChange" background-color="#424242">
-    <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="plus">
-      <v-icon small>mdi-plus</v-icon>
-    </v-btn>
-    <v-tab v-for="item of state.terminals" :key="item.index" class="tab-bg pl-2 pr-2">
-      <v-icon v-if="item.icon" small :color="item.color || 'white'" class="pr-2">
-        mdi-{{ item.icon }}
-        <template v-if="item.color === '#0087af'">
-          mdi-flashing
-        </template>
-      </v-icon>
-      <span class="pr-1">{{ item.name }}</span>
-      <v-icon v-if="item.closeable" small class="pl-2" @click="close(item.id)">mdi-close</v-icon>
-    </v-tab>
-  </v-tabs>
-  <div v-for="item of state.terminals" :key="item.index">
-    <div v-if="item.type === 'terminal' || item.type.startsWith('action')">
-      <Terminal v-show="current === item.id" :id="item.id" :type="item.type"></Terminal>
-    </div>
-    <div v-if="item.type === 'chat'">
-      <Chat v-show="current === item.id" :id="item.id"></Chat>
+  <div>
+    <v-tabs
+      v-model="tab"
+      show-arrows
+      color="white"
+      height="30"
+      slider-color="white"
+      background-color="#424242"
+      @change="tabChange"
+    >
+      <v-btn
+        dense
+        small
+        tile
+        icon
+        left
+        height="30"
+        class="plus-button"
+        @click.stop="plus"
+      >
+        <v-icon small>
+          mdi-plus
+        </v-icon>
+      </v-btn>
+      <v-tab
+        v-for="item of state.terminals"
+        :key="item.index"
+        class="tab-bg pl-2 pr-2"
+      >
+        <v-icon
+          v-if="item.icon"
+          small
+          :color="item.color || 'white'"
+          class="pr-2"
+        >
+          mdi-{{ item.icon }}
+          <template v-if="item.color === '#0087af'">
+            mdi-flashing
+          </template>
+        </v-icon>
+        <span class="pr-1">{{ item.name }}</span>
+        <v-icon
+          v-if="item.closeable"
+          small
+          class="pl-2"
+          @click="close(item.id)"
+        >
+          mdi-close
+        </v-icon>
+      </v-tab>
+    </v-tabs>
+    <div
+      v-for="item of state.terminals"
+      :key="item.index"
+    >
+      <div v-if="item.type === 'terminal' || item.type.startsWith('action')">
+        <Terminal
+          v-show="current === item.id"
+          :id="item.id"
+          :type="item.type"
+        />
+      </div>
+      <div v-if="item.type === 'chat'">
+        <Chat
+          v-show="current === item.id"
+          :id="item.id"
+        />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -32,7 +77,7 @@ import Chat from '../components/Chat';
 import Terminal from '../components/Terminal';
 
 export default {
-  name: 'terminals',
+  name: 'Terminals',
   components: {
     Chat,
     Terminal
@@ -45,6 +90,18 @@ export default {
       tabs: new Map(),
       tab: 0
     };
+  },
+  mounted () {
+    this.$events.on('terminal:tab:focus', this.focus);
+    this.$events.on('terminal:tab:closed', this.closed);
+    this.$events.on('terminal:tab:list', this.update);
+    this.$events.on('terminal:tab:opened', this.opened);
+  },
+  destroyed () {
+    this.$events.off('terminal:tab:focus', this.focus);
+    this.$events.off('terminal:tab:closed', this.closed);
+    this.$events.off('terminal:tab:list', this.update);
+    this.$events.off('terminal:tab:opened', this.opened);
   },
   methods: {
     tabChange (value) {
@@ -91,18 +148,6 @@ export default {
         data: { id }
       });
     }
-  },
-  mounted () {
-    this.$events.on('terminal:tab:focus', this.focus);
-    this.$events.on('terminal:tab:closed', this.closed);
-    this.$events.on('terminal:tab:list', this.update);
-    this.$events.on('terminal:tab:opened', this.opened);
-  },
-  destroyed () {
-    this.$events.off('terminal:tab:focus', this.focus);
-    this.$events.off('terminal:tab:closed', this.closed);
-    this.$events.off('terminal:tab:list', this.update);
-    this.$events.off('terminal:tab:opened', this.opened);
   }
 };
 </script>

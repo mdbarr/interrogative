@@ -1,19 +1,31 @@
 <template>
-<v-overlay>
-  <v-progress-circular v-if="!error" indeterminate size="200" width="3" color="white"></v-progress-circular>
-  <div v-if="error" class="error-message">
-    <img src="../assets/logo-frown.svg" width="250">
-    <br><br>
-    <span v-html="error"></span>
-  </div>
-</v-overlay>
+  <v-overlay>
+    <v-progress-circular
+      v-if="!error"
+      indeterminate
+      size="200"
+      width="3"
+      color="white"
+    />
+    <div
+      v-if="error"
+      class="error-message"
+    >
+      <img
+        src="../assets/logo-frown.svg"
+        width="250"
+      >
+      <br><br>
+      <span v-html="error" />
+    </div>
+  </v-overlay>
 </template>
 
 <script>
 import state from '../state';
 
 export default {
-  name: 'activate',
+  name: 'Activate',
   data () {
     return {
       state,

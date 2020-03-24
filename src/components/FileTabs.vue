@@ -1,15 +1,56 @@
 <template>
-<v-tabs show-arrows v-model="tab" color="white" height="30" slider-color="white" class="tab-bg back" @change="editorTabChange" background-color="#424242">
-  <v-btn dense small tile icon left height="30" class="plus-button" @click.stop="newItem = true">
-    <v-icon small>mdi-plus</v-icon>
-  </v-btn>
-  <v-tab v-for="item of state.files" :key="item.path" class="tab-bg pl-2 pr-2">
-    <v-icon v-if="item.icon" small :color="item.color" class="pr-2">{{ item.icon }}</v-icon>
-    <span class="pr-1">{{ item.name }}</span>
-    <v-icon v-if="item.closeable && list.length > 1" small class="pl-2 closeable" @click.stop="closeTab(item)">mdi-close</v-icon>
-  </v-tab>
-  <NewItem :value="newItem" @close="newItem = false"></NewItem>
-</v-tabs>
+  <v-tabs
+    v-model="tab"
+    show-arrows
+    color="white"
+    height="30"
+    slider-color="white"
+    class="tab-bg back"
+    background-color="#424242"
+    @change="editorTabChange"
+  >
+    <v-btn
+      dense
+      small
+      tile
+      icon
+      left
+      height="30"
+      class="plus-button"
+      @click.stop="newItem = true"
+    >
+      <v-icon small>
+        mdi-plus
+      </v-icon>
+    </v-btn>
+    <v-tab
+      v-for="item of state.files"
+      :key="item.path"
+      class="tab-bg pl-2 pr-2"
+    >
+      <v-icon
+        v-if="item.icon"
+        small
+        :color="item.color"
+        class="pr-2"
+      >
+        {{ item.icon }}
+      </v-icon>
+      <span class="pr-1">{{ item.name }}</span>
+      <v-icon
+        v-if="item.closeable && list.length > 1"
+        small
+        class="pl-2 closeable"
+        @click.stop="closeTab(item)"
+      >
+        mdi-close
+      </v-icon>
+    </v-tab>
+    <NewItem
+      :value="newItem"
+      @close="newItem = false"
+    />
+  </v-tabs>
 </template>
 
 <script>
@@ -17,7 +58,7 @@ import state from '../state';
 import NewItem from './NewItem';
 
 export default {
-  name: 'file-tabs',
+  name: 'FileTabs',
   components: { NewItem },
   data: () => {
     return {
@@ -27,6 +68,16 @@ export default {
       list: [],
       newItem: false
     };
+  },
+  mounted () {
+    this.$events.on('editor:tab:focus', this.focus);
+    this.$events.on('files:file:opened', this.opened);
+    this.$events.on('files:file:closed', this.closed);
+  },
+  destroyed () {
+    this.$events.off('editor:tab:focus', this.focus);
+    this.$events.off('files:file:opened', this.opened);
+    this.$events.off('files:file:closed', this.closed);
   },
   methods: {
     editorTabChange (value) {
@@ -72,16 +123,6 @@ export default {
     },
     plus () {
     }
-  },
-  mounted () {
-    this.$events.on('editor:tab:focus', this.focus);
-    this.$events.on('files:file:opened', this.opened);
-    this.$events.on('files:file:closed', this.closed);
-  },
-  destroyed () {
-    this.$events.off('editor:tab:focus', this.focus);
-    this.$events.off('files:file:opened', this.opened);
-    this.$events.off('files:file:closed', this.closed);
   }
 };
 </script>

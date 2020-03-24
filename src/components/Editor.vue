@@ -1,21 +1,63 @@
 <template>
-<div class="interrogative-editor-container" ref="container">
-  <div ref="editor" v-show="mode === 'editor'">
-    <textarea ref="textarea"></textarea>
+  <div
+    ref="container"
+    class="interrogative-editor-container"
+  >
+    <div
+      v-show="mode === 'editor'"
+      ref="editor"
+    >
+      <textarea ref="textarea" />
+    </div>
+    <div
+      v-show="mode === 'image'"
+      ref="image"
+      class="image-preview"
+    />
+    <div
+      v-show="mode === 'hexdump'"
+      class="hexdump"
+    >
+      <pre
+        ref="hexdump"
+        class="hexdump-pre"
+      />
+    </div>
+    <div
+      v-show="mode === 'stl'"
+      ref="stl"
+    >
+      <model-stl
+        v-if="blob"
+        :key="width"
+        :src="blob"
+        :width="width"
+        :height="height"
+        :lights="lights"
+        background-color="#222"
+      />
+    </div>
+    <div
+      id="interrogative-editor-panel"
+      class="interrogative-editor-panel"
+    >
+      <v-btn
+        x-small
+        tile
+        height="20"
+        color="#595959"
+        elevation="0"
+        @click.stop="toggleFullscreen"
+      >
+        <v-icon
+          small
+          class="bump pr-2"
+        >
+          {{ fullscreenIcon }}
+        </v-icon> {{ fullscreenText }}
+      </v-btn>
+    </div>
   </div>
-  <div ref="image" v-show="mode === 'image'" class="image-preview"></div>
-  <div v-show="mode === 'hexdump'" class="hexdump">
-    <pre ref="hexdump" class="hexdump-pre"></pre>
-  </div>
-  <div v-show="mode === 'stl'" ref="stl">
-    <model-stl :src="blob" v-if="blob" :width="width" :height="height" :lights="lights" backgroundColor="#222" :key="width" />
-  </div>
-  <div id="interrogative-editor-panel" class="interrogative-editor-panel">
-    <v-btn x-small tile height="20" color="#595959" elevation="0" @click.stop="toggleFullscreen">
-      <v-icon small class="bump pr-2">{{ fullscreenIcon }}</v-icon> {{ fullscreenText }}
-    </v-btn>
-  </div>
-</div>
 </template>
 
 <script>
@@ -91,29 +133,8 @@ import { ModelStl } from 'vue-3d-model';
 import state from '../state';
 
 export default {
-  name: 'editor',
+  name: 'Editor',
   components: { ModelStl },
-  computed: {
-    theme () {
-      return state.theme;
-    },
-    keymap () {
-      return state.keymap;
-    },
-    fullscreenIcon () {
-      let icon = 'mdi-fullscreen';
-      if (this.fullscreen) {
-        icon += '-exit';
-      }
-      return icon;
-    },
-    fullscreenText () {
-      if (this.fullscreen) {
-        return 'exit fullscreen';
-      }
-      return 'fullscreen';
-    }
-  },
   data () {
     return {
       state,
@@ -155,193 +176,35 @@ export default {
       panel: null
     };
   },
-  methods: {
-    toBlob (file) {
-      let blob;
-
-      if (file.binary) {
-        const data = file.contents;
-        const bytes = new Uint8Array(data.length / 2);
-
-        for (let i = 0; i < data.length; i += 2) {
-          bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
-        }
-        blob = new Blob([ bytes ], { type: file.mime });
-      } else {
-        blob = new Blob([ file.contents ], { type: file.mime });
+  computed: {
+    theme () {
+      return state.theme;
+    },
+    keymap () {
+      return state.keymap;
+    },
+    fullscreenIcon () {
+      let icon = 'mdi-fullscreen';
+      if (this.fullscreen) {
+        icon += '-exit';
       }
-      return blob;
+      return icon;
     },
-    asDocument (file) {
-      if (!this.state.documents.has(file.path)) {
-        const doc = CodeMirror.Doc(file.contents, file.mime);
-        this.state.documents.set(file.path, doc);
-
-        return doc;
+    fullscreenText () {
+      if (this.fullscreen) {
+        return 'exit fullscreen';
       }
-      return this.state.documents.get(file.path);
+      return 'fullscreen';
+    }
+  },
+  watch: {
+    theme (value) {
+      this.instance.setOption('theme', value);
+      window.localStorage.setItem('theme', value);
     },
-    asImage (file) {
-      if (!this.state.images.has(file.path)) {
-        const blob = this.toBlob(file);
-        const image = new Image();
-        image.src = URL.createObjectURL(blob);
-
-        this.state.images.set(file.path, image);
-
-        return image;
-      }
-      return this.state.images.get(file.path);
-    },
-    setFocus (path) {
-      this.focus = path;
-      this.file = this.state.files[path];
-
-      console.log('focusing', this.focus, this.file.path);
-
-      if (this.file.mime.startsWith('image')) {
-        this.mode = 'image';
-
-        const image = this.asImage(this.file);
-
-        while (this.$refs.image.hasChildNodes()) {
-          this.$refs.image.removeChild(this.$refs.image.firstChild);
-        }
-
-        this.$refs.image.style.width = `${ this.width }px`;
-        this.$refs.image.style.height = `${ this.height }px`;
-
-        image.style.objectFit = 'scale-down';
-        image.style.width = `${ this.width }px`;
-        image.style.height = `${ this.height }px`;
-
-        console.log('height', this.height);
-
-        this.$refs.image.appendChild(image);
-      } else if (this.file.extension === 'stl') {
-        console.log('stl mode');
-        this.mode = 'stl';
-        this.blob = URL.createObjectURL(this.toBlob(this.file));
-        console.log(this.blob);
-      } else if (this.file.binary) {
-        this.mode = 'hexdump';
-
-        let content = '';
-
-        const padding = Math.max(this.file.stat.size.toString(16).length, 8);
-        const data = this.file.contents;
-        for (let i = 0; i < data.length; i += 64) {
-          const characters = [];
-          content += i.toString(16).padStart(padding, '0');
-          content += '  ';
-          for (let j = 0; j < 64; j++) {
-            if (j >= 8 && j % 8 === 0) {
-              content += ' ';
-            }
-            const value = data[i + j];
-            if (value === undefined) {
-              content += ' ';
-            } else {
-              content += value.toUpperCase();
-            }
-            if (j % 2) {
-              content += ' ';
-              let character = parseInt(`${ data[i + j - 1] }${ data[i + j] }`, 16);
-              if (Number.isNaN(character)) {
-                character = '';
-              } else if (character >= 32 && character <= 126) {
-                character = String.fromCharCode(character);
-
-                if (character === '<') {
-                  character = '&lt;';
-                } else if (character === '>') {
-                  character = '&gt;';
-                } else if (character === '&') {
-                  character = '&amp;';
-                } else if (character === '"') {
-                  character = '&quot;';
-                } else if (character === "'") {
-                  character = '&apos';
-                }
-              } else {
-                character = '.';
-              }
-              characters.push(character);
-            }
-          }
-          content += '  ';
-          content += characters.join('');
-          content += '\n';
-        }
-
-        this.$refs.hexdump.style.width = `${ this.width }px`;
-        this.$refs.hexdump.style.height = `${ this.height }px`;
-
-        this.$refs.hexdump.innerHTML = content;
-      } else if (!this.file.binary) {
-        this.mode = 'editor';
-
-        const doc = this.asDocument(this.file);
-
-        if (this.instance.getDoc().id !== doc.id) {
-          this.$nextTick(() => { // ensure editor is shown
-            this.instance.swapDoc(doc);
-          });
-        }
-      }
-    },
-    getCursor (user, name) {
-      const id = this.instance.getDoc().id;
-      if (!this.cursors[user] || !this.cursors[user][id]) {
-        const element = this.nodes.element.cloneNode();
-        const flag = this.nodes.flag.cloneNode();
-        flag.innerHTML = name;
-        element.appendChild(flag);
-
-        this.cursors[user] = this.cursors[user] || { };
-
-        this.cursors[user][id] = {
-          user,
-          element,
-          flag,
-          position: null,
-          marker: null
-        };
-      }
-      return this.cursors[user][id];
-    },
-    fix () {
-      const cursor = this.instance.getCursor();
-      const content = this.instance.getValue();
-      // const result = linter.verifyAndFix(content, eslintConfig);
-      this.instance.setValue(content); // result.output);
-      this.instance.setCursor(cursor);
-      this.instance.focus();
-    },
-    toggleFullscreen () {
-      this.$events.emit({
-        type: 'editor:fullscreen:toggle',
-        data: this.fullscreen
-      });
-    },
-    resize () {
-      const drawerWidth = 45; // this.state.mini ? 45 : 345;
-
-      this.width = this.app.clientWidth - drawerWidth;
-      this.height = this.app.clientHeight - 480;
-
-      console.log('resize', this.state.mini, this.width, this.height);
-
-      this.$refs.container.style.width = `${ this.width }px`;
-      this.$refs.container.style.height = `${ this.height }px`;
-
-      this.$refs.image.style.width = `${ this.width }px`;
-      this.$refs.image.style.height = `${ this.height }px`;
-
-      this.$refs.hexdump.style.width = `${ this.width }px`;
-      this.$refs.hexdump.style.height = `${ this.height }px`;
-
-      this.instance.setSize(this.width, this.height);
+    keymap (value) {
+      this.instance.setOption('keyMap', value);
+      window.localStorage.setItem('keymap', value);
     }
   },
   mounted () {
@@ -549,14 +412,193 @@ export default {
   destroyed () {
     window.removeEventListener('resize', this.resize);
   },
-  watch: {
-    theme (value) {
-      this.instance.setOption('theme', value);
-      window.localStorage.setItem('theme', value);
+  methods: {
+    toBlob (file) {
+      let blob;
+
+      if (file.binary) {
+        const data = file.contents;
+        const bytes = new Uint8Array(data.length / 2);
+
+        for (let i = 0; i < data.length; i += 2) {
+          bytes[i / 2] = parseInt(data.substring(i, i + 2), 16);
+        }
+        blob = new Blob([ bytes ], { type: file.mime });
+      } else {
+        blob = new Blob([ file.contents ], { type: file.mime });
+      }
+      return blob;
     },
-    keymap (value) {
-      this.instance.setOption('keyMap', value);
-      window.localStorage.setItem('keymap', value);
+    asDocument (file) {
+      if (!this.state.documents.has(file.path)) {
+        const doc = CodeMirror.Doc(file.contents, file.mime);
+        this.state.documents.set(file.path, doc);
+
+        return doc;
+      }
+      return this.state.documents.get(file.path);
+    },
+    asImage (file) {
+      if (!this.state.images.has(file.path)) {
+        const blob = this.toBlob(file);
+        const image = new Image();
+        image.src = URL.createObjectURL(blob);
+
+        this.state.images.set(file.path, image);
+
+        return image;
+      }
+      return this.state.images.get(file.path);
+    },
+    setFocus (path) {
+      this.focus = path;
+      this.file = this.state.files[path];
+
+      console.log('focusing', this.focus, this.file.path);
+
+      if (this.file.mime.startsWith('image')) {
+        this.mode = 'image';
+
+        const image = this.asImage(this.file);
+
+        while (this.$refs.image.hasChildNodes()) {
+          this.$refs.image.removeChild(this.$refs.image.firstChild);
+        }
+
+        this.$refs.image.style.width = `${ this.width }px`;
+        this.$refs.image.style.height = `${ this.height }px`;
+
+        image.style.objectFit = 'scale-down';
+        image.style.width = `${ this.width }px`;
+        image.style.height = `${ this.height }px`;
+
+        console.log('height', this.height);
+
+        this.$refs.image.appendChild(image);
+      } else if (this.file.extension === 'stl') {
+        console.log('stl mode');
+        this.mode = 'stl';
+        this.blob = URL.createObjectURL(this.toBlob(this.file));
+        console.log(this.blob);
+      } else if (this.file.binary) {
+        this.mode = 'hexdump';
+
+        let content = '';
+
+        const padding = Math.max(this.file.stat.size.toString(16).length, 8);
+        const data = this.file.contents;
+        for (let i = 0; i < data.length; i += 64) {
+          const characters = [];
+          content += i.toString(16).padStart(padding, '0');
+          content += '  ';
+          for (let j = 0; j < 64; j++) {
+            if (j >= 8 && j % 8 === 0) {
+              content += ' ';
+            }
+            const value = data[i + j];
+            if (value === undefined) {
+              content += ' ';
+            } else {
+              content += value.toUpperCase();
+            }
+            if (j % 2) {
+              content += ' ';
+              let character = parseInt(`${ data[i + j - 1] }${ data[i + j] }`, 16);
+              if (Number.isNaN(character)) {
+                character = '';
+              } else if (character >= 32 && character <= 126) {
+                character = String.fromCharCode(character);
+
+                if (character === '<') {
+                  character = '&lt;';
+                } else if (character === '>') {
+                  character = '&gt;';
+                } else if (character === '&') {
+                  character = '&amp;';
+                } else if (character === '"') {
+                  character = '&quot;';
+                } else if (character === "'") {
+                  character = '&apos';
+                }
+              } else {
+                character = '.';
+              }
+              characters.push(character);
+            }
+          }
+          content += '  ';
+          content += characters.join('');
+          content += '\n';
+        }
+
+        this.$refs.hexdump.style.width = `${ this.width }px`;
+        this.$refs.hexdump.style.height = `${ this.height }px`;
+
+        this.$refs.hexdump.innerHTML = content;
+      } else if (!this.file.binary) {
+        this.mode = 'editor';
+
+        const doc = this.asDocument(this.file);
+
+        if (this.instance.getDoc().id !== doc.id) {
+          this.$nextTick(() => { // ensure editor is shown
+            this.instance.swapDoc(doc);
+          });
+        }
+      }
+    },
+    getCursor (user, name) {
+      const id = this.instance.getDoc().id;
+      if (!this.cursors[user] || !this.cursors[user][id]) {
+        const element = this.nodes.element.cloneNode();
+        const flag = this.nodes.flag.cloneNode();
+        flag.innerHTML = name;
+        element.appendChild(flag);
+
+        this.cursors[user] = this.cursors[user] || { };
+
+        this.cursors[user][id] = {
+          user,
+          element,
+          flag,
+          position: null,
+          marker: null
+        };
+      }
+      return this.cursors[user][id];
+    },
+    fix () {
+      const cursor = this.instance.getCursor();
+      const content = this.instance.getValue();
+      // const result = linter.verifyAndFix(content, eslintConfig);
+      this.instance.setValue(content); // result.output);
+      this.instance.setCursor(cursor);
+      this.instance.focus();
+    },
+    toggleFullscreen () {
+      this.$events.emit({
+        type: 'editor:fullscreen:toggle',
+        data: this.fullscreen
+      });
+    },
+    resize () {
+      const drawerWidth = 45; // this.state.mini ? 45 : 345;
+
+      this.width = this.app.clientWidth - drawerWidth;
+      this.height = this.app.clientHeight - 480;
+
+      console.log('resize', this.state.mini, this.width, this.height);
+
+      this.$refs.container.style.width = `${ this.width }px`;
+      this.$refs.container.style.height = `${ this.height }px`;
+
+      this.$refs.image.style.width = `${ this.width }px`;
+      this.$refs.image.style.height = `${ this.height }px`;
+
+      this.$refs.hexdump.style.width = `${ this.width }px`;
+      this.$refs.hexdump.style.height = `${ this.height }px`;
+
+      this.instance.setSize(this.width, this.height);
     }
   }
 };

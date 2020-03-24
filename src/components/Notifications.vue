@@ -1,15 +1,24 @@
 <template>
-<v-snackbar v-model="show" top :color="color">
-  <span class="font-weight-bold">{{ message }}</span>
-  <v-btn icon @click="show = false"><v-icon>mdi-close</v-icon></v-btn>
-</v-snackbar>
+  <v-snackbar
+    v-model="show"
+    top
+    :color="color"
+  >
+    <span class="font-weight-bold">{{ message }}</span>
+    <v-btn
+      icon
+      @click="show = false"
+    >
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+  </v-snackbar>
 </template>
 
 <script>
 import state from '../state';
 
 export default {
-  name: 'notifications',
+  name: 'Notifications',
   data () {
     return {
       state,

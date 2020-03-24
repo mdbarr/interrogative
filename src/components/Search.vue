@@ -1,30 +1,39 @@
 <template>
-<div class="search-form pt-1">
-  <v-text-field
-    autofocus
-    class="search-form pt-0"
-    clearable
-    @focus="$event.target.select()"
-    height="26"
-    :loading="loading"
-    @keyup.enter="submit"
-    prepend-icon="mdi-magnify"
-    ref="input"
-    v-model="search"
-    ></v-text-field>
-  <v-list dense>
-    <v-list-item v-for="result of results" :key="result.path" @click="open(result)">
-      <v-icon :color="result.color" class="pr-2">{{ result.icon }}</v-icon>
-      <span class="subtitle-2">{{ result.name }}</span>
-    </v-list-item>
-  </v-list>
-</div>
+  <div class="search-form pt-1">
+    <v-text-field
+      ref="input"
+      v-model="search"
+      autofocus
+      class="search-form pt-0"
+      clearable
+      height="26"
+      :loading="loading"
+      prepend-icon="mdi-magnify"
+      @focus="$event.target.select()"
+      @keyup.enter="submit"
+    />
+    <v-list dense>
+      <v-list-item
+        v-for="result of results"
+        :key="result.path"
+        @click="open(result)"
+      >
+        <v-icon
+          :color="result.color"
+          class="pr-2"
+        >
+          {{ result.icon }}
+        </v-icon>
+        <span class="subtitle-2">{{ result.name }}</span>
+      </v-list-item>
+    </v-list>
+  </div>
 </template>
 
 <script>
 import state from '../state';
 export default {
-  name: 'search',
+  name: 'Search',
   props: {
     tab: Number,
     id: Number
@@ -38,6 +47,15 @@ export default {
       url: `${ window.location.origin }/api${ window.location.pathname }/search`
     };
   },
+  watch: { tab (value) {
+    if (value === this.id) {
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.$refs.input.focus();
+        });
+      });
+    }
+  } },
   methods: {
     open (item) {
       if (this.state.files[item.path]) {
@@ -61,16 +79,7 @@ export default {
         });
       }
     }
-  },
-  watch: { tab (value) {
-    if (value === this.id) {
-      this.$nextTick(() => {
-        this.$nextTick(() => {
-          this.$refs.input.focus();
-        });
-      });
-    }
-  } }
+  }
 };
 </script>
 

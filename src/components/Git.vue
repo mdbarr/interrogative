@@ -1,14 +1,17 @@
 <template>
-<div>
-  <div ref="graph" v-html="state.gitSVG"></div>
-</div>
+  <div>
+    <div
+      ref="graph"
+      v-html="state.gitSVG"
+    />
+  </div>
 </template>
 
 <script>
 import state from '../state';
 
 export default {
-  name: 'git',
+  name: 'Git',
   data () {
     return { state };
   }

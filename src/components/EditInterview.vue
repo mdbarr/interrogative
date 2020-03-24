@@ -1,158 +1,307 @@
 <template>
-<v-form ref="form">
-  <v-container fluid class="pt-0 background">
-    <v-row align="center" justify="center" class="title title-input">
-      <v-col cols="12" md="4">
-        <v-text-field single-line label="Title" width="300" v-model="title" class="title" autofocus></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col cols="12" md="6">
-        <v-text-field clearable prepend-icon="mdi-office-building" label="Company" :rules="[ validateCompany ]" v-model="company" class="pr-3" />
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field clearable label="Position" :rules="[ validatePosition ]" v-model="position" class="pl-3" />
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col cols="12" md="6">
-        <v-menu
-          v-model="dateMenu"
-          :close-on-content-click="false"
-          max-width="290"
-          >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              :value="dateFormatted"
-              label="Scheduled on"
-              readonly
-              v-on="on"
-              prepend-icon="mdi-calendar"
-              :rules="[ validateDate ]"
-            ></v-text-field>
-          </template>
-          <v-date-picker
-            color="#0087af"
-            v-model="date"
-            @change="dateMenu = false"
-            ></v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-menu
-        ref="menu"
-        v-model="timeMenu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
+  <v-form ref="form">
+    <v-container
+      fluid
+      class="pt-0 background"
+    >
+      <v-row
+        align="center"
+        justify="center"
+        class="title title-input"
       >
-        <template v-slot:activator="{ on }">
+        <v-col
+          cols="12"
+          md="4"
+        >
           <v-text-field
-            v-model="time"
-            prepend-icon="mdi-clock-outline"
-            type="time"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-time-picker
-          v-if="timeMenu"
-          v-model="time"
-          color="#0087af"
-          @click:minute="$refs.menu.save(time)"
-        ></v-time-picker>
-      </v-menu>
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-select
-          color="#0087af"
-          item-text="text"
-          item-value="value"
-          :items="durations"
-          v-model="duration"
-          prepend-icon="mdi-timer"
+            v-model="title"
+            single-line
+            label="Title"
+            width="300"
+            class="title"
+            autofocus
+          />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-text-field
+            v-model="company"
+            clearable
+            prepend-icon="mdi-office-building"
+            label="Company"
+            :rules="[ validateCompany ]"
+            class="pr-3"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-text-field
+            v-model="position"
+            clearable
+            label="Position"
+            :rules="[ validatePosition ]"
+            class="pl-3"
+          />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-menu
+            v-model="dateMenu"
+            :close-on-content-click="false"
+            max-width="290"
           >
-        ></v-select>
-      </v-col>
-    </v-row>
-    <v-row dense><v-col /></v-row>
-    <v-row dense>
-      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
-        <v-icon left>mdi-account-circle</v-icon> Interviewer
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col cols="12" md="6" class="subtitle-2">
-        <v-text-field clearable label="Name" v-model="interviewer.name" :rules="[ validateName ]" class="pr-3" />
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field clearable label="Email" type="email" :rules="[ validateEmail ]" v-model="interviewer.email" class="pl-3" />
-      </v-col>
-    </v-row>
-    <v-row dense><v-col /></v-row>
-    <v-row dense>
-      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
-        <v-icon left>mdi-comment-account</v-icon> Candidate
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col cols="12" md="6" class="subtitle-2">
-        <v-text-field clearable label="Name" v-model="candidate.name"  :rules="[ validateName ]" class="pr-3" />
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-text-field clearable color="#009fcc" label="Email" type="email" :rules="[ validateEmail ]" v-model="candidate.email" class="pl-3" />
-      </v-col>
-    </v-row>
-    <v-row><v-col /></v-row>
-    <v-row dense>
-      <v-col cols="12" md="12" class="subtitle-1 font-weight-bold">
-        <v-icon left>mdi-laptop-windows</v-icon> Environment
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col cols="12" md="6">
-        <v-select
-          color="#0087af"
-          item-text="name"
-          item-value="index"
-          :items="images"
-          v-model="image"
-          class="pr-3" />
-      </v-col>
-      <v-col cols="12" md="6" class="pl-3">
-        <v-checkbox
-          v-model="images[image].git"
-          label="Enable Git Visualization"
-          color="#009fcc"
-          class="mt-0 pt-0"
-          :disabled="!images[image].hasGit"
-          ></v-checkbox>
-        <v-checkbox
-          v-model="images[image].uploads"
-          label="Enable Uploads"
-          color="#009fcc"
-          class="mt-0 pt-0"
-          :disabled="!images[image].hasUploads"
-          ></v-checkbox>
-      </v-col>
-    </v-row>
-    <v-row><v-col /></v-row>
-    <v-row><v-col /></v-row>
-    <v-row dense>
-      <v-col cols="12" md="2" class="subtitle-1 font-weight-bold">
-        <v-btn color="grey" @click="reset">Reset</v-btn>
-      </v-col>
-      <v-col cols="12" md="4" class="subtitle-1 font-weight-bold">
-        <v-btn color="grey" @click="cancel">Cancel</v-btn>
-      </v-col>
-      <v-col cols="12" md="6" class="subtitle-1 font-weight-bold" align="right" justify="right">
-        <v-btn color="#009fcc" @click="update" right :loading="loading" :disabled="loading">Update</v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
-</v-form>
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                :value="dateFormatted"
+                label="Scheduled on"
+                readonly
+                prepend-icon="mdi-calendar"
+                :rules="[ validateDate ]"
+                v-on="on"
+              />
+            </template>
+            <v-date-picker
+              v-model="date"
+              color="#0087af"
+              @change="dateMenu = false"
+            />
+          </v-menu>
+        </v-col>
+        <v-col
+          cols="12"
+          md="2"
+        >
+          <v-menu
+            ref="menu"
+            v-model="timeMenu"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            max-width="290px"
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="time"
+                prepend-icon="mdi-clock-outline"
+                type="time"
+                v-on="on"
+              />
+            </template>
+            <v-time-picker
+              v-if="timeMenu"
+              v-model="time"
+              color="#0087af"
+              @click:minute="$refs.menu.save(time)"
+            />
+          </v-menu>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-select
+            v-model="duration"
+            color="#0087af"
+            item-text="text"
+            item-value="value"
+            :items="durations"
+            prepend-icon="mdi-timer"
+          >
+            >
+          </v-select>
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col />
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="12"
+          class="subtitle-1 font-weight-bold"
+        >
+          <v-icon left>
+            mdi-account-circle
+          </v-icon> Interviewer
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="6"
+          class="subtitle-2"
+        >
+          <v-text-field
+            v-model="interviewer.name"
+            clearable
+            label="Name"
+            :rules="[ validateName ]"
+            class="pr-3"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-text-field
+            v-model="interviewer.email"
+            clearable
+            label="Email"
+            type="email"
+            :rules="[ validateEmail ]"
+            class="pl-3"
+          />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col />
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="12"
+          class="subtitle-1 font-weight-bold"
+        >
+          <v-icon left>
+            mdi-comment-account
+          </v-icon> Candidate
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="6"
+          class="subtitle-2"
+        >
+          <v-text-field
+            v-model="candidate.name"
+            clearable
+            label="Name"
+            :rules="[ validateName ]"
+            class="pr-3"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-text-field
+            v-model="candidate.email"
+            clearable
+            color="#009fcc"
+            label="Email"
+            type="email"
+            :rules="[ validateEmail ]"
+            class="pl-3"
+          />
+        </v-col>
+      </v-row>
+      <v-row><v-col /></v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="12"
+          class="subtitle-1 font-weight-bold"
+        >
+          <v-icon left>
+            mdi-laptop-windows
+          </v-icon> Environment
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <v-select
+            v-model="image"
+            color="#0087af"
+            item-text="name"
+            item-value="index"
+            :items="images"
+            class="pr-3"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+          class="pl-3"
+        >
+          <v-checkbox
+            v-model="images[image].git"
+            label="Enable Git Visualization"
+            color="#009fcc"
+            class="mt-0 pt-0"
+            :disabled="!images[image].hasGit"
+          />
+          <v-checkbox
+            v-model="images[image].uploads"
+            label="Enable Uploads"
+            color="#009fcc"
+            class="mt-0 pt-0"
+            :disabled="!images[image].hasUploads"
+          />
+        </v-col>
+      </v-row>
+      <v-row><v-col /></v-row>
+      <v-row><v-col /></v-row>
+      <v-row dense>
+        <v-col
+          cols="12"
+          md="2"
+          class="subtitle-1 font-weight-bold"
+        >
+          <v-btn
+            color="grey"
+            @click="reset"
+          >
+            Reset
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          md="4"
+          class="subtitle-1 font-weight-bold"
+        >
+          <v-btn
+            color="grey"
+            @click="cancel"
+          >
+            Cancel
+          </v-btn>
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+          class="subtitle-1 font-weight-bold"
+          align="right"
+          justify="right"
+        >
+          <v-btn
+            color="#009fcc"
+            right
+            :loading="loading"
+            :disabled="loading"
+            @click="update"
+          >
+            Update
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -161,7 +310,7 @@ import moment from 'moment';
 import { milliseconds } from 'barrkeep/utils';
 
 export default {
-  name: 'edit-interview',
+  name: 'EditInterview',
   props: { interview: Object },
   data () {
     return {
@@ -229,6 +378,9 @@ export default {
   computed: { dateFormatted () {
     return this.date ? moment(this.date).format('dddd, MMMM Do YYYY') : '';
   } },
+  mounted () {
+    this.reset();
+  },
   methods: {
     validateEmail (value = '') {
       if (!value.includes('@') && value !== 'administrator') {
@@ -332,9 +484,6 @@ export default {
           });
       }
     }
-  },
-  mounted () {
-    this.reset();
   }
 };
 </script>

@@ -3,6 +3,7 @@ module.exports = {
   env: { node: true },
   extends: [
     'plugin:vue/essential',
+    'plugin:vue/recommended',
     '@vue/standard'
   ],
   rules: {
@@ -12,9 +13,9 @@ module.exports = {
     'arrow-body-style': [ 'error', 'always' ],
     'arrow-spacing': 'error',
     'block-spacing': [ 'error', 'always' ],
-    'brace-style': [ 'error', '1tbs', { 'allowSingleLine': true } ],
+    'brace-style': [ 'error', '1tbs', { allowSingleLine: true } ],
     'callback-return': 'error',
-    'camelcase': [ 'error', { 'properties': 'always' } ],
+    camelcase: [ 'error', { properties: 'always' } ],
     'comma-dangle': [ 'error', 'never' ],
     'comma-spacing': 'error',
     'comma-style': [ 'error', 'last' ],
@@ -24,12 +25,12 @@ module.exports = {
     'dot-location': [ 'error', 'object' ],
     'dot-notation': 'error',
     'eol-last': 'error',
-    'eqeqeq': [ 'error', 'always' ],
+    eqeqeq: [ 'error', 'always' ],
     'handle-callback-err': 'error',
-    'indent': [ 'error', 2, { 'SwitchCase': 1 } ],
+    indent: [ 'error', 2, { SwitchCase: 1 } ],
     'key-spacing': [ 'error', {
-      'beforeColon': false,
-      'afterColon': true
+      beforeColon: false,
+      afterColon: true
     } ],
     'keyword-spacing': 'error',
     'max-params': [ 'error', 4 ],
@@ -47,7 +48,7 @@ module.exports = {
     'no-dupe-class-members': 'error',
     'no-dupe-keys': 'error',
     'no-else-return': 'error',
-    'no-empty': [ 'error', { 'allowEmptyCatch': true } ],
+    'no-empty': [ 'error', { allowEmptyCatch: true } ],
     'no-empty-character-class': 'error',
     'no-empty-pattern': 'error',
     'no-eq-null': 'error',
@@ -71,8 +72,8 @@ module.exports = {
     'no-mixed-requires': 'error',
     'no-multi-spaces': 'error',
     'no-multi-str': 'error',
-    'no-multiple-empty-lines': [ 'error', { 'max': 1 } ],
-    'no-native-reassign': [ 'error', { 'exceptions': [ 'Object' ] } ],
+    'no-multiple-empty-lines': [ 'error', { max: 1 } ],
+    'no-native-reassign': [ 'error', { exceptions: [ 'Object' ] } ],
     'no-negated-in-lhs': 'error',
     'no-new': 'error',
     'no-new-func': 'error',
@@ -89,7 +90,7 @@ module.exports = {
     'no-self-assign': 'error',
     'no-self-compare': 'error',
     'no-sequences': 'error',
-    'no-shadow': [ 'error', { 'allow': [ 'body', 'error', 'reject', 'resolve', 'response', 'result' ] } ],
+    'no-shadow': [ 'error', { allow: [ 'body', 'error', 'reject', 'resolve', 'response', 'result' ] } ],
     'no-shadow-restricted-names': 'error',
     'no-spaced-func': 'error',
     'no-sparse-arrays': 'error',
@@ -112,11 +113,11 @@ module.exports = {
     'no-var': 'error',
     'no-void': 'error',
     'no-warning-comments': [ 'error', {
-      'terms': [ 'todo', 'fixme', 'hack' ],
-      'location': 'anywhere'
+      terms: [ 'todo', 'fixme', 'hack' ],
+      location: 'anywhere'
     } ],
     'no-with': 'error',
-    'object-curly-newline': [ 'error', { 'minProperties': 2 } ],
+    'object-curly-newline': [ 'error', { minProperties: 2 } ],
     'object-curly-spacing': [ 'error', 'always' ],
     'object-property-newline': 'error',
     'object-shorthand': 'error',
@@ -129,22 +130,22 @@ module.exports = {
     'prefer-rest-params': 'error',
     'prefer-spread': 'error',
     'prefer-template': 'error',
-    'quotes': [ 'error', 'single', { 'avoidEscape': true } ],
-    'radix': [ 'error', 'always' ],
+    quotes: [ 'error', 'single', { avoidEscape: true } ],
+    radix: [ 'error', 'always' ],
     'require-yield': 'error',
-    'semi': [ 'error', 'always' ],
-    'spaced-comment': [ 'error', 'always', { 'exceptions': [ '/' ] } ],
+    semi: [ 'error', 'always' ],
+    'spaced-comment': [ 'error', 'always', { exceptions: [ '/' ] } ],
     'space-before-blocks': 'error',
     'space-before-function-paren': [ 'error', {
-      'anonymous': 'ignore', 'named': 'always'
+      anonymous: 'ignore', named: 'always'
     } ],
     'space-infix-ops': 'error',
-    'strict': 'error',
+    strict: 'error',
     'template-curly-spacing': [ 'error', 'always' ],
     'use-isnan': 'error',
     'valid-typeof': 'error',
     'yield-star-spacing': [ 'error', 'before' ],
-    'yoda': 'error'
+    yoda: 'error'
   },
   parserOptions: { parser: 'babel-eslint' }
 };

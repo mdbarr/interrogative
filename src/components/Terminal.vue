@@ -1,5 +1,8 @@
 <template>
-  <div ref="terminal" class="terminal"></div>
+  <div
+    ref="terminal"
+    class="terminal"
+  />
 </template>
 
 <script>
@@ -11,7 +14,7 @@ import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
 
 export default {
-  name: 'terminal',
+  name: 'Terminal',
   props: {
     id: String, type: String
   },
@@ -28,13 +31,9 @@ export default {
   computed: { bell () {
     return state.bell;
   } },
-  methods: { focus (event) {
-    if (event.data.id === this.id) {
-      this.$nextTick(() => {
-        this.xterm.$fitAddon.fit();
-        this.xterm.focus();
-      });
-    }
+  watch: { bell (value) {
+    this.xterm.setOption('bellStyle', value);
+    window.localStorage.setItem('bell', value);
   } },
   mounted () {
     console.log(`creating ${ this.type }: ${ this.id }`);
@@ -83,9 +82,13 @@ export default {
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
   },
-  watch: { bell (value) {
-    this.xterm.setOption('bellStyle', value);
-    window.localStorage.setItem('bell', value);
+  methods: { focus (event) {
+    if (event.data.id === this.id) {
+      this.$nextTick(() => {
+        this.xterm.$fitAddon.fit();
+        this.xterm.focus();
+      });
+    }
   } }
 };
 </script>

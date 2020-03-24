@@ -1,42 +1,63 @@
 <template>
-<div class="chat-container">
-  <div ref="contents" class="chat-contents" @click.stop="click">
-    <template v-for="(message, index) of state.messages">
-      <div v-if="fromWhom(message, index)" class="from-whom" :key="message.id + '-name'">
-      <v-icon small color="#585858" class="pr-1">mdi-comment-account</v-icon>{{ message.name }}
-      </div>
-      <div :class="fromClass(message)" :key="message.id">{{ message.text }}</div>
-    </template>
-  </div>
-  <div class="chat-input">
-  <v-text-field
-    autofocus
-    background-color="#424242"
-    autocomplete="off"
-    class="chat-input pa-0 pl-2 pr-2"
-    flat
-    hide-details
-    id="chat-input"
-    loader-height="0"
-    :placeholder="state.name"
-    prepend-inner-icon="mdi-chat"
-    ref="input"
-    v-model="input"
-    @keypress.enter="submit"
+  <div class="chat-container">
+    <div
+      ref="contents"
+      class="chat-contents"
+      @click.stop="click"
     >
-    <template v-slot:append>
-      <v-icon @click.stop="emoji = !emoji">mdi-emoticon-happy-outline</v-icon>
-    </template>
-  </v-text-field>
+      <template v-for="(message, index) of state.messages">
+        <div
+          v-if="fromWhom(message, index)"
+          :key="message.id + '-name'"
+          class="from-whom"
+        >
+          <v-icon
+            small
+            color="#585858"
+            class="pr-1"
+          >
+            mdi-comment-account
+          </v-icon>{{ message.name }}
+        </div>
+        <div
+          :key="message.id"
+          :class="fromClass(message)"
+        >
+          {{ message.text }}
+        </div>
+      </template>
+    </div>
+    <div class="chat-input">
+      <v-text-field
+        id="chat-input"
+        ref="input"
+        v-model="input"
+        autofocus
+        background-color="#424242"
+        autocomplete="off"
+        class="chat-input pa-0 pl-2 pr-2"
+        flat
+        hide-details
+        loader-height="0"
+        :placeholder="state.name"
+        prepend-inner-icon="mdi-chat"
+        @keypress.enter="submit"
+      >
+        <template v-slot:append>
+          <v-icon @click.stop="emoji = !emoji">
+            mdi-emoticon-happy-outline
+          </v-icon>
+        </template>
+      </v-text-field>
+    </div>
+    <Picker
+      v-show="emoji"
+      :data="emojiIndex"
+      :emoji-size="20"
+      :show-preview="false"
+      @select="insert"
+    />
   </div>
-  <Picker
-    :data="emojiIndex"
-    :emojiSize="20"
-    @select="insert"
-    :showPreview="false"
-    v-show="emoji"
-   ></Picker>
-</div>
 </template>
 
 <script>
@@ -49,9 +70,9 @@ import {
 import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
 export default {
-  name: 'chat',
-  props: { id: String },
+  name: 'Chat',
   components: { Picker },
+  props: { id: String },
   data () {
     return {
       state,
@@ -63,6 +84,17 @@ export default {
   computed: { count () {
     return this.state.messages.length;
   } },
+  watch: { count (value) {
+    this.$nextTick(() => {
+      this.$refs.contents.scrollTop = this.$refs.contents.scrollHeight;
+    });
+  } },
+  mounted () {
+    this.$events.on('terminal:tab:focus', this.focus);
+  },
+  destroyed () {
+    this.$events.off('terminal:tab:focus', this.focus);
+  },
   methods: {
     click () {
       this.$refs.input.focus();
@@ -120,17 +152,6 @@ export default {
       }
       return true;
     }
-  },
-  watch: { count (value) {
-    this.$nextTick(() => {
-      this.$refs.contents.scrollTop = this.$refs.contents.scrollHeight;
-    });
-  } },
-  mounted () {
-    this.$events.on('terminal:tab:focus', this.focus);
-  },
-  destroyed () {
-    this.$events.off('terminal:tab:focus', this.focus);
   }
 };
 </script>
