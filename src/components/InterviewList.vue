@@ -396,9 +396,6 @@ export default {
 </script>
 
 <style>
-.candidate {}
-.position {}
-
 .company {
   color: #009fcc;
   font-weight: 700;
