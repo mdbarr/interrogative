@@ -65,12 +65,12 @@ export default {
   name: 'Settings',
   data () {
     return { state };
-  }
+  },
 };
 </script>
 
 <style>
 .float-right {
-    float: right;
+  float: right;
 }
 </style>

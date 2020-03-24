@@ -27,7 +27,7 @@
     <input
       ref="file"
       type="file"
-      style="display: none"
+      style="display: none;"
       @change="changed"
     >
   </div>
@@ -44,7 +44,7 @@ export default {
     return {
       state,
       dragging: false,
-      url: `${ window.location.origin }/api${ window.location.pathname }/upload`
+      url: `${ window.location.origin }/api${ window.location.pathname }/upload`,
     };
   },
   methods: {
@@ -116,7 +116,7 @@ export default {
         progress: 0,
         failed: false,
         completed: false,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       utils.setAttributes(item);
       console.log(item);
@@ -128,13 +128,13 @@ export default {
           type: 'file:upload:failed',
           data: {
             ...item,
-            message: `${ file.name } is too big; maximum upload size is ${ maximum }`
-          }
+            message: `${ file.name } is too big; maximum upload size is ${ maximum }`,
+          },
         });
       } else {
         this.$events.emit({
           type: 'file:upload:start',
-          data: item
+          data: item,
         });
 
         const formData = new FormData();
@@ -145,7 +145,7 @@ export default {
 
           this.$events.emit({
             type: 'file:upload:progress',
-            data: item
+            data: item,
           });
 
           console.log(item.progress);
@@ -156,13 +156,13 @@ export default {
             console.log(response);
             this.$events.emit({
               type: 'file:upload:success',
-              data: item
+              data: item,
             });
 
             if (open) {
               this.$events.emit({
                 type: 'files:file:open',
-                data: { path: item.path }
+                data: { path: item.path },
               });
             }
           }).
@@ -171,37 +171,39 @@ export default {
             item.error = error;
             this.$events.emit({
               type: 'file:upload:failed',
-              data: item
+              data: item,
             });
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .dropzone {
-    background-color: #424242;
-    color: white;
-    padding: 2px;
-    height: 150px;
-    width: 329px;
-    border: 1px dashed white;
-    font-family: Source Code Pro, monospace;
-    font-size: 14px;
-    text-transform: uppercase;
-    position: fixed;
-    left: 8px;
-    bottom: 8px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 142px;
+  background-color: #424242;
+  color: white;
+  padding: 2px;
+  height: 150px;
+  width: 329px;
+  border: 1px dashed white;
+  font-family: Source Code Pro, monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  position: fixed;
+  left: 8px;
+  bottom: 8px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 142px;
 }
+
 .dropzone-drag {
-    background-color: #555;
+  background-color: #555;
 }
+
 .unactionable {
-    pointer-events: none;
+  pointer-events: none;
 }
 </style>

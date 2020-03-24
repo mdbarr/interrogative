@@ -66,7 +66,7 @@ export default {
       tab: -1,
       path: '',
       list: [],
-      newItem: false
+      newItem: false,
     };
   },
   mounted () {
@@ -85,7 +85,7 @@ export default {
 
       this.$events.emit({
         type: 'editor:tab:focus',
-        data: { path: this.path }
+        data: { path: this.path },
       });
     },
     focus (event) {
@@ -112,26 +112,27 @@ export default {
 
         this.$events.emit({
           type: 'editor:tab:focus',
-          data: { path: newPath }
+          data: { path: newPath },
         });
       }
 
       this.$events.emit({
         type: 'files:file:closed',
-        data: { path: item.path }
+        data: { path: item.path },
       });
     },
     plus () {
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .closeable:hover {
-    color: red !important;
+  color: red !important;
 }
+
 .v-tabs-items {
-    background-color: #424242 !important;
+  background-color: #424242 !important;
 }
 </style>

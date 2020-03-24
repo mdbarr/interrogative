@@ -148,14 +148,14 @@ export default {
       lights: [ {
         type: 'AmbientLight',
         color: 0xffffff,
-        intensity: 0.5
+        intensity: 0.5,
       }, {
         type: 'DirectionalLight',
         position: {
-          x: 1, y: 1, z: 1
+          x: 1, y: 1, z: 1,
         },
         color: 0xffffff,
-        intensity: 0.2
+        intensity: 0.2,
       } ],
 
       width: 0,
@@ -173,7 +173,7 @@ export default {
       fullscreen: false,
       instance: null,
       linted: null,
-      panel: null
+      panel: null,
     };
   },
   computed: {
@@ -195,7 +195,7 @@ export default {
         return 'exit fullscreen';
       }
       return 'fullscreen';
-    }
+    },
   },
   watch: {
     theme (value) {
@@ -205,7 +205,7 @@ export default {
     keymap (value) {
       this.instance.setOption('keyMap', value);
       window.localStorage.setItem('keymap', value);
-    }
+    },
   },
   mounted () {
     // Cursor template elements
@@ -242,7 +242,7 @@ export default {
       gutters: [
         'CodeMirror-lint-markers',
         'CodeMirror-linenumbers',
-        'CodeMirror-foldgutter'
+        'CodeMirror-foldgutter',
       ],
       keyMap: this.state.keymap,
       lineNumbers: true,
@@ -260,7 +260,7 @@ export default {
       theme: this.state.theme,
       extraKeys: { 'Alt-Enter': () => {
         this.toggleFullscreen();
-      } }
+      } },
     });
 
     this.instance.vue = this;
@@ -274,8 +274,8 @@ export default {
         data: {
           position: doc.getCursor(),
           user: this.state.user,
-          name: this.state.name
-        }
+          name: this.state.name,
+        },
       });
     });
 
@@ -290,8 +290,8 @@ export default {
             change,
             contents: doc.getValue(),
             user: this.state.user,
-            name: this.state.name
-          }
+            name: this.state.name,
+          },
         });
       }
     });
@@ -303,11 +303,11 @@ export default {
           data: {
             selection: {
               ranges: selection.ranges,
-              origin: 'cursor'
+              origin: 'cursor',
             },
             user: this.state.user,
-            name: this.state.name
-          }
+            name: this.state.name,
+          },
         });
       }
     });
@@ -316,7 +316,7 @@ export default {
 
     this.instance.addPanel(this.panel, {
       position: 'bottom',
-      stable: true
+      stable: true,
     });
 
     this.resize();
@@ -363,7 +363,7 @@ export default {
 
         if (Array.isArray(selection.ranges) && selection.ranges.length) {
           const {
-            anchor, head
+            anchor, head,
           } = selection.ranges[0];
 
           if (anchor.ch === head.ch && anchor.line === head.line &&
@@ -562,7 +562,7 @@ export default {
           element,
           flag,
           position: null,
-          marker: null
+          marker: null,
         };
       }
       return this.cursors[user][id];
@@ -578,7 +578,7 @@ export default {
     toggleFullscreen () {
       this.$events.emit({
         type: 'editor:fullscreen:toggle',
-        data: this.fullscreen
+        data: this.fullscreen,
       });
     },
     resize () {
@@ -599,77 +599,88 @@ export default {
       this.$refs.hexdump.style.height = `${ this.height }px`;
 
       this.instance.setSize(this.width, this.height);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .interrogative-editor {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
+
 .interrogative-editor-clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .interrogative-editor-clickable:hover {
-    box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.2) !important;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }
+
 .interrogative-editor-panel {
-    position: relative;
-    flex-grow: 1;
-    box-sizing: border-box;
-    background-color: #595959;
-    height: 20px;
-    padding: 0px;
-    margin: 0px;
-    font-size: 12px;
-    line-height: 18px;
+  position: relative;
+  flex-grow: 1;
+  box-sizing: border-box;
+  background-color: #595959;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
 }
+
 .interrogative-editor-panel-fullscreen {
-    position: fixed;
-    z-index: 10;
-    bottom: 0;
-    left: 0;
-    border-radius: 0 !important;
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 !important;
 }
+
 .interrogative-editor-spacer-left {
-    padding-left: 8px;
+  padding-left: 8px;
 }
+
 .CodeMirror {
-    font-size: 14px;
+  font-size: 14px;
 }
+
 .CodeMirror-fullscreen {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 .image-preview {
-    position: absolute;
-    top: 30px;
-    left: 0px;
-    overflow: hidden;
-    background-color: #222;
-    padding: 0px;
-    margin: 0px;
-    z-index: 20;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  overflow: hidden;
+  background-color: #222;
+  padding: 0;
+  margin: 0;
+  z-index: 20;
 }
+
 .hexdump {
-    position: absolute;
-    top: 30px;
-    left: 0px;
-    overflow: hidden;
-    overflow-y: scroll;
-    background-color: #222;
-    padding: 0px;
-    margin: 0px;
-    z-index: 30;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #222;
+  padding: 0;
+  margin: 0;
+  z-index: 30;
 }
+
 .hexdump-pre {
-    padding: 2px 8px;
-    font-size: 12px;
-    font-family: Source Code Pro, monospace;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-family: Source Code Pro, monospace;
 }
+
 .bump {
-    padding-top: 1px;
+  padding-top: 1px;
 }
 </style>

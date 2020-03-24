@@ -68,7 +68,7 @@ export default {
       state,
       email: '',
       loading: false,
-      done: false
+      done: false,
     };
   },
   computed: { valid () {
@@ -92,8 +92,8 @@ export default {
               type: 'notification:email:not-found',
               data: {
                 level: 'failure',
-                message: error.response.data.message
-              }
+                message: error.response.data.message,
+              },
             });
           });
       }
@@ -103,20 +103,21 @@ export default {
         return 'Please enter a valid email address';
       }
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .lock-logo {
-    text-align: center;
-    font-family: Inconsolata, monospace;
-    letter-spacing: 3px;
-    font-size: 18px;
-    font-weight: 700;
+  text-align: center;
+  font-family: Inconsolata, monospace;
+  letter-spacing: 3px;
+  font-size: 18px;
+  font-weight: 700;
 }
+
 s {
   color: #2196f3;
-};
+}
 </style>

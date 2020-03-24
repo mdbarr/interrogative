@@ -102,12 +102,12 @@ module.exports = {
     'vibrant-fin',
     'vibrant-ink',
     'vibrant-tango',
-    'zenburnesque'
+    'zenburnesque',
   ],
   keymaps: [
     'default',
     'emacs',
     'sublime',
-    'vim'
-  ]
+    'vim',
+  ],
 };

@@ -31,7 +31,7 @@ export default {
       name: '',
       extension: '',
       matcher: null,
-      show: false
+      show: false,
     };
   },
   mounted () {
@@ -73,10 +73,10 @@ export default {
     click () {
       this.$events.emit({
         type: 'terminal:tab:open',
-        data: this.action
+        data: this.action,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

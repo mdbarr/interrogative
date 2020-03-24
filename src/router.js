@@ -14,43 +14,43 @@ const router = new Router({
       path: '/interview/:id',
       name: 'interview',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/Interview.vue'); }
+      component: () => { return import('./views/Interview.vue'); },
     }, {
       path: '/activate/:id',
       name: 'activate',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/Activate.vue'); }
+      component: () => { return import('./views/Activate.vue'); },
     }, {
       path: '/reset/:id',
       name: 'reset',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/ResetPassword.vue'); }
+      component: () => { return import('./views/ResetPassword.vue'); },
     }, {
       path: '/forgot',
       name: 'forgot',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/ForgotPassword.vue'); }
+      component: () => { return import('./views/ForgotPassword.vue'); },
     }, {
       path: '/signup',
       name: 'signup',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/SignUp.vue'); }
+      component: () => { return import('./views/SignUp.vue'); },
     }, {
       path: '/signin',
       name: 'signin',
       meta: { requiresAuth: false },
-      component: () => { return import('./views/SignIn.vue'); }
+      component: () => { return import('./views/SignIn.vue'); },
     }, {
       path: '/dashboard',
       name: 'dashboard',
       alias: '/',
       meta: { requiresAuth: true },
-      component: () => { return import('./views/Dashboard.vue'); }
+      component: () => { return import('./views/Dashboard.vue'); },
     }, {
       path: '*',
-      component: () => { return import('./views/SignIn.vue'); }
-    }
-  ]
+      component: () => { return import('./views/SignIn.vue'); },
+    },
+  ],
 });
 
 router.beforeEach((to, from, next) => {

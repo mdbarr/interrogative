@@ -36,7 +36,7 @@ export default {
   name: 'Search',
   props: {
     tab: Number,
-    id: Number
+    id: Number,
   },
   data () {
     return {
@@ -44,7 +44,7 @@ export default {
       search: '',
       results: [],
       loading: false,
-      url: `${ window.location.origin }/api${ window.location.pathname }/search`
+      url: `${ window.location.origin }/api${ window.location.pathname }/search`,
     };
   },
   watch: { tab (value) {
@@ -61,12 +61,12 @@ export default {
       if (this.state.files[item.path]) {
         this.$events.emit({
           type: 'editor:tab:focus',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       } else {
         this.$events.emit({
           type: 'files:file:open',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       }
     },
@@ -78,28 +78,32 @@ export default {
           this.loading = false;
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .search-form {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
+
 .search-form .v-input__prepend-outer {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
+
 .search-form .v-input__icon {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    min-height: 20px;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
 }
+
 .search-form .v-icon {
-    font-size: 20px;
+  font-size: 20px;
 }
+
 .search-form .v-label {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
 </style>

@@ -72,7 +72,7 @@ export default {
       hint: '',
       visible: false,
       loading: false,
-      explanation: false
+      explanation: false,
     };
   },
   methods: {
@@ -82,15 +82,15 @@ export default {
 
         this.$api.post(`/users/${ this.$route.params.id }/reset`, {
           id: this.$route.params.id,
-          password: this.password
+          password: this.password,
         }).
           then((response) => {
             this.$events.emit({
               type: 'notification:password:reset',
               data: {
                 level: 'success',
-                message: 'Password reset'
-              }
+                message: 'Password reset',
+              },
             });
             this.$session(response.data);
             this.$navigate('dashboard');
@@ -103,8 +103,8 @@ export default {
               type: 'notification:reset:failure',
               data: {
                 level: 'failure',
-                message: error.response.data.message
-              }
+                message: error.response.data.message,
+              },
             });
           });
       }
@@ -156,20 +156,21 @@ export default {
         return this.hint;
       }
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .lock-logo {
-    text-align: center;
-    font-family: Inconsolata, monospace;
-    letter-spacing: 3px;
-    font-size: 18px;
-    font-weight: 700;
+  text-align: center;
+  font-family: Inconsolata, monospace;
+  letter-spacing: 3px;
+  font-size: 18px;
+  font-weight: 700;
 }
+
 s {
   color: #2196f3;
-};
+}
 </style>

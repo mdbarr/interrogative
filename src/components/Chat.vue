@@ -65,7 +65,7 @@ import state from '../state';
 import uuid from 'uuid/v4';
 import data from 'emoji-mart-vue-fast/data/all.json';
 import {
-  Picker, EmojiIndex
+  Picker, EmojiIndex,
 } from 'emoji-mart-vue-fast';
 import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
@@ -78,7 +78,7 @@ export default {
       state,
       input: '',
       emoji: false,
-      emojiIndex: new EmojiIndex(data)
+      emojiIndex: new EmojiIndex(data),
     };
   },
   computed: { count () {
@@ -111,14 +111,14 @@ export default {
           name: this.state.name,
           user: this.state.user,
           text: this.input,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
 
         this.input = '';
 
         this.$events.emit({
           type: 'messages:message:send',
-          data: message
+          data: message,
         });
       }
     },
@@ -151,94 +151,107 @@ export default {
         }
       }
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .chat-container {
-    height: 360px !important;
-    width: 100%;
-    background-color: #222;
-    font-size: .875rem;
+  height: 360px !important;
+  width: 100%;
+  background-color: #222;
+  font-size: 0.875rem;
 }
+
 .chat-contents {
-    position: relative;
-    height: 326px !important;
-    font-size: .875rem;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 20px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+  position: relative;
+  height: 326px !important;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
+
 .chat-input {
-    font-size: .875rem !important;
-    background-color: #424242;
+  font-size: 0.875rem !important;
+  background-color: #424242;
 }
+
 .emoji-mart {
-    position: fixed;
-    bottom: 55px;
-    right: 5px;
-    height: 300px !important;
-    z-index: 100;
+  position: fixed;
+  bottom: 55px;
+  right: 5px;
+  height: 300px !important;
+  z-index: 100;
 }
+
 .message {
-    display: inline-flex;
-    width: fit-content;
-    margin-bottom: 12px;
-    line-height: 18px;
-    position: relative;
-    padding: 10px 20px;
-    border-radius: 25px;
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 12px;
+  line-height: 18px;
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 25px;
 }
-.message:before,.message:after {
-    content:'';
-    position: absolute;
-    bottom: -2px;
-    height: 20px;
+
+.message::before,
+.message::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  height: 20px;
 }
+
 .from-me {
-    color: white;
-    background: #0087af;
-    align-self: flex-end;
+  color: white;
+  background: #0087af;
+  align-self: flex-end;
 }
-.from-me:before {
-    right: -7px;
-    border-right: 20px solid #0087af;
-    border-bottom-left-radius: 16px 14px;
-    transform: translate(0, -2px);
+
+.from-me::before {
+  right: -7px;
+  border-right: 20px solid #0087af;
+  border-bottom-left-radius: 16px 14px;
+  transform: translate(0, -2px);
 }
-.from-me:after {
-    right: -56px;
-    width: 26px;
-    background: #222;
-    border-bottom-left-radius: 10px;
-    transform: translate(-30px, -2px);
+
+.from-me::after {
+  right: -56px;
+  width: 26px;
+  background: #222;
+  border-bottom-left-radius: 10px;
+  transform: translate(-30px, -2px);
 }
+
 .from-them {
-    background: #585858;
-    color: white;
+  background: #585858;
+  color: white;
 }
-.from-them:before {
-    left: -7px;
-    border-left: 20px solid #585858;
-    border-bottom-right-radius: 16px 14px;
-    transform: translate(0, -2px);
+
+.from-them::before {
+  left: -7px;
+  border-left: 20px solid #585858;
+  border-bottom-right-radius: 16px 14px;
+  transform: translate(0, -2px);
 }
-.from-them:after {
-    left: 4px;
-    width: 26px;
-    background: #222;
-    border-bottom-right-radius: 10px;
-    transform: translate(-30px, -2px);
+
+.from-them::after {
+  left: 4px;
+  width: 26px;
+  background: #222;
+  border-bottom-right-radius: 10px;
+  transform: translate(-30px, -2px);
 }
+
 .from-whom {
-    position: relative;
-    padding-bottom: 4px;
-    font-size: 11px;
-    left: -10px;
-    color: #aaa;
+  position: relative;
+  padding-bottom: 4px;
+  font-size: 11px;
+  left: -10px;
+  color: #aaa;
 }
 </style>

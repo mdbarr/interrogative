@@ -89,21 +89,21 @@ export default {
       menuItems: [ {
         title: 'Open',
         icon: 'open-in-new',
-        command: 'open'
+        command: 'open',
       }, {
         title: 'Rename',
         icon: 'rename-box',
-        command: 'rename'
+        command: 'rename',
       }, {
         title: 'Move',
         icon: 'file-move',
-        command: 'move'
+        command: 'move',
       }, {
         title: 'Delete',
         icon: 'trash-can-outline',
-        command: 'delete'
+        command: 'delete',
       } ],
-      selected: null
+      selected: null,
     };
   },
   methods: {
@@ -132,12 +132,12 @@ export default {
       } else if (this.state.files[item.path]) {
         this.$events.emit({
           type: 'editor:tab:focus',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       } else {
         this.$events.emit({
           type: 'files:file:open',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       }
     },
@@ -146,18 +146,19 @@ export default {
     },
     trash (item) {
       console.log('trash', item);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .v-treeview-node__root {
-    height: 26px !important;
-    min-height: 26px !important;
+  height: 26px !important;
+  min-height: 26px !important;
 }
+
 .clickable {
-    cursor: pointer;
-    user-select: none;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

@@ -13,9 +13,9 @@ module.exports = {
       '^/api': { target: `http://localhost:${ config.manager.port }` },
       '^/ws': {
         target: `ws://localhost:${ config.manager.port }`,
-        ws: true
-      }
-    }
+        ws: true,
+      },
+    },
   },
   filenameHashing: process.env.NODE_ENV !== 'production',
   transpileDependencies: [

@@ -3,18 +3,18 @@ import moment from 'moment';
 import state from '../state';
 import events from '@mdbarr/events';
 
-const baseURL = (process.env.NODE_ENV === 'production')
-  ? `https://${ window.location.hostname }/api/`
-  : `http://${ window.location.hostname }:8080/api/`;
+const baseURL = (process.env.NODE_ENV === 'production') ?
+  `https://${ window.location.hostname }/api/` :
+  `http://${ window.location.hostname }:8080/api/`;
 
-const websocketURL = (process.env.NODE_ENV === 'production')
-  ? `wss://${ window.location.hostname }/ws/`
-  : `ws://${ window.location.hostname }:8080/ws/`;
+const websocketURL = (process.env.NODE_ENV === 'production') ?
+  `wss://${ window.location.hostname }/ws/` :
+  `ws://${ window.location.hostname }:8080/ws/`;
 
 const defaults = {
   baseURL,
   headers: {},
-  withCredentials: true
+  withCredentials: true,
 };
 
 function jsonClone (object) {
@@ -131,7 +131,7 @@ export default { install (Vue) {
       name: branch.name,
       path: branch.path,
       depth,
-      icon: 'mdi-folder'
+      icon: 'mdi-folder',
     };
 
     if (node.path === state.interview.home) {
@@ -176,7 +176,7 @@ export default { install (Vue) {
     if (model.focus !== false) {
       $events.emit({
         type: 'editor:tab:focus',
-        data: { path: model.path }
+        data: { path: model.path },
       });
     }
   });
@@ -207,8 +207,8 @@ export default { install (Vue) {
       data: {
         user: state.user,
         name: state.name,
-        role: state.role
-      }
+        role: state.role,
+      },
     });
   });
 
@@ -300,7 +300,7 @@ export default { install (Vue) {
     post: (url, body) => { return api('post', url, body); },
     put: (url, body) => { return api('put', url, body); },
 
-    upload: (url, body, progress) => { return api('upload', url, body, progress); }
+    upload: (url, body, progress) => { return api('upload', url, body, progress); },
   };
 
   Vue.prototype.$socket = function (urlFragment) {
@@ -346,7 +346,7 @@ export default { install (Vue) {
         } else {
           $events.emit({
             type: 'unknown',
-            data: event
+            data: event,
           });
         }
       } catch (error) {

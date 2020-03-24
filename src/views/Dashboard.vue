@@ -212,12 +212,12 @@ export default {
   name: 'Dashboard',
   components: {
     InterviewList,
-    ScheduleInterview
+    ScheduleInterview,
   },
   data () {
     return {
       state,
-      sideTab: null
+      sideTab: null,
     };
   },
   mounted () {},
@@ -226,41 +226,47 @@ export default {
       then(() => {
         this.$session(false);
       });
-  } }
+  } },
 };
 </script>
 
 <style>
 .drawer {
-    overflow: hidden;
-    width: 300px;
+  overflow: hidden;
+  width: 300px;
 }
+
 .v-tabs {
-    overflow: hidden;
-    width: 300px;
+  overflow: hidden;
+  width: 300px;
 }
+
 .v-tab {
-    padding-left: 6px !important;
-    padding-right: 20px !important;
-    justify-content: left;
+  padding-left: 6px !important;
+  padding-right: 20px !important;
+  justify-content: left;
 }
+
 .tab-bg {
-    color: white !important;
-    text-transform: none !important;
-    background-color: #303030;
+  color: white !important;
+  text-transform: none !important;
+  background-color: #303030;
 }
+
 .tab-bg.v-tab--active {
-    background-color: inherit;
-    color: white !important;
-    opacity: 1 !important;
+  background-color: inherit;
+  color: white !important;
+  opacity: 1 !important;
 }
+
 .tab-bg-color {
-    position: relative;
-    background-color: #303030;
-    max-width: none !important;
-    opacity: 1 !important;
+  position: relative;
+  background-color: #303030;
+  max-width: none !important;
+  opacity: 1 !important;
 }
+
 .tab-content {
-    background-color: #303030;
+  background-color: #303030;
 }
 </style>

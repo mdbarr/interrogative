@@ -24,7 +24,7 @@ export default {
       state,
       show: false,
       message: '',
-      color: 'green'
+      color: 'green',
     };
   },
   mounted () {
@@ -48,7 +48,7 @@ export default {
 
       this.show = true;
     });
-  }
+  },
 };
 </script>
 

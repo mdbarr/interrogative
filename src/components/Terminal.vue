@@ -16,7 +16,7 @@ import 'xterm/css/xterm.css';
 export default {
   name: 'Terminal',
   props: {
-    id: String, type: String
+    id: String, type: String,
   },
   data () {
     return {
@@ -25,7 +25,7 @@ export default {
       xterm: null,
       socket: null,
       cols: 100,
-      rows: 24
+      rows: 24,
     };
   },
   computed: { bell () {
@@ -53,12 +53,12 @@ export default {
         foreground: '#fff',
         background: '#222',
         cursorAccent: '#222',
-        selection: 'rgba(0, 165, 255, 0.25)'
+        selection: 'rgba(0, 165, 255, 0.25)',
       },
       convertEol: this.type === 'action-simple',
       cursorBlink: this.type !== 'action-simple',
       disableStdin: this.type === 'action-simple',
-      bellStyle: 'sound'
+      bellStyle: 'sound',
     });
 
     this.xterm.$fitAddon = new FitAddon();
@@ -89,14 +89,14 @@ export default {
         this.xterm.focus();
       });
     }
-  } }
+  } },
 };
 </script>
 
 <style>
 .terminal {
-    height: 360px !important;
-    min-width: 720px !important;
-    background-color: #222;
+  height: 360px !important;
+  min-width: 720px !important;
+  background-color: #222;
 }
 </style>

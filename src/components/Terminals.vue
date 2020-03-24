@@ -80,7 +80,7 @@ export default {
   name: 'Terminals',
   components: {
     Chat,
-    Terminal
+    Terminal,
   },
   data () {
     return {
@@ -88,7 +88,7 @@ export default {
       current: '',
       list: [],
       tabs: new Map(),
-      tab: 0
+      tab: 0,
     };
   },
   mounted () {
@@ -108,7 +108,7 @@ export default {
       this.current = this.list[value];
       this.$events.emit({
         type: 'terminal:tab:focus',
-        data: { id: this.current }
+        data: { id: this.current },
       });
     },
     focus (event) {
@@ -139,33 +139,34 @@ export default {
     plus () {
       this.$events.emit({
         type: 'terminal:tab:open',
-        data: { type: 'terminal' }
+        data: { type: 'terminal' },
       });
     },
     close (id) {
       this.$events.emit({
         type: 'terminal:tab:close',
-        data: { id }
+        data: { id },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
-.mdi-flashing:before {
+.mdi-flashing::before {
   -webkit-animation: mdi-flashing 2s infinite ease-in-out;
   animation: mdi-flashing 2s infinite ease-in-out;
 }
 
 @-webkit-keyframes mdi-flashing {
-    0% { opacity: 1; }
-    50% { opacity: .25; }
-    100% { opacity: 1; }
+  0% { opacity: 1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
 }
+
 @keyframes mdi-flashing {
-    0% { opacity: 1; }
-    50% { opacity: .25; }
-    100% { opacity: 1; }
+  0% { opacity: 1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
 }
 </style>

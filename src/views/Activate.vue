@@ -30,7 +30,7 @@ export default {
     return {
       state,
       error: null,
-      activation: null
+      activation: null,
     };
   },
   mounted () {
@@ -41,8 +41,8 @@ export default {
           type: 'notification:account:activated',
           data: {
             level: 'success',
-            message: 'Account activated'
-          }
+            message: 'Account activated',
+          },
         });
         this.$session(response.data);
         this.$navigate('dashboard');
@@ -50,12 +50,12 @@ export default {
       catch((error) => {
         this.error = error.response.data.message;
       });
-  }
+  },
 };
 </script>
 
 <style>
 .error-message {
-    text-align: center;
+  text-align: center;
 }
 </style>

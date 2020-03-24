@@ -246,12 +246,12 @@ export default {
     icon: String,
     limit: {
       type: Number,
-      default: -1
+      default: -1,
     },
     upcoming: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data () {
     return {
@@ -259,7 +259,7 @@ export default {
       interviews: [],
       expanded: {},
       interval: null,
-      editing: false
+      editing: false,
     };
   },
   mounted () {
@@ -386,32 +386,36 @@ export default {
             type: 'notification:list-interviews:failed',
             data: {
               level: 'failure',
-              data: error.message || 'Failed to fetch Interviews'
-            }
+              data: error.message || 'Failed to fetch Interviews',
+            },
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .candidate {}
 .position {}
+
 .company {
-    color: #009fcc;
-    font-weight: 700;
+  color: #009fcc;
+  font-weight: 700;
 }
+
 .more-count {
-    text-align: right;
-    font-size: 12px;
+  text-align: right;
+  font-size: 12px;
 }
+
 .card-candidate {
-    border-left: 6px solid #3491B5 !important;
+  border-left: 6px solid #3491b5 !important;
 }
+
 .interview-link {
-    color: #3491B5 !important;
-    text-decoration: none;
-    font-weight: 700;
+  color: #3491b5 !important;
+  text-decoration: none;
+  font-weight: 700;
 }
 </style>

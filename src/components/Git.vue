@@ -14,7 +14,7 @@ export default {
   name: 'Git',
   data () {
     return { state };
-  }
+  },
 };
 </script>
 

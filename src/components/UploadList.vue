@@ -84,35 +84,38 @@ export default {
       if (this.state.files[item.path]) {
         this.$events.emit({
           type: 'editor:tab:focus',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       } else {
         this.$events.emit({
           type: 'files:file:open',
-          data: { path: item.path }
+          data: { path: item.path },
         });
       }
     }
-  } }
+  } },
 };
 </script>
 
 <style>
 .uploading {
-    font-family: Source Code Pro, monospace;
-    font-size: 11px;
+  font-family: Source Code Pro, monospace;
+  font-size: 11px;
 }
+
 .progress-holder {
-    height: 10px;
+  height: 10px;
 }
+
 .float-right {
-    float: right;
+  float: right;
 }
+
 .upload-item {
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 </style>

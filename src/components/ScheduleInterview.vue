@@ -376,36 +376,36 @@ export default {
       duration: '1h',
       durations: [ {
         value: '30m',
-        text: '30 minutes'
+        text: '30 minutes',
       }, {
         value: '1h',
-        text: '1 hour'
+        text: '1 hour',
       }, {
         value: '1h 30m',
-        text: '1 hour 30 minutes'
+        text: '1 hour 30 minutes',
       }, {
         value: '2h',
-        text: '2 hours'
+        text: '2 hours',
       }, {
         value: '2h 30m',
-        text: '2 hours 30 minutes'
+        text: '2 hours 30 minutes',
       }, {
         value: '3h',
-        text: '3 hours'
+        text: '3 hours',
       }, {
         value: '3h 30m',
-        text: '3 hours 30 minutes'
+        text: '3 hours 30 minutes',
       }, {
         value: '4h',
-        text: '4 hours'
+        text: '4 hours',
       } ],
       interviewer: {
         name: state.session.user.name,
-        email: state.session.user.email
+        email: state.session.user.email,
       },
       candidate: {
         name: '',
-        email: ''
+        email: '',
       },
       users: [],
       image: 0,
@@ -416,13 +416,13 @@ export default {
         hasGit: true,
         hasUploads: true,
         git: true,
-        uploads: true
+        uploads: true,
       } ],
       git: true,
       uploads: true,
       buttons: [],
       keypairs: [],
-      loading: false
+      loading: false,
     };
   },
   computed: { dateFormatted () {
@@ -496,16 +496,16 @@ export default {
           users: [ {
             name: this.interviewer.name,
             email: this.interviewer.email,
-            role: 'interviewer'
+            role: 'interviewer',
           }, {
             name: this.candidate.name,
             email: this.candidate.email,
-            role: 'candidate'
+            role: 'candidate',
           }, ...this.users ],
           image: this.images[this.image].image,
           git: this.images[this.image].git,
           uploads: this.images[this.image].uploads,
-          buttons: this.buttons
+          buttons: this.buttons,
         };
 
         this.$api.post('/interviews/create', body).
@@ -515,8 +515,8 @@ export default {
               type: 'notification:interview:created',
               data: {
                 level: 'success',
-                message: 'Interview scheduled!'
-              }
+                message: 'Interview scheduled!',
+              },
             });
             this.loading = false;
             this.$emit('done');
@@ -526,22 +526,23 @@ export default {
               type: 'notification:interview:failed',
               data: {
                 level: 'failure',
-                message: `Failed to create interview: ${ error.message }`
-              }
+                message: `Failed to create interview: ${ error.message }`,
+              },
             });
             this.loading = false;
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .title-input input {
-    text-align: center;
+  text-align: center;
 }
+
 .background {
-    background-color: #303030;
+  background-color: #303030;
 }
 </style>

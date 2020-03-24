@@ -117,7 +117,7 @@ export default {
       path: '',
       isFolder: false,
       icon: 'mdi-file',
-      color: 'white'
+      color: 'white',
     };
   },
   computed: { show: {
@@ -128,7 +128,7 @@ export default {
       if (!value) {
         this.$emit('close');
       }
-    }
+    },
   } },
   watch: {
     name (name) {
@@ -138,7 +138,7 @@ export default {
         const item = {
           name: this.name,
           path: this.path,
-          extension
+          extension,
         };
         utils.setAttributes(item);
         console.log(item);
@@ -162,7 +162,7 @@ export default {
         this.icon = 'mdi-file';
         this.color = 'white';
       }
-    }
+    },
   },
   mounted () { },
   methods: { create () {
@@ -172,16 +172,16 @@ export default {
       data: {
         name: this.name,
         path: this.path,
-        type: this.isFolder ? 'directory' : 'file'
-      }
+        type: this.isFolder ? 'directory' : 'file',
+      },
     });
     this.show = false;
-  } }
+  } },
 };
 </script>
 
 <style>
 .new-item-title {
-    background-color: #333;
+  background-color: #333;
 }
 </style>

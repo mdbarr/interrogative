@@ -140,7 +140,7 @@ export default {
       loading: false,
       explanation: false,
       available: true,
-      done: false
+      done: false,
     };
   },
   watch: { available () {
@@ -168,7 +168,7 @@ export default {
           name: this.name,
           email: this.email,
           company: this.company,
-          password: this.password
+          password: this.password,
         }).
           then((response) => {
             this.done = true;
@@ -179,8 +179,8 @@ export default {
               type: 'notification:signup:failed',
               data: {
                 level: 'failure',
-                message: error.message
-              }
+                message: error.message,
+              },
             });
           });
       }
@@ -244,25 +244,27 @@ export default {
         return this.hint;
       }
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .signup-logo {
-    text-align: center;
-    font-family: Inconsolata, monospace;
-    letter-spacing: 3px;
-    font-size: 18px;
-    font-weight: 700;
+  text-align: center;
+  font-family: Inconsolata, monospace;
+  letter-spacing: 3px;
+  font-size: 18px;
+  font-weight: 700;
 }
+
 .align-left {
-    padding: 4px 20px;
-    text-align: left;
-    width: 100%;
+  padding: 4px 20px;
+  text-align: left;
+  width: 100%;
 }
+
 s {
   color: #2196f3;
-};
+}
 </style>

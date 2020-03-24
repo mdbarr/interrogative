@@ -77,34 +77,34 @@ export default {
     clearOpenFiles () {
       this.$events.emit({
         type: 'tools:files:clear-open',
-        data: { auth: this.state.user }
+        data: { auth: this.state.user },
       });
     },
     clearUploadsList () {
       this.$events.emit({
         type: 'tools:files:clear-uploads',
-        data: { auth: this.state.user }
+        data: { auth: this.state.user },
       });
     },
     clearChatHistory () {
       this.$events.emit({
         type: 'tools:messages:clear',
-        data: { auth: this.state.user }
+        data: { auth: this.state.user },
       });
     },
     endInterview () {
       this.$events.emit({
         type: 'tools:interview:end',
         data: { auth: this.state.user },
-        scope: { role: 'candidate' }
+        scope: { role: 'candidate' },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .tools {
-    line-height: 50px;
+  line-height: 50px;
 }
 </style>

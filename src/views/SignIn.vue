@@ -81,7 +81,7 @@ export default {
       state,
       username: '',
       password: '',
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -102,7 +102,7 @@ export default {
 
       this.$api.post('/session', {
         username: this.username,
-        password: this.password
+        password: this.password,
       }).
         then((response) => {
           this.$session(response.data);
@@ -116,22 +116,22 @@ export default {
             type: 'notification:signin:failure',
             data: {
               level: 'failure',
-              message: error.response.data.message
-            }
+              message: error.response.data.message,
+            },
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .signin-logo {
-    text-align: center;
-    font-family: Inconsolata, monospace;
-    letter-spacing: 6px;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 22px;
+  text-align: center;
+  font-family: Inconsolata, monospace;
+  letter-spacing: 6px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 22px;
 }
 </style>

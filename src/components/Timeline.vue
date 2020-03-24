@@ -31,32 +31,35 @@ export default {
   data () {
     return { state };
   },
-  methods: {}
+  methods: {},
 };
 </script>
 
 <style>
 .mdi-interrogative::before {
-    content: '';
-    position: relative;
-    margin-top: -2px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url(../assets/logo.svg);
-    background-size: 16px 16px !important;
-    width: 16px !important;
-    height: 16px !important;
+  content: '';
+  position: relative;
+  margin-top: -2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../assets/logo.svg);
+  background-size: 16px 16px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
+
 .timeline-margin {
-    margin-left: -24px !important;
+  margin-left: -24px !important;
 }
+
 .timeline-description {
-    font-size: 11px !important;
-    width: 192px !important;
+  font-size: 11px !important;
+  width: 192px !important;
 }
+
 .timeline-timestamp {
-    color: #959595;
-    font-size: 10px !important;
-    width: 192px !important;
+  color: #959595;
+  font-size: 10px !important;
+  width: 192px !important;
 }
 </style>

@@ -10,22 +10,22 @@ module.exports = {
     engine: { socketPath: '/var/run/docker.sock' },
     networks: {
       container: 'interrogative',
-      database: 'interrogative-db'
-    }
+      database: 'interrogative-db',
+    },
   },
   database: {
     retry: 5000,
     slowStart: 10000,
-    url: 'mongodb://mongo:27017/interrogative'
+    url: 'mongodb://mongo:27017/interrogative',
   },
   sessions: { cookie: 'interrogative-session' },
   oplog: {
     retry: 5000,
-    url: 'mongodb://mongo:27017/local'
+    url: 'mongodb://mongo:27017/local',
   },
   metadata: {
     port: 1312,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   },
   container: {
     port: 1313,
@@ -35,16 +35,16 @@ module.exports = {
     openMaxSize: 524288,
     persistence: {
       directory: '~/.interrogative',
-      interval: 300000
-    }
+      interval: 300000,
+    },
   },
   interaction: {
     port: 1314,
-    host: '127.0.0.1'
+    host: '127.0.0.1',
   },
   uploads: {
     maxSize: 10485760,
-    path: '~/uploads'
+    path: '~/uploads',
   },
   messenger: {
     concurrency: 2,
@@ -53,13 +53,13 @@ module.exports = {
       incoming: {
         host: '0.0.0.0',
         port: 25,
-        securePort: 587
+        securePort: 587,
       },
       outgoing: {
         host: 'localhost',
-        port: 25
-      }
-    }
+        port: 25,
+      },
+    },
   },
   files: {
     depth: 5,
@@ -84,7 +84,7 @@ module.exports = {
       '.yarn$',
       'node_modules',
       'python3.7',
-      'site-packages'
-    ]
-  }
+      'site-packages',
+    ],
+  },
 };

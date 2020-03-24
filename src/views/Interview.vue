@@ -489,13 +489,13 @@ export default {
     Timeline,
     Tools,
     Upload,
-    UploadList
+    UploadList,
   },
   data: () => {
     return {
       state,
       error: false,
-      sideTab: undefined
+      sideTab: undefined,
     };
   },
   mounted () {
@@ -542,61 +542,72 @@ export default {
       if (!this.state.mini && this.sideTab === undefined) {
         this.sideTab = 0;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
 .v-tab {
-    min-width: 48px !important;
-    padding-left: 6px !important;
-    padding-right: 0px !important;
+  min-width: 48px !important;
+  padding-left: 6px !important;
+  padding-right: 0 !important;
 }
+
 .v-tabs-items {
-    background-color: #424242 !important;
+  background-color: #424242 !important;
 }
+
 .tab-bg {
-    color: white !important;
-    text-transform: none !important;
-    background-color: #303030;
+  color: white !important;
+  text-transform: none !important;
+  background-color: #303030;
 }
+
 .tab-bg.v-tab--active {
-    background-color: inherit;
-    color: white !important;
-    opacity: 1 !important;
+  background-color: inherit;
+  color: white !important;
+  opacity: 1 !important;
 }
+
 .tab-bg-color {
-    position: relative;
-    background-color: #303030;
-    max-width: none !important;
-    opacity: 1 !important;
+  position: relative;
+  background-color: #303030;
+  max-width: none !important;
+  opacity: 1 !important;
 }
+
 .main-area {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    padding-right: 0px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
 }
+
 .main-card {
-    background-color: #222 !important;
+  background-color: #222 !important;
 }
+
 .plus-button {
-    border-right: 1px solid #595959;
+  border-right: 1px solid #595959;
 }
+
 .section-heading {
-    font-weight: 700;
-    margin-bottom: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
+
 .error-message {
-    text-align: center;
+  text-align: center;
 }
+
 .app-bar-logo {
-    margin-top: -2px;
+  margin-top: -2px;
 }
+
 .app-bar-title {
-    font-family: Inconsolata, monospace;
-    letter-spacing: 3px;
-    font-size: 22px;
-    line-height: 22px;
+  font-family: Inconsolata, monospace;
+  letter-spacing: 3px;
+  font-size: 22px;
+  line-height: 22px;
 }
 </style>
