@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     'plugin:vue/recommended',
-    '@vue/standard'
+    '@vue/standard',
   ],
   rules: {
     'accessor-pairs': 'error',
@@ -16,12 +16,11 @@ module.exports = {
     'brace-style': [ 'error', '1tbs', { allowSingleLine: true } ],
     'callback-return': 'error',
     camelcase: [ 'error', { properties: 'always' } ],
-    'comma-dangle': [ 'error', 'never' ],
+    'comma-dangle': [ 'error', 'always-multiline' ],
     'comma-spacing': 'error',
     'comma-style': [ 'error', 'last' ],
     'consistent-return': 'error',
     'constructor-super': 'error',
-    'default-case': 'error',
     'dot-location': [ 'error', 'object' ],
     'dot-notation': 'error',
     'eol-last': 'error',
@@ -30,10 +29,10 @@ module.exports = {
     indent: [ 'error', 2, { SwitchCase: 1 } ],
     'key-spacing': [ 'error', {
       beforeColon: false,
-      afterColon: true
+      afterColon: true,
     } ],
     'keyword-spacing': 'error',
-    'max-params': [ 'error', 4 ],
+    'max-params': [ 'error', 5 ],
     'new-cap': 'error',
     'newline-per-chained-call': 'error',
     'no-caller': 'error',
@@ -114,7 +113,7 @@ module.exports = {
     'no-void': 'error',
     'no-warning-comments': [ 'error', {
       terms: [ 'todo', 'fixme', 'hack' ],
-      location: 'anywhere'
+      location: 'anywhere',
     } ],
     'no-with': 'error',
     'object-curly-newline': [ 'error', { minProperties: 2 } ],
@@ -123,6 +122,7 @@ module.exports = {
     'object-shorthand': 'error',
     'one-var': [ 'error', 'never' ],
     'one-var-declaration-per-line': 'error',
+    'operator-linebreak': [ 'error', 'after' ],
     'padded-blocks': [ 'error', 'never' ],
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
@@ -137,7 +137,7 @@ module.exports = {
     'spaced-comment': [ 'error', 'always', { exceptions: [ '/' ] } ],
     'space-before-blocks': 'error',
     'space-before-function-paren': [ 'error', {
-      anonymous: 'ignore', named: 'always'
+      anonymous: 'ignore', named: 'always',
     } ],
     'space-infix-ops': 'error',
     strict: 'error',
@@ -145,7 +145,7 @@ module.exports = {
     'use-isnan': 'error',
     'valid-typeof': 'error',
     'yield-star-spacing': [ 'error', 'before' ],
-    yoda: 'error'
+    yoda: 'error',
   },
-  parserOptions: { parser: 'babel-eslint' }
+  parserOptions: { parser: 'babel-eslint' },
 };
