@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     focused (event) {
+      console.log('action-button', event);
       this.focus = event.data.path;
       this.name = this.focus.replace(/^.*\/([^/]+)$/, '$1');
       this.extension = this.name.replace(/^.*\.([^.]+)$/, '$1');

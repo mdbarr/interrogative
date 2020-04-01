@@ -70,8 +70,8 @@
   },
   "scripts": {
     "lint:api": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
-    "lint:css": "stylelint 'src/**/*.vue'",
-    "fix": "yarn lint --fix; yarn lint:css --fix; yarn lint:api --fix",
+    "lint:style": "stylelint 'src/**/*.vue'",
+    "fix": "yarn lint --fix; yarn lint:style --fix; yarn lint:api --fix",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",

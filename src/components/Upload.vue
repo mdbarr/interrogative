@@ -186,7 +186,7 @@ export default {
   color: white;
   padding: 2px;
   height: 150px;
-  width: 329px;
+  width: 332px;
   border: 1px dashed white;
   font-family: Source Code Pro, monospace;
   font-size: 14px;

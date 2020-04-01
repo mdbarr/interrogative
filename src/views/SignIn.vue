@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-container
-      class="fill-height"
+      class="fill-height signin-background"
       fluid
     >
       <v-row
@@ -126,6 +126,10 @@ export default {
 </script>
 
 <style>
+.signin-background {
+  background-color: #303030;
+}
+
 .signin-logo {
   text-align: center;
   font-family: Inconsolata, monospace;

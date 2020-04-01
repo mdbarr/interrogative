@@ -42,7 +42,8 @@ spotless:
 
 rebuild:
 	yarn lint
-	yarn api:lint
+	yarn lint:api
+	yarn lint:style
 	make clean
 	make all
 

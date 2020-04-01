@@ -49,8 +49,8 @@
         color="#424242"
         permanent
         :mini-variant.sync="state.mini"
-        mini-variant-width="45"
-        width="345"
+        mini-variant-width="48"
+        width="348"
         app
         clipped
       >
@@ -58,9 +58,8 @@
           v-model="sideTab"
           vertical
           background-color="#424242"
-          slider-color="white"
+          :slider-color="state.mini ? '#424242' : 'white'"
           slider-size="2"
-          optional
           @change="sideTabChange"
         >
           <v-tab class="white--text">
@@ -96,7 +95,7 @@
           </v-tab>
           <v-tab class="white--text">
             <v-icon left>
-              mdi-settings
+              mdi-cog
             </v-icon>
           </v-tab>
           <v-tab
@@ -124,7 +123,7 @@
             >
               <v-card-text
                 v-if="state.interview.id"
-                class="white--text"
+                class="pa-2 white--text"
               >
                 <div
                   v-if="state.interview.title"
@@ -144,6 +143,7 @@
                     mdi-comment-account
                   </v-icon>
                 </div>
+                <br>
                 <div
                   v-for="user of userFilter('candidate')"
                   :key="user.id"
@@ -242,7 +242,7 @@
                   </v-icon>
                 </div>
                 <br>
-                <div>
+                <div class="pl-2">
                   {{ state.interview.start | calendar }} for {{ state.interview.duration | duration }}
                 </div>
                 <div v-if="state.interview.notes">
@@ -269,7 +269,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Files
                 </div>
@@ -284,7 +284,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Search
                 </div>
@@ -302,7 +302,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Repository
                 </div>
@@ -317,7 +317,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Uploads
                 </div>
@@ -332,7 +332,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Settings
                 </div>
@@ -347,7 +347,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Timeline
                 </div>
@@ -362,7 +362,7 @@
               tile
               color="#424242"
             >
-              <v-card-text class="white--text">
+              <v-card-text class="pa-2 white--text">
                 <div class="section-heading">
                   Tools
                 </div>
@@ -533,6 +533,7 @@ export default {
       window.location.reload();
     },
     sideTabChange (value) {
+      console.log('side tab change', value);
       if (value === undefined) {
         this.state.mini = true;
       }

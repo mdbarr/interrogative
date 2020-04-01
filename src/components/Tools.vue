@@ -2,6 +2,8 @@
   <div class="tools pl-4">
     <v-btn
       small
+      outlined
+      tile
       @click="clearOpenFiles"
     >
       <v-icon
@@ -13,6 +15,8 @@
     </v-btn><br>
     <v-btn
       small
+      outlined
+      tile
       @click="clearUploadsList"
     >
       <v-icon
@@ -25,6 +29,8 @@
     </v-btn><br>
     <v-btn
       small
+      outlined
+      tile
       @click="clearChatHistory"
     >
       <v-icon
@@ -38,6 +44,8 @@
     <v-btn
       v-if="endable"
       small
+      outlined
+      tile
       color="red"
       class="mt-9"
       @click="endInterview"

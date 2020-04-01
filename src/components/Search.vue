@@ -4,7 +4,7 @@
       ref="input"
       v-model="search"
       autofocus
-      class="search-form pt-0"
+      class="search-form pt-0 pr-4"
       clearable
       height="26"
       :loading="loading"

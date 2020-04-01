@@ -81,12 +81,15 @@ export default {
   },
   methods: {
     editorTabChange (value) {
-      this.path = this.list[value];
+      if (this.list[value]) {
+        this.path = this.list[value];
+        console.log('tab change', value, this.path);
 
-      this.$events.emit({
-        type: 'editor:tab:focus',
-        data: { path: this.path },
-      });
+        this.$events.emit({
+          type: 'editor:tab:focus',
+          data: { path: this.path },
+        });
+      }
     },
     focus (event) {
       if (this.path !== event.data.path) {

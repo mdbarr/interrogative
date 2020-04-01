@@ -1,7 +1,7 @@
 <template>
   <div
     id="file-tree"
-    class="ma-0 pa-0"
+    class="file-tree ma-0 pa-0"
   >
     <v-treeview
       dense
@@ -155,6 +155,10 @@ export default {
 .v-treeview-node__root {
   height: 26px !important;
   min-height: 26px !important;
+}
+
+.v-treeview-node__level {
+  width: 12px !important;
 }
 
 .clickable {
