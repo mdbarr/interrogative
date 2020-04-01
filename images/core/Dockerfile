@@ -3,7 +3,7 @@ WORKDIR /interrogative
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY bin bin
-COPY *.js ./
+COPY .* *.js ./
 COPY public public
 COPY src src
 RUN yarn build && \
