@@ -23,7 +23,10 @@ import state from '../state';
 
 export default {
   name: 'ActionButton',
-  props: { action: Object },
+  props: { action: {
+    type: Object,
+    required: true,
+  } },
   data () {
     return {
       state,

@@ -16,7 +16,14 @@ import 'xterm/css/xterm.css';
 export default {
   name: 'Terminal',
   props: {
-    id: String, type: String,
+    id: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
   },
   data () {
     return {

@@ -35,8 +35,14 @@ import state from '../state';
 export default {
   name: 'Search',
   props: {
-    tab: Number,
-    id: Number,
+    tab: {
+      type: Number,
+      required: true,
+    },
+    id: {
+      type: Number,
+      required: true,
+    },
   },
   data () {
     return {

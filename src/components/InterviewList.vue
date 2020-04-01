@@ -241,9 +241,18 @@ export default {
   name: 'InterviewList',
   components: { EditInterview },
   props: {
-    title: String,
-    heading: String,
-    icon: String,
+    title: {
+      type: String,
+      required: true,
+    },
+    heading: {
+      type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
+    },
     limit: {
       type: Number,
       default: -1,

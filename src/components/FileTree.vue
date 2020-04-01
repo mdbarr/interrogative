@@ -11,14 +11,14 @@
       item-key="path"
       class="subtitle ma-0 pa-0"
     >
-      <template v-slot:prepend="{ item, open }">
+      <template v-slot:prepend="{ item, open: isOpen }">
         <v-icon
           v-if="item.type === 'directory'"
           small
           color="amber lighten-2"
           class="clickable"
         >
-          {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+          {{ isOpen ? 'mdi-folder-open' : 'mdi-folder' }}
         </v-icon>
         <v-icon
           v-else

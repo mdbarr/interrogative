@@ -143,6 +143,7 @@ module.exports = {
     strict: 'error',
     'template-curly-spacing': [ 'error', 'always' ],
     'use-isnan': 'error',
+    'vue/no-v-html': 'off',
     'valid-typeof': 'error',
     'yield-star-spacing': [ 'error', 'before' ],
     yoda: 'error',

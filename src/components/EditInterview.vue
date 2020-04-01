@@ -311,7 +311,10 @@ import { milliseconds } from 'barrkeep/utils';
 
 export default {
   name: 'EditInterview',
-  props: { interview: Object },
+  props: { interview: {
+    type: Object,
+    required: true,
+  } },
   data () {
     return {
       state,

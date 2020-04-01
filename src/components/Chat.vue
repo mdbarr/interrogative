@@ -72,7 +72,10 @@ import 'emoji-mart-vue-fast/css/emoji-mart.css';
 export default {
   name: 'Chat',
   components: { Picker },
-  props: { id: String },
+  props: { id: {
+    type: String,
+    required: true,
+  } },
   data () {
     return {
       state,
