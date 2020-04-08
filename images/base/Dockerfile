@@ -74,7 +74,7 @@ RUN cd /usr/local/src && \
   ldconfig -v && \
   cd .. && \
   rm -rf Python* && \
-  pip3 install virtualenv
+  pip3 install pytest virtualenv
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
