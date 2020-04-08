@@ -211,9 +211,7 @@ export default {
     // Cursor template elements
     this.nodes.element = document.createElement('span');
     this.nodes.element.className = 'editor-cursor';
-    this.nodes.element.style.borderLeftColor = '#2C87AF';
-    this.nodes.element.style.borderLeftStyle = 'solid';
-    this.nodes.element.style.borderLeftWidth = '2px';
+    this.nodes.element.style.color = '#2C87AF';
 
     this.nodes.flag = document.createElement('div');
     this.nodes.flag.className = 'editor-cursor-flag';
@@ -672,6 +670,7 @@ export default {
 
 .editor-cursor {
   border-radius: 0 0 3px 3px;
+  border-left: 2px solid currentColor;
   cursor: pointer;
   height: 16px;
   padding: 0;
