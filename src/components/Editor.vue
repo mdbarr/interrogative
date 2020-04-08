@@ -210,6 +210,7 @@ export default {
   mounted () {
     // Cursor template elements
     this.nodes.element = document.createElement('span');
+    this.nodes.element.className = 'editor-cursor';
     this.nodes.element.style.borderLeftColor = '#2C87AF';
     this.nodes.element.style.borderLeftStyle = 'solid';
     this.nodes.element.style.borderLeftWidth = '2px';
@@ -219,6 +220,7 @@ export default {
     this.nodes.element.style.zIndex = 0;
 
     this.nodes.flag = document.createElement('div');
+    this.nodes.flag.className = 'editor-cursor-flag';
     this.nodes.flag.style.backgroundColor = '#2C87AF';
     this.nodes.flag.style.borderRadius = '3px 3px 3px 0px';
     this.nodes.flag.style.color = 'white';
@@ -682,5 +684,35 @@ export default {
 
 .bump {
   padding-top: 1px;
+}
+
+.editor-cursor {
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  height: 16px;
+  padding: 0;
+  z-index: 0;
+}
+
+.editor-cursor-flag {
+  border-radius: 3px 3px 3px 0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  height: 11px;
+  line-height: 10px;
+  opacity: 0;
+  padding: 2px 4pc;
+  pointer-events: none;
+  position: absolute;
+  text-shadow: none;
+  text-transform: uppercase;
+  transition: opacity 0.5s ease-in-out;
+  top: -12px;
+  z-index: 100;
+}
+
+.editor-cursor:hover > .editor-cursor-flag {
+  opacity: 1;
 }
 </style>
