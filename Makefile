@@ -5,6 +5,7 @@ pull:
 	docker pull mongo:4.2
 	docker pull node:12
 	docker pull node:12-alpine
+	docker pull ubuntu:bionic
 
 core:
 	docker build -f images/core/Dockerfile -t interrogative-core .
