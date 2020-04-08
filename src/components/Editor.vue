@@ -214,26 +214,10 @@ export default {
     this.nodes.element.style.borderLeftColor = '#2C87AF';
     this.nodes.element.style.borderLeftStyle = 'solid';
     this.nodes.element.style.borderLeftWidth = '2px';
-    this.nodes.element.style.borderRadius = '0 0 3px 3px';
-    this.nodes.element.style.height = '16px';
-    this.nodes.element.style.padding = 0;
-    this.nodes.element.style.zIndex = 0;
 
     this.nodes.flag = document.createElement('div');
     this.nodes.flag.className = 'editor-cursor-flag';
     this.nodes.flag.style.backgroundColor = '#2C87AF';
-    this.nodes.flag.style.borderRadius = '3px 3px 3px 0px';
-    this.nodes.flag.style.color = 'white';
-    this.nodes.flag.style.fontSize = '12px';
-    this.nodes.flag.style.fontWeight = 700;
-    this.nodes.flag.style.height = '11px';
-    this.nodes.flag.style.lineHeight = '10px';
-    this.nodes.flag.style.padding = '2px 4px';
-    this.nodes.flag.style.position = 'absolute';
-    this.nodes.flag.style.textShadow = 'none';
-    this.nodes.flag.style.textTransform = 'uppercase';
-    this.nodes.flag.style.top = '-12px';
-    this.nodes.flag.style.zIndex = 100;
 
     //////////
 
@@ -701,14 +685,16 @@ export default {
   font-weight: 700;
   height: 11px;
   line-height: 10px;
+  min-width: 24px;
   opacity: 0;
-  padding: 2px 4pc;
+  padding: 2px 4px;
   pointer-events: none;
   position: absolute;
   text-shadow: none;
   text-transform: uppercase;
   transition: opacity 0.5s ease-in-out;
   top: -12px;
+  width: auto;
   z-index: 100;
 }
 
