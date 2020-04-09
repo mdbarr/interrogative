@@ -62,7 +62,7 @@
 
 <script>
 import state from '../state';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import data from 'emoji-mart-vue-fast/data/all.json';
 import {
   Picker, EmojiIndex,
