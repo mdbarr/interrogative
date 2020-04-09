@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       state,
+      opened: false,
       element: null,
       xterm: null,
       socket: null,
@@ -80,6 +81,8 @@ export default {
 
     setTimeout(() => {
       this.xterm.open(this.element);
+      this.opened = true;
+
       this.xterm.$fitAddon.fit();
       this.xterm.focus();
 
@@ -91,10 +94,12 @@ export default {
   },
   methods: { focus (event) {
     if (event.data.id === this.id) {
-      this.$nextTick(() => {
-        this.xterm.$fitAddon.fit();
-        this.xterm.focus();
-      });
+      setTimeout(() => {
+        if (this.opened) {
+          this.xterm.$fitAddon.fit();
+          this.xterm.focus();
+        }
+      }, 0);
     }
   } },
 };
