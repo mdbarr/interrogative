@@ -58,4 +58,5 @@ redeploy:
 	docker-compose down
 	docker system prune -f
 	docker-compose up -d
+	sleep 15
 	sudo systemctl restart nginx || true
