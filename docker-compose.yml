@@ -22,6 +22,7 @@ services:
     environment:
       - INTERROGATIVE_ADMIN_EMAIL
       - INTERROGATIVE_ADMIN_PASSWORD
+      - INTERROGATIVE_AUTO_REMOVE
     depends_on:
       - mongo
   messenger:
