@@ -71,3 +71,6 @@ templates/*.html
 
 # emacs desktop
 .emacs.*
+
+# database backups
+backups

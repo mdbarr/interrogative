@@ -1,6 +1,7 @@
 all: pull core images container manager templates messenger
 
-.PHONY: pull core images container manager templates messenger
+.PHONY: pull core images container manager templates messenger backup
+
 pull:
 	docker pull mongo:4.2
 	docker pull node:12
@@ -31,6 +32,10 @@ clean:
 	docker system prune -f
 	docker volume prune -f
 
+backup:
+	mkdir -p backups
+	docker run --rm -v interrogative-data:/data/db -v $(PWD)/backups:/backup ubuntu tar czvf /backup/backup-$(shell date --rfc-3339=date).tar.gz /data/db
+
 spotless:
 	docker rmi interrogative-base \
 	interrogative-container \
@@ -50,6 +55,7 @@ rebuild:
 
 redeploy:
 	make
-	make clean
+	docker-compose down
+	docker system prune -f
 	docker-compose up -d
 	sudo systemctl restart nginx || true
