@@ -1,12 +1,13 @@
 <template>
   <div v-if="state.session">
     <v-navigation-drawer
+      color="#424242"
       expand-on-hover
       permanent
       app
       clipped
       mini-variant-width="54"
-      width="240"
+      width="256"
     >
       <v-tabs
         v-model="sideTab"
@@ -54,7 +55,7 @@
             left
             class="pl-2 pr-2"
           >
-            mdi-account-card-details
+            mdi-card-account-details
           </v-icon> Account
         </v-tab>
         <v-tab class="white--text">
@@ -62,7 +63,7 @@
             left
             class="pl-2 pr-2"
           >
-            mdi-settings
+            mdi-cog
           </v-icon> Settings
         </v-tab>
       </v-tabs>
@@ -123,7 +124,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-content color="#222">
+    <v-content color="#303030">
       <v-container
         fluid
         fill-height
@@ -231,6 +232,10 @@ export default {
 </script>
 
 <style>
+.v-application--wrap {
+  background-color: #303030;
+}
+
 .drawer {
   overflow: hidden;
   width: 300px;
@@ -241,10 +246,15 @@ export default {
   width: 300px;
 }
 
+.v-tabs-items {
+  background-color: #424242 !important;
+}
+
 .v-tab {
   padding-left: 6px !important;
   padding-right: 20px !important;
   justify-content: left;
+  background-color: #424242 !important;
 }
 
 .tab-bg {
