@@ -34,7 +34,7 @@ clean:
 
 backup:
 	mkdir -p backups
-	docker run --rm -v interrogative-data:/data/db -v $(PWD)/backups:/backup ubuntu tar czvf /backup/backup-$(shell date --rfc-3339=date).tar.gz /data/db
+	docker run --rm -v interrogative-data:/data/db -v $(PWD)/backups:/backup ubuntu:bionic tar czvf /backup/backup-$(shell date --rfc-3339=date).tar.gz /data/db
 
 spotless:
 	docker rmi interrogative-base \
