@@ -454,7 +454,7 @@
         height="20"
         class="caption pa-0 ma-0"
       >
-        <span class="pl-2">&copy; 2019</span>
+        <span class="pl-2">&copy; 2019-2020</span>
       </v-footer>
     </div>
   </div>
