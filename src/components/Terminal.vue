@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import state from '../state';
+import state from '@/state';
+import utils from '@/utils';
 import { Terminal } from 'xterm';
 import { AttachAddon } from 'xterm-addon-attach';
 import { FitAddon } from 'xterm-addon-fit';
@@ -43,9 +44,12 @@ export default {
     this.xterm.setOption('bellStyle', value);
     window.localStorage.setItem('bell', value);
   } },
-  mounted () {
+  async mounted () {
     console.log(`creating ${ this.type }: ${ this.id }`);
     this.element = this.$refs.terminal;
+
+    await utils.fontsReady();
+    await utils.elementVisible(this.element);
 
     this.xterm = new Terminal({
       cols: 100,
@@ -79,15 +83,13 @@ export default {
 
     this.$events.on('terminal:tab:focus', this.focus);
 
-    setTimeout(() => {
-      this.xterm.open(this.element);
-      this.opened = true;
+    this.xterm.open(this.element);
+    this.opened = true;
 
-      this.xterm.$fitAddon.fit();
-      this.xterm.focus();
+    this.xterm.$fitAddon.fit();
+    this.xterm.focus();
 
-      console.log('xterm fit', this.xterm.rows, this.xterm.cols);
-    }, 0);
+    console.log('xterm fit', this.xterm.rows, this.xterm.cols);
   },
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
