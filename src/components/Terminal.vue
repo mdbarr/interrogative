@@ -86,24 +86,36 @@ export default {
     this.xterm.open(this.element);
     this.opened = true;
 
-    this.xterm.$fitAddon.fit();
-    this.xterm.focus();
+    this.fit();
 
     console.log('xterm fit', this.xterm.rows, this.xterm.cols);
   },
   destroyed () {
     this.$events.off('terminal:tab:focus', this.focus);
   },
-  methods: { focus (event) {
-    if (event.data.id === this.id) {
-      setTimeout(() => {
-        if (this.opened) {
-          this.xterm.$fitAddon.fit();
-          this.xterm.focus();
-        }
-      }, 0);
-    }
-  } },
+  methods: {
+    fit () {
+      this.xterm.$fitAddon.fit();
+      this.xterm.focus();
+
+      this.$events.emit({
+        type: 'terminal:window:size',
+        data: {
+          rows: this.xterm.rows,
+          cols: this.xterm.cols,
+        },
+      });
+    },
+    focus (event) {
+      if (event.data.id === this.id) {
+        setTimeout(() => {
+          if (this.opened) {
+            this.fit();
+          }
+        }, 0);
+      }
+    },
+  },
 };
 </script>
 
