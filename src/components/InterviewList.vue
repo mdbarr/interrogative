@@ -158,6 +158,7 @@
                 </v-btn>
               </template>
               <EditInterview
+                v-if="editing"
                 :interview="interview"
                 @done="editing = false"
               />
