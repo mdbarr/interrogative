@@ -1,8 +1,10 @@
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const config = require('./defaults');
 
 module.exports = {
   configureWebpack: { plugins: [
+    new MomentLocalesPlugin(),
     new StyleLintPlugin({ files: [ 'src/**/*.{vue,scss}' ] }),
   ] },
   devServer: {
