@@ -502,7 +502,7 @@ export default {
                 } else if (character === '"') {
                   character = '&quot;';
                 } else if (character === "'") {
-                  character = '&apos';
+                  character = '&apos;';
                 }
               } else {
                 character = '.';
