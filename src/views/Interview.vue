@@ -371,7 +371,7 @@
             </v-card>
           </v-tab-item>
         </v-tabs>
-        <Upload v-if="sideTab === 4" />
+        <Upload v-if="sideTab === 4 && state.interview.uploads" />
       </v-navigation-drawer>
 
       <v-app-bar
