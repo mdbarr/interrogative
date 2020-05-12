@@ -560,9 +560,9 @@ export default {
 }
 
 .tab-bg {
+  background-color: #303030;
   color: white !important;
   text-transform: none !important;
-  background-color: #303030;
 }
 
 .tab-bg.v-tab--active {
@@ -572,16 +572,16 @@ export default {
 }
 
 .tab-bg-color {
-  position: relative;
   background-color: #303030;
   max-width: none !important;
   opacity: 1 !important;
+  position: relative;
 }
 
 .main-area {
-  padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-right: 0 !important;
+  padding-top: 0 !important;
 }
 
 .main-card {
@@ -607,8 +607,8 @@ export default {
 
 .app-bar-title {
   font-family: Inconsolata, monospace;
-  letter-spacing: 3px;
   font-size: 22px;
+  letter-spacing: 3px;
   line-height: 22px;
 }
 </style>

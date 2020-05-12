@@ -121,8 +121,8 @@ export default {
 
 <style>
 .terminal {
+  background-color: #222;
   height: 360px !important;
   min-width: 720px !important;
-  background-color: #222;
 }
 </style>

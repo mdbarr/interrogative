@@ -183,20 +183,20 @@ export default {
 <style>
 .dropzone {
   background-color: #424242;
-  color: white;
-  padding: 2px;
-  height: 150px;
-  width: 332px;
   border: 1px dashed white;
+  bottom: 8px;
+  color: white;
+  cursor: pointer;
   font-family: Source Code Pro, monospace;
   font-size: 14px;
-  text-transform: uppercase;
-  position: fixed;
+  height: 150px;
   left: 8px;
-  bottom: 8px;
-  cursor: pointer;
-  text-align: center;
   line-height: 142px;
+  padding: 2px;
+  position: fixed;
+  text-align: center;
+  text-transform: uppercase;
+  width: 332px;
 }
 
 .dropzone-drag {

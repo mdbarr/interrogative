@@ -161,73 +161,73 @@ export default {
 
 <style>
 .chat-container {
-  height: 360px !important;
-  width: 100%;
   background-color: #222;
   font-size: 0.875rem;
+  height: 360px !important;
+  width: 100%;
 }
 
 .chat-contents {
-  position: relative;
-  height: 326px !important;
-  font-size: 0.875rem;
   display: flex;
   flex-direction: column;
-  padding: 10px 20px;
+  font-size: 0.875rem;
+  height: 326px !important;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding: 10px 20px;
+  position: relative;
 }
 
 .chat-input {
-  font-size: 0.875rem !important;
   background-color: #424242;
+  font-size: 0.875rem !important;
 }
 
 .emoji-mart {
-  position: fixed;
   bottom: 55px;
-  right: 5px;
   height: 300px !important;
+  position: fixed;
+  right: 5px;
   z-index: 100;
 }
 
 .message {
-  display: inline-flex;
-  width: fit-content;
-  margin-bottom: 12px;
-  line-height: 18px;
-  position: relative;
-  padding: 10px 20px;
   border-radius: 25px;
+  display: inline-flex;
+  line-height: 18px;
+  margin-bottom: 12px;
+  padding: 10px 20px;
+  position: relative;
+  width: fit-content;
 }
 
 .message::before,
 .message::after {
-  content: '';
-  position: absolute;
   bottom: -2px;
+  content: '';
   height: 20px;
+  position: absolute;
 }
 
 .from-me {
-  color: white;
-  background: #0087af;
   align-self: flex-end;
+  background: #0087af;
+  color: white;
 }
 
 .from-me::before {
-  right: -7px;
-  border-right: 20px solid #0087af;
   border-bottom-left-radius: 16px 14px;
+  border-right: 20px solid #0087af;
+  right: -7px;
   transform: translate(0, -2px);
 }
 
 .from-me::after {
-  right: -56px;
-  width: 26px;
   background: #222;
   border-bottom-left-radius: 10px;
+  right: -56px;
   transform: translate(-30px, -2px);
+  width: 26px;
 }
 
 .from-them {
@@ -236,25 +236,25 @@ export default {
 }
 
 .from-them::before {
-  left: -7px;
-  border-left: 20px solid #585858;
   border-bottom-right-radius: 16px 14px;
+  border-left: 20px solid #585858;
+  left: -7px;
   transform: translate(0, -2px);
 }
 
 .from-them::after {
-  left: 4px;
-  width: 26px;
   background: #222;
   border-bottom-right-radius: 10px;
+  left: 4px;
   transform: translate(-30px, -2px);
+  width: 26px;
 }
 
 .from-whom {
-  position: relative;
-  padding-bottom: 4px;
+  color: #aaa;
   font-size: 11px;
   left: -10px;
-  color: #aaa;
+  padding-bottom: 4px;
+  position: relative;
 }
 </style>

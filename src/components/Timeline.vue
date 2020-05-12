@@ -37,15 +37,15 @@ export default {
 
 <style>
 .mdi-interrogative::before {
-  content: '';
-  position: relative;
-  margin-top: -2px;
+  background-image: url(../assets/logo.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(../assets/logo.svg);
   background-size: 16px 16px !important;
-  width: 16px !important;
+  content: '';
   height: 16px !important;
+  margin-top: -2px;
+  position: relative;
+  width: 16px !important;
 }
 
 .timeline-margin {

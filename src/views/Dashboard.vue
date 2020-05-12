@@ -251,16 +251,16 @@ export default {
 }
 
 .v-tab {
+  background-color: #424242 !important;
+  justify-content: left;
   padding-left: 6px !important;
   padding-right: 20px !important;
-  justify-content: left;
-  background-color: #424242 !important;
 }
 
 .tab-bg {
+  background-color: #303030;
   color: white !important;
   text-transform: none !important;
-  background-color: #303030;
 }
 
 .tab-bg.v-tab--active {
@@ -270,10 +270,10 @@ export default {
 }
 
 .tab-bg-color {
-  position: relative;
   background-color: #303030;
   max-width: none !important;
   opacity: 1 !important;
+  position: relative;
 }
 
 .tab-content {

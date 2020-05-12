@@ -20,9 +20,9 @@ export default {
 
 <style>
 html {
-  width: 100%;
+  background-color: #303030;
   height: 100%;
   margin: 0;
-  background-color: #303030;
+  width: 100%;
 }
 </style>

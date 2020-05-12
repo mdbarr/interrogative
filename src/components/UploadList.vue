@@ -113,9 +113,9 @@ export default {
 
 .upload-item {
   display: inline-block;
-  white-space: nowrap;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  white-space: nowrap;
 }
 </style>

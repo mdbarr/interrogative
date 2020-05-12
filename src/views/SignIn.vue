@@ -131,11 +131,11 @@ export default {
 }
 
 .signin-logo {
-  text-align: center;
   font-family: Inconsolata, monospace;
-  letter-spacing: 6px;
   font-size: 22px;
   font-weight: 700;
+  letter-spacing: 6px;
   line-height: 22px;
+  text-align: center;
 }
 </style>

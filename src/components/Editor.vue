@@ -599,28 +599,28 @@ export default {
 }
 
 .interrogative-editor-clickable:hover {
-  box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.2) !important;
+  box-sizing: border-box;
 }
 
 .interrogative-editor-panel {
-  position: relative;
-  flex-grow: 1;
-  box-sizing: border-box;
   background-color: #595959;
-  height: 20px;
-  padding: 0;
-  margin: 0;
+  box-sizing: border-box;
+  flex-grow: 1;
   font-size: 12px;
+  height: 20px;
   line-height: 18px;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 .interrogative-editor-panel-fullscreen {
-  position: fixed;
-  z-index: 10;
+  border-radius: 0 !important;
   bottom: 0;
   left: 0;
-  border-radius: 0 !important;
+  position: fixed;
+  z-index: 10;
 }
 
 .interrogative-editor-spacer-left {
@@ -636,32 +636,32 @@ export default {
 }
 
 .image-preview {
+  background-color: #222;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
   position: absolute;
   top: 30px;
-  left: 0;
-  overflow: hidden;
-  background-color: #222;
-  padding: 0;
-  margin: 0;
   z-index: 20;
 }
 
 .hexdump {
-  position: absolute;
-  top: 30px;
+  background-color: #222;
   left: 0;
+  margin: 0;
   overflow: hidden;
   overflow-y: scroll;
-  background-color: #222;
   padding: 0;
-  margin: 0;
+  position: absolute;
+  top: 30px;
   z-index: 30;
 }
 
 .hexdump-pre {
-  padding: 2px 8px;
-  font-size: 12px;
   font-family: Source Code Pro, monospace;
+  font-size: 12px;
+  padding: 2px 8px;
 }
 
 .bump {
@@ -669,8 +669,8 @@ export default {
 }
 
 .editor-cursor {
-  border-radius: 0 0 3px 3px;
   border-left: 2px solid currentColor;
+  border-radius: 0 0 3px 3px;
   cursor: pointer;
   height: 16px;
   padding: 0;
@@ -691,8 +691,8 @@ export default {
   position: absolute;
   text-shadow: none;
   text-transform: uppercase;
-  transition: opacity 0.5s ease-in-out;
   top: -12px;
+  transition: opacity 0.5s ease-in-out;
   width: auto;
   z-index: 100;
 }

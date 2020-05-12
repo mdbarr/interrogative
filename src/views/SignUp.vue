@@ -251,11 +251,11 @@ export default {
 
 <style>
 .signup-logo {
-  text-align: center;
   font-family: Inconsolata, monospace;
-  letter-spacing: 3px;
   font-size: 18px;
   font-weight: 700;
+  letter-spacing: 3px;
+  text-align: center;
 }
 
 .align-left {

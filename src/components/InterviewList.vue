@@ -412,8 +412,8 @@ export default {
 }
 
 .more-count {
-  text-align: right;
   font-size: 12px;
+  text-align: right;
 }
 
 .card-candidate {
@@ -422,7 +422,7 @@ export default {
 
 .interview-link {
   color: #3491b5 !important;
-  text-decoration: none;
   font-weight: 700;
+  text-decoration: none;
 }
 </style>
