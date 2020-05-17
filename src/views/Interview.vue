@@ -491,13 +491,11 @@ export default {
     Upload,
     UploadList,
   },
-  data: () => {
-    return {
-      state,
-      error: false,
-      sideTab: undefined,
-    };
-  },
+  data: () => ({
+    state,
+    error: false,
+    sideTab: undefined,
+  }),
   mounted () {
     this.state.id = this.$route.params.id;
 
@@ -525,9 +523,7 @@ export default {
   destroyed () { },
   methods: {
     userFilter (role) {
-      return this.state.interview.users.filter((user) => {
-        return user.role === role;
-      });
+      return this.state.interview.users.filter((user) => user.role === role);
     },
     reload () {
       window.location.reload();

@@ -71,9 +71,11 @@ export default {
       done: false,
     };
   },
-  computed: { valid () {
-    return this.email && this.validateEmail(this.email) === true;
-  } },
+  computed: {
+    valid () {
+      return this.email && this.validateEmail(this.email) === true;
+    },
+  },
   methods: {
     forgot () {
       if (this.$refs.form.validate()) {

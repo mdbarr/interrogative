@@ -222,12 +222,14 @@ export default {
     };
   },
   mounted () {},
-  methods: { signout () {
-    this.$api.delete('/session').
-      then(() => {
-        this.$session(false);
-      });
-  } },
+  methods: {
+    signout () {
+      this.$api.delete('/session').
+        then(() => {
+          this.$session(false);
+        });
+    },
+  },
 };
 </script>
 

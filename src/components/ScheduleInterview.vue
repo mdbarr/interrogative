@@ -374,31 +374,33 @@ export default {
       time: '09:00',
       timeMenu: false,
       duration: '1h',
-      durations: [ {
-        value: '30m',
-        text: '30 minutes',
-      }, {
-        value: '1h',
-        text: '1 hour',
-      }, {
-        value: '1h 30m',
-        text: '1 hour 30 minutes',
-      }, {
-        value: '2h',
-        text: '2 hours',
-      }, {
-        value: '2h 30m',
-        text: '2 hours 30 minutes',
-      }, {
-        value: '3h',
-        text: '3 hours',
-      }, {
-        value: '3h 30m',
-        text: '3 hours 30 minutes',
-      }, {
-        value: '4h',
-        text: '4 hours',
-      } ],
+      durations: [
+        {
+          value: '30m',
+          text: '30 minutes',
+        }, {
+          value: '1h',
+          text: '1 hour',
+        }, {
+          value: '1h 30m',
+          text: '1 hour 30 minutes',
+        }, {
+          value: '2h',
+          text: '2 hours',
+        }, {
+          value: '2h 30m',
+          text: '2 hours 30 minutes',
+        }, {
+          value: '3h',
+          text: '3 hours',
+        }, {
+          value: '3h 30m',
+          text: '3 hours 30 minutes',
+        }, {
+          value: '4h',
+          text: '4 hours',
+        },
+      ],
       interviewer: {
         name: state.session.user.name,
         email: state.session.user.email,
@@ -409,15 +411,17 @@ export default {
       },
       users: [],
       image: 0,
-      images: [ {
-        index: 0,
-        name: 'Development (default)',
-        image: 'interrogative-container',
-        hasGit: true,
-        hasUploads: true,
-        git: true,
-        uploads: true,
-      } ],
+      images: [
+        {
+          index: 0,
+          name: 'Development (default)',
+          image: 'interrogative-container',
+          hasGit: true,
+          hasUploads: true,
+          git: true,
+          uploads: true,
+        },
+      ],
       git: true,
       uploads: true,
       buttons: [],
@@ -425,9 +429,11 @@ export default {
       loading: false,
     };
   },
-  computed: { dateFormatted () {
-    return this.date ? moment(this.date).format('dddd, MMMM Do YYYY') : '';
-  } },
+  computed: {
+    dateFormatted () {
+      return this.date ? moment(this.date).format('dddd, MMMM Do YYYY') : '';
+    },
+  },
   mounted () {
     this.reset();
   },
@@ -493,15 +499,17 @@ export default {
           title: this.title,
           company: this.company,
           position: this.position,
-          users: [ {
-            name: this.interviewer.name,
-            email: this.interviewer.email,
-            role: 'interviewer',
-          }, {
-            name: this.candidate.name,
-            email: this.candidate.email,
-            role: 'candidate',
-          }, ...this.users ],
+          users: [
+            {
+              name: this.interviewer.name,
+              email: this.interviewer.email,
+              role: 'interviewer',
+            }, {
+              name: this.candidate.name,
+              email: this.candidate.email,
+              role: 'candidate',
+            }, ...this.users,
+          ],
           image: this.images[this.image].image,
           git: this.images[this.image].git,
           uploads: this.images[this.image].uploads,

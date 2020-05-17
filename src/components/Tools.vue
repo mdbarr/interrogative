@@ -68,19 +68,21 @@ export default {
   data () {
     return { state };
   },
-  computed: { endable () {
-    if (this.state.interview.start >= Date.now() && this.state.interview.stop <= Date.now()) {
-      return true;
-    }
-
-    for (const id in this.state.online) {
-      if (this.state.online[id].role === 'candidate') {
+  computed: {
+    endable () {
+      if (this.state.interview.start >= Date.now() && this.state.interview.stop <= Date.now()) {
         return true;
       }
-    }
 
-    return false;
-  } },
+      for (const id in this.state.online) {
+        if (this.state.online[id].role === 'candidate') {
+          return true;
+        }
+      }
+
+      return false;
+    },
+  },
   methods: {
     clearOpenFiles () {
       this.$events.emit({

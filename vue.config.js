@@ -3,10 +3,12 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const config = require('./defaults');
 
 module.exports = {
-  configureWebpack: { plugins: [
-    new MomentLocalesPlugin(),
-    new StyleLintPlugin({ files: [ 'src/**/*.{vue,scss}' ] }),
-  ] },
+  configureWebpack: {
+    plugins: [
+      new MomentLocalesPlugin(),
+      new StyleLintPlugin({ files: [ 'src/**/*.{vue,scss}' ] }),
+    ],
+  },
   devServer: {
     host: '0.0.0.0',
     public: '0.0.0.0:8080',
@@ -20,7 +22,5 @@ module.exports = {
     },
   },
   filenameHashing: process.env.NODE_ENV !== 'production',
-  transpileDependencies: [
-    'vuetify',
-  ],
+  transpileDependencies: [ 'vuetify' ],
 };

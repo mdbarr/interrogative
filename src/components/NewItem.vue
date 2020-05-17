@@ -120,16 +120,18 @@ export default {
       color: 'white',
     };
   },
-  computed: { show: {
-    get () {
-      return this.value;
+  computed: {
+    show: {
+      get () {
+        return this.value;
+      },
+      set (value) {
+        if (!value) {
+          this.$emit('close');
+        }
+      },
     },
-    set (value) {
-      if (!value) {
-        this.$emit('close');
-      }
-    },
-  } },
+  },
   watch: {
     name (name) {
       const extension = name.includes('.') ? name.replace(/^.*\.([^.]+$)/, '$1') : '';
@@ -165,18 +167,20 @@ export default {
     },
   },
   mounted () { },
-  methods: { create () {
-    console.log('create', this.name, this.path, this.isFolder);
-    this.$events.emit({
-      type: 'files:file:create',
-      data: {
-        name: this.name,
-        path: this.path,
-        type: this.isFolder ? 'directory' : 'file',
-      },
-    });
-    this.show = false;
-  } },
+  methods: {
+    create () {
+      console.log('create', this.name, this.path, this.isFolder);
+      this.$events.emit({
+        type: 'files:file:create',
+        data: {
+          name: this.name,
+          path: this.path,
+          type: this.isFolder ? 'directory' : 'file',
+        },
+      });
+      this.show = false;
+    },
+  },
 };
 </script>
 

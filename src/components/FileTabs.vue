@@ -60,15 +60,13 @@ import NewItem from './NewItem';
 export default {
   name: 'FileTabs',
   components: { NewItem },
-  data: () => {
-    return {
-      state,
-      tab: -1,
-      path: '',
-      list: [],
-      newItem: false,
-    };
-  },
+  data: () => ({
+    state,
+    tab: -1,
+    path: '',
+    list: [],
+    newItem: false,
+  }),
   mounted () {
     this.$events.on('editor:tab:focus', this.focus);
     this.$events.on('files:file:opened', this.opened);

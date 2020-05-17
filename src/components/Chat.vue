@@ -64,18 +64,18 @@
 import state from '../state';
 import { v4 as uuid } from 'uuid';
 import data from 'emoji-mart-vue-fast/data/all.json';
-import {
-  Picker, EmojiIndex,
-} from 'emoji-mart-vue-fast';
+import { Picker, EmojiIndex } from 'emoji-mart-vue-fast';
 import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
 export default {
   name: 'Chat',
   components: { Picker },
-  props: { id: {
-    type: String,
-    required: true,
-  } },
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     return {
       state,
@@ -84,14 +84,18 @@ export default {
       emojiIndex: new EmojiIndex(data),
     };
   },
-  computed: { count () {
-    return this.state.messages.length;
-  } },
-  watch: { count (value) {
-    this.$nextTick(() => {
-      this.$refs.contents.scrollTop = this.$refs.contents.scrollHeight;
-    });
-  } },
+  computed: {
+    count () {
+      return this.state.messages.length;
+    },
+  },
+  watch: {
+    count (value) {
+      this.$nextTick(() => {
+        this.$refs.contents.scrollTop = this.$refs.contents.scrollHeight;
+      });
+    },
+  },
   mounted () {
     this.$events.on('terminal:tab:focus', this.focus);
   },

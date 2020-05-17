@@ -86,23 +86,25 @@ export default {
       menu: false,
       menuX: 0,
       menuY: 0,
-      menuItems: [ {
-        title: 'Open',
-        icon: 'open-in-new',
-        command: 'open',
-      }, {
-        title: 'Rename',
-        icon: 'rename-box',
-        command: 'rename',
-      }, {
-        title: 'Move',
-        icon: 'file-move',
-        command: 'move',
-      }, {
-        title: 'Delete',
-        icon: 'trash-can-outline',
-        command: 'delete',
-      } ],
+      menuItems: [
+        {
+          title: 'Open',
+          icon: 'open-in-new',
+          command: 'open',
+        }, {
+          title: 'Rename',
+          icon: 'rename-box',
+          command: 'rename',
+        }, {
+          title: 'Move',
+          icon: 'file-move',
+          command: 'move',
+        }, {
+          title: 'Delete',
+          icon: 'trash-can-outline',
+          command: 'delete',
+        },
+      ],
       selected: null,
     };
   },

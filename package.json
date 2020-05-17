@@ -71,7 +71,7 @@
     "vuetify-loader": "^1.4.3"
   },
   "scripts": {
-    "lint:api": "eslint --no-eslintrc -c lib/.eslintrc.js --ext .js lib",
+    "lint:api": "eslint lib",
     "lint:style": "stylelint 'src/**/*.vue'",
     "fix": "yarn lint --fix; yarn lint:style --fix; yarn lint:api --fix",
     "serve": "vue-cli-service serve",

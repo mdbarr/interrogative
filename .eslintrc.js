@@ -6,11 +6,13 @@ module.exports = {
     'plugin:vue/recommended',
     '@vue/standard',
   ],
+  parserOptions: { parser: 'babel-eslint' },
   rules: {
     'accessor-pairs': 'error',
+    'array-bracket-newline': [ 'error', { multiline: true } ],
     'array-bracket-spacing': [ 'error', 'always' ],
     'array-callback-return': 'error',
-    'arrow-body-style': [ 'error', 'always' ],
+    'arrow-body-style': [ 'error', 'as-needed' ],
     'arrow-spacing': 'error',
     'block-spacing': [ 'error', 'always' ],
     'brace-style': [ 'error', '1tbs', { allowSingleLine: true } ],
@@ -27,10 +29,12 @@ module.exports = {
     eqeqeq: [ 'error', 'always' ],
     'handle-callback-err': 'error',
     indent: [ 'error', 2, { SwitchCase: 1 } ],
-    'key-spacing': [ 'error', {
-      beforeColon: false,
-      afterColon: true,
-    } ],
+    'key-spacing': [
+      'error', {
+        beforeColon: false,
+        afterColon: true,
+      },
+    ],
     'keyword-spacing': 'error',
     'max-params': [ 'error', 5 ],
     'new-cap': 'error',
@@ -111,12 +115,25 @@ module.exports = {
     'no-useless-return': 'error',
     'no-var': 'error',
     'no-void': 'error',
-    'no-warning-comments': [ 'error', {
-      terms: [ 'todo', 'fixme', 'hack' ],
-      location: 'anywhere',
-    } ],
+    'no-warning-comments': [
+      'error', {
+        terms: [ 'todo', 'fixme', 'hack' ],
+        location: 'anywhere',
+      },
+    ],
     'no-with': 'error',
-    'object-curly-newline': [ 'error', { minProperties: 2 } ],
+    'object-curly-newline': [
+      'error', {
+        ObjectExpression: {
+          multiline: true, minProperties: 2,
+        },
+        ObjectPattern: { minProperties: 3 },
+        ImportDeclaration: { minProperties: 3 },
+        ExportDeclaration: {
+          multiline: true, minProperties: 3,
+        },
+      },
+    ],
     'object-curly-spacing': [ 'error', 'always' ],
     'object-property-newline': 'error',
     'object-shorthand': 'error',
@@ -136,17 +153,18 @@ module.exports = {
     semi: [ 'error', 'always' ],
     'spaced-comment': [ 'error', 'always', { exceptions: [ '/' ] } ],
     'space-before-blocks': 'error',
-    'space-before-function-paren': [ 'error', {
-      anonymous: 'ignore', named: 'always',
-    } ],
+    'space-before-function-paren': [
+      'error', {
+        anonymous: 'ignore', named: 'always',
+      },
+    ],
     'space-infix-ops': 'error',
     strict: 'error',
     'template-curly-spacing': [ 'error', 'always' ],
     'use-isnan': 'error',
-    'vue/no-v-html': 'off',
     'valid-typeof': 'error',
+    'vue/no-v-html': 'off',
     'yield-star-spacing': [ 'error', 'before' ],
     yoda: 'error',
   },
-  parserOptions: { parser: 'babel-eslint' },
 };

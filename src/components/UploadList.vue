@@ -79,21 +79,23 @@ export default {
   data () {
     return { state };
   },
-  methods: { open (item) {
-    if (item.progress === 100) {
-      if (this.state.files[item.path]) {
-        this.$events.emit({
-          type: 'editor:tab:focus',
-          data: { path: item.path },
-        });
-      } else {
-        this.$events.emit({
-          type: 'files:file:open',
-          data: { path: item.path },
-        });
+  methods: {
+    open (item) {
+      if (item.progress === 100) {
+        if (this.state.files[item.path]) {
+          this.$events.emit({
+            type: 'editor:tab:focus',
+            data: { path: item.path },
+          });
+        } else {
+          this.$events.emit({
+            type: 'files:file:open',
+            data: { path: item.path },
+          });
+        }
       }
-    }
-  } },
+    },
+  },
 };
 </script>
 

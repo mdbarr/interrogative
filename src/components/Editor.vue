@@ -145,18 +145,20 @@ export default {
       mode: 'editor',
 
       blob: '',
-      lights: [ {
-        type: 'AmbientLight',
-        color: 0xffffff,
-        intensity: 0.5,
-      }, {
-        type: 'DirectionalLight',
-        position: {
-          x: 1, y: 1, z: 1,
+      lights: [
+        {
+          type: 'AmbientLight',
+          color: 0xffffff,
+          intensity: 0.5,
+        }, {
+          type: 'DirectionalLight',
+          position: {
+            x: 1, y: 1, z: 1,
+          },
+          color: 0xffffff,
+          intensity: 0.2,
         },
-        color: 0xffffff,
-        intensity: 0.2,
-      } ],
+      ],
 
       width: 0,
       height: 0,
@@ -242,9 +244,11 @@ export default {
       styleActiveLine: true,
       tabSize: 2,
       theme: this.state.theme,
-      extraKeys: { 'Alt-Enter': () => {
-        this.toggleFullscreen();
-      } },
+      extraKeys: {
+        'Alt-Enter': () => {
+          this.toggleFullscreen();
+        },
+      },
     });
 
     this.instance.vue = this;
@@ -346,9 +350,7 @@ export default {
         selection.origin = `${ selection.origin }-event`;
 
         if (Array.isArray(selection.ranges) && selection.ranges.length) {
-          const {
-            anchor, head,
-          } = selection.ranges[0];
+          const { anchor, head } = selection.ranges[0];
 
           if (anchor.ch === head.ch && anchor.line === head.line &&
               anchor.sticky === head.sticky && anchor.xRel === head.xRel) {

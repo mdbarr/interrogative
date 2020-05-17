@@ -53,15 +53,17 @@ export default {
       url: `${ window.location.origin }/api${ window.location.pathname }/search`,
     };
   },
-  watch: { tab (value) {
-    if (value === this.id) {
-      this.$nextTick(() => {
+  watch: {
+    tab (value) {
+      if (value === this.id) {
         this.$nextTick(() => {
-          this.$refs.input.focus();
+          this.$nextTick(() => {
+            this.$refs.input.focus();
+          });
         });
-      });
-    }
-  } },
+      }
+    },
+  },
   methods: {
     open (item) {
       if (this.state.files[item.path]) {

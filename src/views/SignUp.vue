@@ -143,9 +143,11 @@ export default {
       done: false,
     };
   },
-  watch: { available () {
-    this.$refs.email.validate();
-  } },
+  watch: {
+    available () {
+      this.$refs.email.validate();
+    },
+  },
   methods: {
     pressEnter (event) {
       if (this.name && this.email && this.password) {

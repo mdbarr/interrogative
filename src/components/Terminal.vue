@@ -37,13 +37,17 @@ export default {
       rows: 24,
     };
   },
-  computed: { bell () {
-    return state.bell;
-  } },
-  watch: { bell (value) {
-    this.xterm.setOption('bellStyle', value);
-    window.localStorage.setItem('bell', value);
-  } },
+  computed: {
+    bell () {
+      return state.bell;
+    },
+  },
+  watch: {
+    bell (value) {
+      this.xterm.setOption('bellStyle', value);
+      window.localStorage.setItem('bell', value);
+    },
+  },
   async mounted () {
     console.log(`creating ${ this.type }: ${ this.id }`);
     this.element = this.$refs.terminal;
