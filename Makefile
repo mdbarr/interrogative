@@ -1,6 +1,6 @@
 all: pull core images container manager templates messenger
 
-.PHONY: pull core images container manager templates messenger backup
+.PHONY: pull core images container manager templates messenger backup rebuild
 
 pull:
 	docker pull mongo:4.2
