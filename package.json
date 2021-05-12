@@ -16,7 +16,7 @@
     "chokidar": "^3.4.0",
     "cidr-matcher": "^2.1.1",
     "code-mirror-themes": "^1.0.0",
-    "codemirror": "^5.53.2",
+    "codemirror": "^5.58.2",
     "core-js": "^3.6.5",
     "dockerode": "^3.2.0",
     "dree": "^2.4.14",
