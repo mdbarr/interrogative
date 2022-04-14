@@ -10,7 +10,7 @@
     "@mdbarr/griff": "^0.3.0",
     "@mdbarr/uscript": "^0.2.1",
     "argon2": "^0.26.2",
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "axios": "^0.19.2",
     "barrkeep": "^2.6.1",
     "chokidar": "^3.4.0",
