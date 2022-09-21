@@ -37,7 +37,7 @@
     "vue": "^2.6.11",
     "vue-3d-model": "^1.2.2",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.2.28",
+    "vuetify": "^2.6.10",
     "watershed": "^0.4.0",
     "xterm": "^4.6.0",
     "xterm-addon-attach": "^0.6.0",
